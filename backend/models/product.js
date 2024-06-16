@@ -3,11 +3,25 @@ const { handleMongooseErr } = require("../helpers");
 
 const productShema = new Schema(
   {
-    image: String,
+    image: [String],
 
     video: String,
 
     price: Number,
+
+    type: {
+      type: String,
+      enum: [
+        "пусети на заглушках",
+        "пусети на закрутках",
+        "англійський замок",
+        "конго",
+      ],
+    },
+
+    material: String,
+
+    insert: String,
 
     weight: Number,
 
@@ -15,6 +29,8 @@ const productShema = new Schema(
       height: Number,
       width: Number,
     },
+
+    quantity: Number,
   },
   { versionKey: false }
 );
