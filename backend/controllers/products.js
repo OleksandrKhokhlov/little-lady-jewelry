@@ -4,7 +4,7 @@ const getAll = async (req, res, next) => {
   try {
     const { page = 1, limit = 20 } = req.query;
     const skip = (page - 1) * limit;
-    const result = await Product.find({}, { skip, limit });
+    const result = await Product.find({}).skip(skip).limit(parseInt(limit));
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -26,8 +26,8 @@ const getById = async (req, res, next) => {
 
 const getByType = async (req, res, next) => {
   try {
-    const { productType } = req.params;
-    const product = await Product.find({ type: { productType } });
+    const { productType } = req.query;
+    const product = await Product.find({ type: productType });
     if (!product) {
       next();
     }
@@ -82,6 +82,19 @@ const updateQuantity = async (req, res, next) => {
   }
 };
 
+const updatePrice = async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findByIdAndUpdate(productId, req.body, {
+      new: true,
+    });
+
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAll,
   getByType,
@@ -90,4 +103,5 @@ module.exports = {
   updateById,
   deleteById,
   updateQuantity,
+  updatePrice,
 };

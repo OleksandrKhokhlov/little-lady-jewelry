@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const { handleMongooseErr } = require("../helpers");
+const { handlerMongooseErr } = require("../helpers");
 
 const adminSchema = new Schema(
   {
@@ -17,7 +17,7 @@ const adminSchema = new Schema(
   { versionKey: false }
 );
 
-adminSchema.post('save', handleMongooseErr);
+adminSchema.post('save', handlerMongooseErr);
 
 const Admin = model('admin', adminSchema);
 

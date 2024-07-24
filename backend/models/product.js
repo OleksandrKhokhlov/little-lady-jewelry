@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
-const { handleMongooseErr } = require("../helpers");
+const { handlerMongooseErr } = require("../helpers");
 
-const productShema = new Schema(
+const productSchema = new Schema(
   {
-    image: [String],
+    images: [String],
 
     video: String,
 
@@ -35,8 +35,8 @@ const productShema = new Schema(
   { versionKey: false }
 );
 
-productShema.post("save", handleMongooseErr);
+productSchema.post("save", handlerMongooseErr);
 
-const Product = model("product", productShema);
+const Product = model("product", productSchema);
 
 module.exports = Product;

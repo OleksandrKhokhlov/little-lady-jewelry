@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const productSchema = Joi.object({
-  images: Joi.array(),
+  images: Joi.array().items(Joi.string()),
   video: Joi.string(),
   price: Joi.number(),
   type: Joi.string().valid(
@@ -21,4 +21,8 @@ const updateQuantitySchema = Joi.object({
   quantity: Joi.number().required(),
 });
 
-module.exports = { productSchema, updateQuantitySchema };
+const updatePriceSchema = Joi.object({
+  price: Joi.number().required(),
+});
+
+module.exports = { productSchema, updateQuantitySchema, updatePriceSchema };

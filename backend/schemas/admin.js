@@ -1,8 +1,9 @@
 const Joi = require("joi");
 
-const adminShema = Joi.object({
+const adminSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().required(),
+  token: Joi.string(),
 });
 
-module.exports = { adminShema };
+module.exports = { adminSchema };

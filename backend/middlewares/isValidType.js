@@ -1,5 +1,5 @@
 const { HttpError } = require("../helpers");
-const type = [
+const validTypes = [
   "пусети на заглушках",
   "пусети на закрутках",
   "англійський замок",
@@ -7,9 +7,9 @@ const type = [
 ];
 
 const isValidType = (req, res, next) => {
-  const { productType } = req.params;
-  if (type.indexOf(productType) === -1) {
-    next(HttpError(400, `${productType} is not valid type`));
+  const { productType } = req.query;
+  if (!validTypes.includes(productType)) {
+    return next(HttpError(400, `${productType} is not valid type`));
   }
   next();
 };
