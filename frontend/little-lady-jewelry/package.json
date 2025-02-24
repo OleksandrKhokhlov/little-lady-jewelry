@@ -2,6 +2,12 @@
   "name": "little-lady-jewelry",
   "version": "0.1.0",
   "private": true,
+  "baseUrl": ".",
+  "paths": {
+    "@/*": [
+      "./src/*"
+    ]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
