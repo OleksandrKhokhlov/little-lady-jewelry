@@ -25,7 +25,7 @@ export const CabinSketch = localFont({
 export const CalistoMT = localFont({
   src: [
     {
-      path: "../../../public/fonts/calistoMT.TTF",
+      path: "../../../public/fonts/calistoMT.ttf",
       weight: "700",
       style: "normal",
     },
