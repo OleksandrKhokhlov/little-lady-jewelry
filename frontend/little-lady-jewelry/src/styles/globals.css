@@ -3,12 +3,48 @@
 @tailwind utilities;
 
 :root {
-  --font-cormorant: 'CormorantSC', serif;
-  --font-cabinsketch: 'CabinSketch', serif;
-  --font-calistoMT: 'CalistoMT', serif;
-  --font-kallithea: 'Kallithea', serif;
+  --accent-color: #F17FDE;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }
 
 body {
   font-family: var(--font-cormorant);
+  font-size: 14px;
+  letter-spacing: 1.2;
+  color: #585757;
+  background-color: #ededed;
 }
