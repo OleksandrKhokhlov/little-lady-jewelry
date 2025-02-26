@@ -1,11 +1,12 @@
 import React from "react";
+import "@/styles/globals.css";
 import {
   CormorantSC,
   CabinSketch,
   CalistoMT,
   Kallithea,
 } from "@/styles/fonts/fonts";
-import "@/styles/globals.css";
+import { Header } from "./components/shared/header";
 
 export default function RootLayout({
   children,
@@ -17,7 +18,12 @@ export default function RootLayout({
       lang="uk"
       className={`${CormorantSC.variable} ${CabinSketch.variable} ${CalistoMT.variable} ${Kallithea.variable}`}
     >
-      <body>{children}</body>
+      <body className="font-cormorant">
+        <main>
+          <Header />
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
