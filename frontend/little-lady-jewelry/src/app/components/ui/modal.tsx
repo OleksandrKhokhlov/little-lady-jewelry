@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, side = "right", children
       onClick={onClose}
     >
       <div
-        className={`fixed top-0 ${side === "right" ? "right-0" : "left-0"} h-full w-80 bg-white shadow-lg p-6 transition-transform duration-300 ${
+        className={`fixed top-0 ${side === "right" ? "right-0" : "left-0"} h-full w-60 bg-[var(--bg-color)] shadow-lg p-6 transition-transform duration-300 ${
           isOpen ? "translate-x-0" : side === "right" ? "translate-x-full" : "-translate-x-full"
         }`}
         onClick={(e) => e.stopPropagation()}

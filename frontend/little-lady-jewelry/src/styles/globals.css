@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --accent-color: #F17FDE;
+  --accent-color: #f17fde;
+  --hover-color: #ff5ce3;
+  --bg-color: #ededed;
+  --text-color: #585757;
 }
 
 body,
@@ -45,6 +48,6 @@ body {
   font-family: var(--font-cormorant);
   font-size: 14px;
   letter-spacing: 1.2;
-  color: #585757;
-  background-color: #ededed;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 }
