@@ -1,7 +1,5 @@
+import { Hero } from "./components/shared/hero";
+
 export default function Home() {
-  return (
-    <main>
-      <h1 className="text-xl">Home page</h1>
-    </main>
-  );
+  return <Hero width={428} height={252}/>;
 }
