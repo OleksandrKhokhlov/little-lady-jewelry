@@ -5,7 +5,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   side?: "left" | "right";
-  className: string;
+  className?: string;
   children: React.ReactNode;
 }
 
