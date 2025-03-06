@@ -14,7 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ width, height }) => {
       width={width}
       height={height}
       priority
-      className="w-full h-auto"
+      className="w-full h-auto object-cover"
     />
   );
 };

@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <Hero width={428} height={252} />
+      <Hero width={1280} height={648} />
       <Container>
         <FiltrPopUp
           selectedValue={selectedValue}

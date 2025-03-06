@@ -1,3 +1,4 @@
+import { lockTypes } from "@/app/constans/lock-type";
 import React from "react";
 
 interface FiltrProps {
@@ -23,21 +24,15 @@ export const FiltrPopUp: React.FC<FiltrProps> = ({
         onChange={handleChange}
         className="p-1 ml-1 border border-[var(--accent-color)] rounded focus:outline-none focus:border-[var(--hover-color)] bg-transparent"
       >
-        <option value="Всі" className="bg-[var(--bg-color)]">
-          Всі
-        </option>
-        <option value="Конго" className="bg-[var(--bg-color)]">
-          Конго
-        </option>
-        <option value="Англійский замок" className="bg-[var(--bg-color)]">
-          Англійский замок
-        </option>
-        <option value="Пусети на закрутках" className="bg-[var(--bg-color)]">
-          Пусети на закрутках
-        </option>
-        <option value="Пусети на заглушках" className="bg-[var(--bg-color)]">
-          Пусети на заглушках
-        </option>
+        {lockTypes.map((type) => (
+          <option
+            key={type.value}
+            value={type.value}
+            className="bg-[var(--bg-color)]"
+          >
+            {type.name}
+          </option>
+        ))}
       </select>
     </>
   );
