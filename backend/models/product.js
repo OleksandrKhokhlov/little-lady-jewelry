@@ -3,6 +3,8 @@ const { handlerMongooseErr } = require("../helpers");
 
 const productSchema = new Schema(
   {
+    name: String,
+
     images: [String],
 
     video: String,
