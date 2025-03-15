@@ -51,3 +51,7 @@ body {
   color: var(--text-color);
   background-color: var(--bg-color);
 }
+
+.capitalize-first::first-letter {
+  text-transform: uppercase;
+}
