@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import Button from "../ui/button";
+import Icon from "../ui/icon";
 
 interface ProduktCardProps {
   id: string;
@@ -28,27 +29,39 @@ export const ProductCard: React.FC<ProduktCardProps> = ({
 }) => {
   return (
     <div className={className}>
-      <Link href={`/product/${id}`}>
+      <Link href={`/product/${id}`} className="block">
         <div className="w-full h-[120px] relative">
           <Image
             src={images && images[0] ? images[0] : "/no-photo.png"}
             alt={name || "Зображення відсутне"}
             fill
-            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover rounded-md"
           />
+          <button
+            type="button"
+            className="absolute bottom-1 right-1"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            aria-label="Додати в обране"
+          >
+            <Icon iconId="icon-Heart" className="size-[15px]" />
+          </button>
         </div>
-        <h2 className="mt-2">{name}</h2>
+        <h2 className="mt-1">{name}</h2>
         <p className="text-[12px] capitalize-first">{type}</p>
-        <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
       </Link>
-      <Button
-        onClick={() => console.log(name)}
-        text={
-          !quantity || quantity === 0 ? "Немає в наявності" : "Додати у кошик"
-        }
-        className={`w-full bg-[var(--accent-color)] rounded-md text-[12px] p-1 mt-2 ${quantity === 0 ? "opacity-80 cursor-not-allowed" : ""}`}
-        disabled={!quantity || quantity === 0}
-      />
+      <div>
+        <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
+        <Button
+          onClick={() => console.log(name)}
+          text={!quantity ? "Немає в наявності" : "Додати у кошик"}
+          className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+          disabled={!quantity}
+        />
+      </div>
     </div>
   );
 };
