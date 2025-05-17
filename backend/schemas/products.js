@@ -14,7 +14,7 @@ const productSchema = Joi.object({
   material: Joi.string(),
   insert: Joi.string(),
   weight: Joi.number(),
-  dimensions: Joi.object({ heigth: Joi.number(), width: Joi.number() }),
+  dimensions: Joi.object({ height: Joi.number(), width: Joi.number() }),
   quantity: Joi.number(),
 });
 
