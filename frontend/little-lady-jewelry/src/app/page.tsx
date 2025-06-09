@@ -18,11 +18,21 @@ type Product = {
     | "пусети на закрутках"
     | "пусети на заглушках";
   quantity: number;
+  favoriteProdukts: string[];
 };
 
 export default function Home() {
   const [selectedValue, setSelectedValue] = useState("Всі");
   const [produkts, setProdukts] = useState<Product[]>([]);
+  const [favoriteProdukts, setFavoriteProdukts] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem("favorites");
+      return stored ? (JSON.parse(stored) as string[]) : [];
+    } catch (error) {
+      console.error("Помилка парсингу favorites:", error);
+      return [];
+    }
+  });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,6 +40,8 @@ export default function Home() {
         const apiUrl = "http://localhost:8080/api/product";
         const resp = await axios.get(apiUrl);
         setProdukts(resp.data);
+        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+        setFavoriteProdukts(favorites);
       } catch (error) {
         console.error("Помилка при завантаженні:", error);
       }
@@ -37,6 +49,10 @@ export default function Home() {
 
     fetchProducts();
   }, [setProdukts]);
+
+  const handleToggleFavorite = (updatedFavorites: string[]) => {
+    setFavoriteProdukts(updatedFavorites);
+  };
 
   return (
     <>
@@ -59,7 +75,11 @@ export default function Home() {
                 price={price}
                 type={type}
                 quantity={quantity}
-                className={"w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "}
+                favoriteProdukts={favoriteProdukts}
+                onToggleFavorite={handleToggleFavorite}
+                className={
+                  "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
+                }
               />
             ))
           ) : (
