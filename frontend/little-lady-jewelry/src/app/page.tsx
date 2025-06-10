@@ -33,15 +33,14 @@ export default function Home() {
       return [];
     }
   });
-
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const apiUrl = "http://localhost:8080/api/product";
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const apiUrl = `${baseUrl}api/product`;
         const resp = await axios.get(apiUrl);
         setProdukts(resp.data);
-        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-        setFavoriteProdukts(favorites);
       } catch (error) {
         console.error("Помилка при завантаженні:", error);
       }

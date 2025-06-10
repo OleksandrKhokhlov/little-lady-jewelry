@@ -61,7 +61,6 @@ export const ProductCard: React.FC<ProduktCardProps> = ({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              // setIsFavorite(!isFavorite);
               handleToggleFavorite();
             }}
             aria-label="Додати в обране"
