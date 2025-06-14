@@ -1,12 +1,8 @@
 import React from "react";
 import "@/styles/globals.css";
-import {
-  CormorantSC,
-  CabinSketch,
-  CalistoMT,
-  Kallithea,
-} from "@/styles/fonts/fonts";
+import { CormorantSC } from "@/styles/fonts/fonts";
 import { Header } from "./components/shared/header";
+import { ProductProvider } from "@/lib/productContext";
 
 export default function RootLayout({
   children,
@@ -14,13 +10,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="uk"
-      className={`${CormorantSC.variable} ${CabinSketch.variable} ${CalistoMT.variable} ${Kallithea.variable}`}
-    >
+    <html lang="uk" className={CormorantSC.variable}>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Little Lady Jewelry</title>
+        <meta name="description" content="Ювелірні вироби зі срібла" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="font-cormorant">
-        <Header />
-        <main>{children}</main>
+        <ProductProvider>
+          <Header />
+          <main>{children}</main>
+        </ProductProvider>
       </body>
     </html>
   );
