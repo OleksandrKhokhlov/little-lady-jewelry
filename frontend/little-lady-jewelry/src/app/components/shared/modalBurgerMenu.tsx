@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Modal from "../ui/modal";
 import Icon from "../ui/icon";
+import { createPortal } from "react-dom";
 
 interface BurgerMenuProps {
   isModalBurgerOpen: boolean;
@@ -13,9 +14,10 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
   isModalBurgerOpen,
   setModalBurgerOpen,
 }) => {
-    const pathname = usePathname();
+  const pathname = usePathname();
+  if (!isModalBurgerOpen) return null;
     
-  return (
+  return createPortal (
     <Modal
       isOpen={isModalBurgerOpen}
       onClose={setModalBurgerOpen}
@@ -96,6 +98,7 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
           </a>
         </li>
       </ul>
-    </Modal>
+    </Modal>,
+    document.body
   );
 };
