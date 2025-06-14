@@ -4,8 +4,7 @@ import { useProduktContext } from "@/lib/productContext";
 import { ProduktCard } from "../components/shared/produkt-card";
 
 export default function FavoritePage() {
-  const { produkts, favoriteProdukts, toggleFavorite } =
-    useProduktContext();
+  const { produkts, favoriteProdukts, toggleFavorite } = useProduktContext();
 
   const favoriteProduktsList = produkts.filter((product) =>
     favoriteProdukts.includes(product._id),
