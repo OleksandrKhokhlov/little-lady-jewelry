@@ -11,8 +11,8 @@ export const WrapCatalog: React.FC<WrapCatalogProps> = ({
   children,
 }) => {
   return (
-    <div className={cn("flex justify-between flex-wrap", className)}>
+    <section className={cn("flex justify-between flex-wrap", className)}>
       {children}
-    </div>
+    </section>
   );
 };

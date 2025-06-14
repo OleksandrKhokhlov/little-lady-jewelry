@@ -21,7 +21,7 @@ interface ProduktCardProps {
   className?: string;
 }
 
-export const ProductCard: React.FC<ProduktCardProps> = ({
+export const ProduktCard: React.FC<ProduktCardProps> = ({
   id,
   images,
   name = "Немає назви",
