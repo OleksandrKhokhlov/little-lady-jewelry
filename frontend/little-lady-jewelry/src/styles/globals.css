@@ -47,7 +47,6 @@ select {
 body {
   font-family: var(--font-cormorant);
   font-size: 14px;
-  letter-spacing: 1.2;
   color: var(--text-color);
   background-color: var(--bg-color);
 }

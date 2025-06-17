@@ -1,6 +1,6 @@
 import React from "react";
 import "@/styles/globals.css";
-import { CormorantSC } from "@/styles/fonts/fonts";
+import { CabinSketch, CalistoMT, CormorantSC, Kallithea } from "@/styles/fonts/fonts";
 import { Header } from "./components/shared/header";
 import { ProductProvider } from "@/lib/productContext";
 
@@ -10,7 +10,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className={CormorantSC.variable}>
+    <html
+      lang="uk"
+      className={`${CormorantSC.variable} ${CabinSketch.variable} ${CalistoMT.variable} ${Kallithea.variable}`}
+    >
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

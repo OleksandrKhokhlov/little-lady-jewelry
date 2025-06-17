@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 export const CormorantSC = localFont({
   src: [
     {
-      path: "../../../public/fonts/сormorantSC.ttf",
+      path: "../../../public/fonts/cormorantSC.ttf",
       weight: "700",
       style: "normal",
     },
@@ -14,7 +14,7 @@ export const CormorantSC = localFont({
 export const CabinSketch = localFont({
   src: [
     {
-      path: "../../../public/fonts/сabinSketch.ttf",
+      path: "../../../public/fonts/cabinSketch.ttf",
       weight: "700",
       style: "normal",
     },
