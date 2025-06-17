@@ -11,7 +11,7 @@ export default function FavoritePage() {
   );
 
   return (
-    <Container tag="section">
+    <Container tag="section" className={"flex flex-wrap mt-2 gap-x-2 gap-y-6"}>
       {favoriteProduktsList.length > 0 ? (
         favoriteProduktsList.map(
           ({ _id: id, images, price, type, quantity, name }) => (

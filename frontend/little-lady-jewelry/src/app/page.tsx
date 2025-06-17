@@ -21,7 +21,7 @@ export default function Home() {
             setSelectedValue(e.target.value)
           }
         />
-        <WrapCatalog className="mt-2 gap-x-2 gap-y-6 justify-start">
+        <WrapCatalog className="mt-2 gap-x-2 gap-y-6">
           {produkts.length > 0 ? (
             produkts.map(({ _id: id, images, price, type, quantity, name }) => (
               <ProduktCard
