@@ -23,17 +23,12 @@ export default function Home() {
         />
         <WrapCatalog className="mt-2 gap-x-2 gap-y-6">
           {produkts.length > 0 ? (
-            produkts.map(({ _id: id, images, price, type, quantity, name }) => (
+            produkts.map((produkt) => (
               <ProduktCard
-                key={id}
-                id={id}
-                images={images}
-                name={name}
-                price={price}
-                type={type}
-                quantity={quantity}
+                key={produkt._id}
+                produkt={produkt}
                 favoriteProdukts={favoriteProdukts}
-                onToggleFavorite={() => toggleFavorite(id)}
+                onToggleFavorite={() => toggleFavorite(produkt._id)}
                 className={
                   "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
                 }

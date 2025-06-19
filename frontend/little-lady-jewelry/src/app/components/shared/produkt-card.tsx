@@ -6,28 +6,33 @@ import Icon from "../ui/icon";
 import { toggleFavorite } from "@/lib";
 
 interface ProduktCardProps {
-  id: string;
-  images: Array<string>;
-  name?: string;
-  price: number;
-  type:
-    | "англійський замок"
-    | "конго"
-    | "пусети на закрутках"
-    | "пусети на заглушках";
-  quantity: number;
+  produkt: {
+    _id: string;
+    images: Array<string>;
+    name?: string;
+    price: number;
+    type:
+      | "англійський замок"
+      | "конго"
+      | "пусети на закрутках"
+      | "пусети на заглушках";
+    quantity: number;
+  };
+
   favoriteProdukts: string[];
   onToggleFavorite: (updatedFavorites: string[]) => void;
   className?: string;
 }
 
 export const ProduktCard: React.FC<ProduktCardProps> = ({
-  id,
-  images,
-  name = "Немає назви",
-  price = 0,
-  type = "Невизначений",
-  quantity = 0,
+  produkt: {
+    _id: id,
+    images,
+    name = "Немає назви",
+    price = 0,
+    type = "Невизначений",
+    quantity = 0,
+  },
   favoriteProdukts,
   onToggleFavorite,
   className,
@@ -42,7 +47,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
     const updatedFavorites = toggleFavorite(id, favoriteProdukts);
     setIsFavorite(updatedFavorites.includes(id));
     onToggleFavorite(updatedFavorites);
-  }
+  };
 
   return (
     <div className={className}>
