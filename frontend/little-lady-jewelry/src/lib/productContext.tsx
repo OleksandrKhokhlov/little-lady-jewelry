@@ -1,6 +1,6 @@
 "use client";
-import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import fetchProdukts from "@/app/api/fetchProducts";
 
 interface Produkt {
   _id: string;
@@ -45,18 +45,7 @@ export const ProductProvider: React.FC<React.PropsWithChildren<{}>> = ({
   };
 
   useEffect(() => {
-    const fetchProdukts = async () => {
-      try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-        const apiUrl = `${baseUrl}api/product`;
-        const resp = await axios.get(apiUrl);
-        setProdukts(resp.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    
-    fetchProdukts();
+    fetchProdukts(setProdukts);
   }, []);
 
   useEffect(() => {
