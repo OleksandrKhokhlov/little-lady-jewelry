@@ -35,7 +35,7 @@ export default function Home() {
               />
             ))
           ) : (
-            <p>loading</p>
+            <span className="loader"></span>
           )}
         </WrapCatalog>
       </Container>

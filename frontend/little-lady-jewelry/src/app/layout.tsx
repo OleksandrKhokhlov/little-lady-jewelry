@@ -1,8 +1,9 @@
 import React from "react";
-import "@/styles/globals.css";
+import { Toaster } from "react-hot-toast";
 import { CabinSketch, CalistoMT, CormorantSC, Kallithea } from "@/styles/fonts/fonts";
 import { Header } from "./components/shared/header";
 import { ProductProvider } from "@/lib";
+import "@/styles/globals.css";
 
 export default function RootLayout({
   children,
@@ -25,6 +26,7 @@ export default function RootLayout({
         <ProductProvider>
           <Header />
           <main>{children}</main>
+          <Toaster/>
         </ProductProvider>
       </body>
     </html>
