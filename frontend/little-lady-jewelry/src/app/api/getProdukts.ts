@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getProdukts = async (setProdukts: (products: any) => void) => {
+export const getProdukts = async (setProdukts: (products: []) => void) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const apiUrl = `${baseUrl}api/product`;

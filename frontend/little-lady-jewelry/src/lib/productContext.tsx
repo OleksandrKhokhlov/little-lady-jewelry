@@ -1,4 +1,5 @@
 "use client";
+import toast from "react-hot-toast";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getProdukts } from "@/app/api";
 
@@ -25,7 +26,7 @@ interface ProduktContextType {
 
 const ProduktContext = createContext<ProduktContextType | undefined>(undefined);
 
-export const ProductProvider: React.FC<React.PropsWithChildren<{}>> = ({
+export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [produkts, setProdukts] = useState<Produkt[]>([]);
@@ -40,9 +41,16 @@ export const ProductProvider: React.FC<React.PropsWithChildren<{}>> = ({
   });
 
   const toggleFavorite = (id: string) => {
-    setFavoriteProdukts((prev) =>
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id],
-    );
+    setFavoriteProdukts((prev) => {
+      const isFavorite = prev.includes(id);
+      if (isFavorite) {
+        toast.success("Видалено з улюбленого");
+        return prev.filter((favId) => favId !== id);
+      } else {
+        toast.success("Додано до улюбленого");
+        return [...prev, id];
+      }
+    });
   };
 
   useEffect(() => {

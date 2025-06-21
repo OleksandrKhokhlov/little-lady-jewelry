@@ -27,7 +27,7 @@ export default function FavoritePage() {
       ) : (
         <h1 className="text-sm text-center">
           Сторінка обраних товарів порожня. Додайте товари до обраних, щоб вони
-          з'явилися тут.
+          з&apos;явилися тут.
         </h1>
       )}
     </Container>
