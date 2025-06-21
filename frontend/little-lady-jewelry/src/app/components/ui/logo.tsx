@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib";
 
 interface LogoProps {
   classNameH1?: string;

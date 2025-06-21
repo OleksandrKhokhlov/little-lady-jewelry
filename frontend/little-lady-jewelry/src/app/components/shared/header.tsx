@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { Container } from "./container";
-import Icon from "../ui/icon";
 import Link from "next/link";
-import Button from "../ui/button";
-import { Logo } from "../ui/logo";
+import { Container } from "./container";
+import { Icon } from "../ui";
+import { Button } from "../ui";
+import { Logo } from "../ui";
 import { ModalBurgerMenu } from "./modalBurgerMenu";
 
 interface Props {

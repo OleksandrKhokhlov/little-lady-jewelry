@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import getProdukts from "@/app/api/getProducts";
+import { getProdukts } from "@/app/api";
 
 interface Produkt {
   _id: string;
@@ -17,6 +17,7 @@ interface Produkt {
 
 interface ProduktContextType {
   produkts: Produkt[];
+  setProdukts: React.Dispatch<React.SetStateAction<Produkt[]>>;
   favoriteProdukts: string[];
   setFavoriteProdukts: React.Dispatch<React.SetStateAction<string[]>>;
   toggleFavorite: (id: string) => void;
@@ -56,6 +57,7 @@ export const ProductProvider: React.FC<React.PropsWithChildren<{}>> = ({
     <ProduktContext.Provider
       value={{
         produkts,
+        setProdukts,
         favoriteProdukts,
         setFavoriteProdukts,
         toggleFavorite,

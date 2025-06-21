@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Button from "../ui/button";
-import Icon from "../ui/icon";
+import { Button } from "../ui";
+import { Icon } from "../ui";
 import { toggleFavorite } from "@/lib";
 
 interface ProduktCardProps {

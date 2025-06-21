@@ -6,7 +6,7 @@ interface IconProps {
   color?: string;
 }
 
-const Icon: React.FC<IconProps> = ({
+export const Icon: React.FC<IconProps> = ({
   iconId,
   className,
 }) => (
@@ -14,5 +14,3 @@ const Icon: React.FC<IconProps> = ({
     <use href={`/icons.svg#${iconId}`}/>
   </svg>
 );
-
-export default Icon;

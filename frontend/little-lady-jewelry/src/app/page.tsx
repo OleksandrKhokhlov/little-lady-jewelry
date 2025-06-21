@@ -1,11 +1,11 @@
 "use client";
 import { SetStateAction, useState } from "react";
-import { Container } from "./components/shared/container";
-import { FiltrPopUp } from "./components/shared/filtrPopUp";
-import { Hero } from "./components/shared/hero";
-import { ProduktCard } from "./components/shared/produkt-card";
-import { WrapCatalog } from "./components/shared/wrapCastalog";
-import { useProduktContext } from "@/lib/productContext";
+import { Container } from "./components/shared";
+import { FiltrPopUp } from "./components/shared";
+import { Hero } from "./components/shared";
+import { ProduktCard } from "./components/shared";
+import { WrapCatalog } from "./components/shared";
+import { useProduktContext } from "@/lib";
 
 export default function Home() {
   const [selectedValue, setSelectedValue] = useState("Всі");

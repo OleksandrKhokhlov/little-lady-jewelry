@@ -2,7 +2,7 @@ import React from "react";
 import "@/styles/globals.css";
 import { CabinSketch, CalistoMT, CormorantSC, Kallithea } from "@/styles/fonts/fonts";
 import { Header } from "./components/shared/header";
-import { ProductProvider } from "@/lib/productContext";
+import { ProductProvider } from "@/lib";
 
 export default function RootLayout({
   children,

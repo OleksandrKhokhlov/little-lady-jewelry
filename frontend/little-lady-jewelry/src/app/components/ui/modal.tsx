@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "./icon";
+import { Icon } from "./icon";
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   side = "right",
@@ -44,5 +44,3 @@ const Modal: React.FC<ModalProps> = ({
     </div>
   );
 };
-
-export default Modal;
