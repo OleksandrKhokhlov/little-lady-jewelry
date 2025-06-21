@@ -1,6 +1,6 @@
 import axios from "axios";
 
- const fetchProdukts = async (setProdukts: (products: any) => void) => {
+ const getProdukts = async (setProdukts: (products: any) => void) => {
    try {
      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
      const apiUrl = `${baseUrl}api/product`;
@@ -11,4 +11,4 @@ import axios from "axios";
    }
 };
  
-export default fetchProdukts;
+export default getProdukts;

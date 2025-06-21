@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import fetchProdukts from "@/app/api/fetchProducts";
+import getProdukts from "@/app/api/getProducts";
 
 interface Produkt {
   _id: string;
@@ -45,7 +45,7 @@ export const ProductProvider: React.FC<React.PropsWithChildren<{}>> = ({
   };
 
   useEffect(() => {
-    fetchProdukts(setProdukts);
+    getProdukts(setProdukts);
   }, []);
 
   useEffect(() => {
