@@ -1,4 +1,4 @@
-import { lockTypes } from "@/app/constans/lock-type";
+import { lockTypes } from "@/constans/lock-type";
 import React from "react";
 
 interface FiltrProps {
