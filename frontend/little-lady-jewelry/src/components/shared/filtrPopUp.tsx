@@ -27,7 +27,7 @@ export const FiltrPopUp: React.FC<FiltrProps> = ({
         {lockTypes.map((type) => (
           <option
             key={type.value}
-            value={type.value}
+            value={type.name}
             className="bg-[var(--bg-color)]"
           >
             {type.name}

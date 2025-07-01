@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Container } from "../components/shared";
 import { FiltrPopUp } from "../components/shared";
 import { Hero } from "../components/shared";
@@ -8,8 +8,25 @@ import { WrapCatalog } from "../components/shared";
 import { useProduktContext } from "@/lib";
 
 export default function Home() {
-  const [selectedValue, setSelectedValue] = useState("Всі");
   const { produkts, favoriteProdukts, toggleFavorite } = useProduktContext();
+  const [selectedValue, setSelectedValue] = useState("Всі");
+  const [filtredProdukts, setFilteredProdukts] = useState(produkts);
+
+  useEffect(() => {
+    const normalizedSelectedValue = selectedValue
+      .toLowerCase()
+      .replace(/\s/g, "");
+    const filtred = produkts.filter((produkt) => {
+      const normalizedProduktType = produkt.type
+        .toLowerCase()
+        .replace(/\s/g, "");
+      return (
+        normalizedSelectedValue === "всі" ||
+        normalizedSelectedValue === normalizedProduktType
+      );
+    });
+    setFilteredProdukts(filtred);
+  }, [selectedValue, produkts]);
 
   return (
     <>
@@ -22,8 +39,15 @@ export default function Home() {
           }
         />
         <WrapCatalog className="mt-2 gap-x-2 gap-y-6">
-          {produkts.length > 0 ? (
-            produkts.map((produkt) => (
+          {produkts.length === 0 ? (
+            <span className="loader"></span>
+          ) : filtredProdukts.length === 0 ? (
+            <p>
+              Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
+              {selectedValue}.
+            </p>
+          ) : (
+            filtredProdukts.map((produkt) => (
               <ProduktCard
                 key={produkt._id}
                 produkt={produkt}
@@ -34,8 +58,6 @@ export default function Home() {
                 }
               />
             ))
-          ) : (
-            <span className="loader"></span>
           )}
         </WrapCatalog>
       </Container>
