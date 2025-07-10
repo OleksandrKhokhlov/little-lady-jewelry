@@ -21,7 +21,11 @@ interface ProduktContextType {
   setProdukts: React.Dispatch<React.SetStateAction<Produkt[]>>;
   favoriteProdukts: string[];
   setFavoriteProdukts: React.Dispatch<React.SetStateAction<string[]>>;
+  inCart: string[];
+  setInCart: React.Dispatch<React.SetStateAction<string[]>>;
   toggleFavorite: (id: string) => void;
+  addToCart: (id: string) => void;
+  deleteFromCart: (id: string) => void;
 }
 
 const ProduktContext = createContext<ProduktContextType | undefined>(undefined);
@@ -39,18 +43,53 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
       return [];
     }
   });
+  const [inCart, setInCart] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem("inCart");
+      return stored ? (JSON.parse(stored) as string[]) : [];
+    } catch (error) {
+      console.error("Error parsing inCart:", error);
+      return [];
+    }
+  });
 
   const toggleFavorite = (id: string) => {
-    setFavoriteProdukts((prev) => {
-      const isFavorite = prev.includes(id);
-      if (isFavorite) {
-        toast.success("Видалено з улюбленого");
-        return prev.filter((favId) => favId !== id);
-      } else {
-        toast.success("Додано до улюбленого");
-        return [...prev, id];
-      }
-    });
+    const isFavorite = favoriteProdukts.includes(id);
+
+    setFavoriteProdukts((prev) =>
+      isFavorite ? prev.filter((favId) => favId !== id) : [...prev, id],
+    );
+
+    setTimeout(() => {
+      toast.success(isFavorite ? "Видалено з обраного" : "Додано до обраного", {
+        duration: 2000,
+      });
+    }, 0);
+  };
+
+  const addToCart = (id: string) => {
+    const isInCart = inCart.includes(id);
+
+    setInCart((prev) => (isInCart ? prev : [...prev, id]));
+
+    setTimeout(() => {
+      toast.success(isInCart ? "Вже у кошику" : "Додано до кошика", {
+        duration: 2000,
+      });
+    }, 0);
+  };
+
+  const deleteFromCart = (id: string) => {
+    const isInCart = inCart.includes(id);
+    setInCart((prev) =>
+      isInCart ? prev.filter((cartId) => cartId !== id) : prev,
+    );
+
+    setTimeout(() => {
+      toast.success(isInCart ? "Видалено з кошика" : "Не знайдено в кошику", {
+        duration: 2000,
+      });
+    }, 0);
   };
 
   useEffect(() => {
@@ -61,6 +100,10 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("favorites", JSON.stringify(favoriteProdukts));
   }, [favoriteProdukts]);
 
+  useEffect(() => {
+    localStorage.setItem("inCart", JSON.stringify(inCart));
+  }, [inCart]);
+
   return (
     <ProduktContext.Provider
       value={{
@@ -68,7 +111,11 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         setProdukts,
         favoriteProdukts,
         setFavoriteProdukts,
+        inCart,
+        setInCart,
         toggleFavorite,
+        addToCart,
+        deleteFromCart,
       }}
     >
       {children}
