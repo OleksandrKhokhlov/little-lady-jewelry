@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui";
 import { Icon } from "../ui";
-import { toggleFavorite } from "@/lib";
+import { useProduktContext } from "@/lib";
 
 interface ProduktCardProps {
   produkt: {
@@ -20,7 +20,7 @@ interface ProduktCardProps {
   };
 
   favoriteProdukts: string[];
-  onToggleFavorite: (updatedFavorites: string[]) => void;
+  onToggleFavorite: () => void;
   className?: string;
 }
 
@@ -38,16 +38,12 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
   className,
 }) => {
   const [isFavorite, setIsFavorite] = useState(favoriteProdukts.includes(id));
+  const { inCart, addToCart } = useProduktContext();
+  const isInCart = inCart.includes(id);
 
   useEffect(() => {
     setIsFavorite(favoriteProdukts.includes(id));
   }, [favoriteProdukts, id]);
-
-  const handleToggleFavorite = () => {
-    const updatedFavorites = toggleFavorite(id, favoriteProdukts);
-    setIsFavorite(updatedFavorites.includes(id));
-    onToggleFavorite(updatedFavorites);
-  };
 
   return (
     <div className={className}>
@@ -66,7 +62,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              handleToggleFavorite();
+              onToggleFavorite();
             }}
             aria-label="Додати в обране"
           >
@@ -78,13 +74,23 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
           </button>
         </div>
         <h2 className="mt-1">{name}</h2>
-        <p className="text-[12px] capitalize-first">{type}</p>
+        <p className="text-[12px] mt-1 capitalize-first">{type}</p>
       </Link>
       <div>
         <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
         <Button
-          onClick={() => console.log(name)}
-          text={!quantity ? "Немає в наявності" : "Додати у кошик"}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addToCart(id);
+          }}
+          text={
+            !quantity
+              ? "Немає в наявності"
+              : isInCart
+                ? "Вже у кошику"
+                : "Додати у кошик"
+          }
           className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
           disabled={!quantity}
         />
