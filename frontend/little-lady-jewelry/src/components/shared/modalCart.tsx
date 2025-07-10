@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal } from "../ui";
+import { createPortal } from "react-dom";
 
 interface ModalCartProps {
   isModalCartOpen: boolean;
@@ -10,9 +11,12 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   isModalCartOpen,
   setModalCartOpen,
 }) => {
-  return (
-    <Modal isOpen={isModalCartOpen} onClose={setModalCartOpen} side="right">
-      <div></div>
-    </Modal>
+  if (!isModalCartOpen) return null;
+
+  return createPortal(
+    <Modal isOpen={isModalCartOpen} onClose={setModalCartOpen}>
+      <div>Кошик</div>
+    </Modal>,
+    document.body,
   );
 };

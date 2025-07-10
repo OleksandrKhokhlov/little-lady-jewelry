@@ -6,6 +6,7 @@ import { Icon } from "../ui";
 import { Button } from "../ui";
 import { Logo } from "../ui";
 import { ModalBurgerMenu } from "./modalBurgerMenu";
+import { ModalCart } from "./modalCart";
 
 interface Props {
   className?: string;
@@ -42,6 +43,10 @@ export const Header: React.FC<Props> = ({ className }) => {
         <ModalBurgerMenu
           isModalBurgerOpen={isModalBurgerOpen}
           setModalBurgerOpen={() => setModalBurgerOpen(false)}
+        />
+        <ModalCart
+          isModalCartOpen={isModalCartOpen}
+          setModalCartOpen={() => setModalCartOpen(false)}
         />
       </Container>
     </header>

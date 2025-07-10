@@ -24,7 +24,7 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={onClose}
     >
       <div
-        className={`fixed top-0 ${side === "right" ? "right-0 rounded-l-xl" : "left-0 rounded-r-xl"} h-full w-60 bg-[var(--bg-color)] shadow-lg p-6 transition-transform duration-300 ${
+        className={`fixed top-0 ${side === "right" ? "right-0 rounded-l-xl" : "left-0 rounded-r-xl"} h-full bg-[var(--bg-color)] shadow-lg p-6 transition-transform duration-300 ${
           isOpen
             ? "translate-x-0"
             : side === "right"
