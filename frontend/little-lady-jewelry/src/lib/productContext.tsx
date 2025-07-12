@@ -2,6 +2,7 @@
 import toast from "react-hot-toast";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getProdukts } from "@/app/api";
+import { getLocalStorage } from "./localStorage";
 
 interface Produkt {
   _id: string;
@@ -34,24 +35,12 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [produkts, setProdukts] = useState<Produkt[]>([]);
-  const [favoriteProdukts, setFavoriteProdukts] = useState<string[]>(() => {
-    try {
-      const stored = localStorage.getItem("favorites");
-      return stored ? (JSON.parse(stored) as string[]) : [];
-    } catch (error) {
-      console.error("Error parsing favorites:", error);
-      return [];
-    }
-  });
-  const [inCart, setInCart] = useState<string[]>(() => {
-    try {
-      const stored = localStorage.getItem("inCart");
-      return stored ? (JSON.parse(stored) as string[]) : [];
-    } catch (error) {
-      console.error("Error parsing inCart:", error);
-      return [];
-    }
-  });
+  const [favoriteProdukts, setFavoriteProdukts] = useState<string[]>(() =>
+    getLocalStorage<string[]>("favorites", []),
+  );
+  const [inCart, setInCart] = useState<string[]>(() =>
+    getLocalStorage<string[]>("inCart", []),
+  );
 
   const toggleFavorite = (id: string) => {
     const isFavorite = favoriteProdukts.includes(id);
