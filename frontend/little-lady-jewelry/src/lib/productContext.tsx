@@ -15,6 +15,7 @@ interface Produkt {
     | "пусети на закрутках"
     | "пусети на заглушках";
   quantity: number;
+  weight: number;
 }
 
 interface ProduktContextType {
