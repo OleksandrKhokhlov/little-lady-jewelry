@@ -22,7 +22,7 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
       isOpen={isModalBurgerOpen}
       onClose={setModalBurgerOpen}
       side="left"
-      className="md:hidden"
+      className="md:hidden p-3"
     >
       <nav>
         <ul className="flex flex-col gap-4 mt-2 ">

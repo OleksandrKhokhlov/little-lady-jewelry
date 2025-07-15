@@ -2,6 +2,7 @@ import React from "react";
 import { Icon } from "./icon";
 
 interface ModalProps {
+  header?: string;
   isOpen: boolean;
   onClose: () => void;
   side?: "left" | "right";
@@ -10,6 +11,7 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({
+  header,
   isOpen,
   onClose,
   side = "right",
@@ -24,7 +26,7 @@ export const Modal: React.FC<ModalProps> = ({
       onClick={onClose}
     >
       <div
-        className={`fixed top-0 ${side === "right" ? "right-0 rounded-l-xl" : "left-0 rounded-r-xl"} h-full bg-[var(--bg-color)] shadow-lg p-6 transition-transform duration-300 ${
+        className={`fixed top-0 ${side === "right" ? "right-0 rounded-l-xl" : "left-0 rounded-r-xl"} h-full bg-[var(--bg-color)] shadow-lg transition-transform duration-300 ${className} ${
           isOpen
             ? "translate-x-0"
             : side === "right"
@@ -33,12 +35,15 @@ export const Modal: React.FC<ModalProps> = ({
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 hover:text-black"
+        <div
+          className={` flex  ${header ? "justify-between border-b-2 border-[var(--accent-color)]" : "justify-end "}  `}
         >
-          <Icon iconId="icon-Cross" className="size-[15px]" />
-        </button>
+          {" "}
+          {header && <h2 className="text-[20px]">{header}</h2>}
+          <button onClick={onClose} className="hover:text-black">
+            <Icon iconId="icon-Cross" className="size-[15px]" />
+          </button>
+        </div>
         {children}
       </div>
     </div>
