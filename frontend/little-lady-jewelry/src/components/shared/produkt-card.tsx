@@ -67,9 +67,9 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
             aria-label="Додати в обране"
           >
             {isFavorite ? (
-              <Icon iconId="icon-Heart-Active" className="size-[100%]" />
+              <Icon iconId="icon-Heart-Active" />
             ) : (
-              <Icon iconId="icon-Heart" className="size-[100%]" />
+              <Icon iconId="icon-Heart" />
             )}
           </button>
         </div>

@@ -1,3 +1,4 @@
+import { cn } from "@/lib";
 import React from "react";
 
 interface IconProps {
@@ -6,11 +7,8 @@ interface IconProps {
   color?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({
-  iconId,
-  className,
-}) => (
-  <svg className={className}>
-    <use href={`/icons.svg#${iconId}`}/>
+export const Icon: React.FC<IconProps> = ({ iconId, className }) => (
+  <svg className={cn("size-[100%]", className)}>
+    <use href={`/icons.svg#${iconId}`} />
   </svg>
 );
