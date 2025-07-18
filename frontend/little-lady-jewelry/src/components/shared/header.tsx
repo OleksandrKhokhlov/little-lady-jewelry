@@ -20,7 +20,12 @@ export const Header: React.FC<Props> = ({ className }) => {
     <header className={className}>
       <Container className="flex items-center justify-between">
         <Button
-          icon={<Icon iconId="icon-Burger" className="w-5 h-[15px] " />}
+          icon={
+            <Icon
+              iconId="icon-Burger"
+              className="w-5 h-[15px] fill-[var(--accent-color)]"
+            />
+          }
           onClick={() => {
             setModalBurgerOpen(true);
             setModalCartOpen(false);
@@ -30,10 +35,18 @@ export const Header: React.FC<Props> = ({ className }) => {
         <Logo />
         <div className="flex items-center justify-between gap-11">
           <Link href={"./favorite"}>
-            <Icon iconId="icon-Heart" className="size-[15px]" />
+            <Icon
+              iconId="icon-Heart"
+              className="size-[15px] fill-[var(--accent-color)]"
+            />
           </Link>
           <Button
-            icon={<Icon iconId="icon-Cart" className="w-[13px] h-[15px]" />}
+            icon={
+              <Icon
+                iconId="icon-Cart"
+                className="w-[13px] h-[15px] fill-[var(--accent-color)]"
+              />
+            }
             onClick={() => {
               setModalCartOpen(true);
               setModalBurgerOpen(false);
@@ -43,6 +56,7 @@ export const Header: React.FC<Props> = ({ className }) => {
         <ModalBurgerMenu
           isModalBurgerOpen={isModalBurgerOpen}
           setModalBurgerOpen={() => setModalBurgerOpen(false)}
+          setModalCartOpen={() => setModalCartOpen(true)}
         />
         <ModalCart
           isModalCartOpen={isModalCartOpen}
