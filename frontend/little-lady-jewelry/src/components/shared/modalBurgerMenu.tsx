@@ -8,11 +8,13 @@ import { Icon } from "../ui";
 interface BurgerMenuProps {
   isModalBurgerOpen: boolean;
   setModalBurgerOpen: () => void;
+  setModalCartOpen: () => void; // Optional prop for closing the cart modal
 }
 
 export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
   isModalBurgerOpen,
   setModalBurgerOpen,
+  setModalCartOpen,
 }) => {
   const pathname = usePathname();
   if (!isModalBurgerOpen) return null;
@@ -47,13 +49,20 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
           <li>
             <Link
               href={"/"}
-              onClick={setModalBurgerOpen}
+              onClick={(e) => {
+                e.preventDefault();
+                setModalCartOpen();
+                setModalBurgerOpen();
+              }}
               className={
                 "px-1 flex gap-4 border-b-2 border-[var(--text-color)] w-fit"
               }
             >
               Кошик
-              <Icon iconId="icon-Cart" className="w-[13px] h-[15px]" />
+              <Icon
+                iconId="icon-Cart"
+                className="w-[13px] h-[15px] fill-[var(--accent-color)]"
+              />
             </Link>
           </li>
           <li>
@@ -76,7 +85,10 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon iconId="icon-Instagram" className="size-5" />
+            <Icon
+              iconId="icon-Instagram"
+              className="size-5 fill-[var(--accent-color)]"
+            />
           </a>
         </li>
         <li>
@@ -85,7 +97,10 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon iconId="icon-Telegram" className="size-5" />
+            <Icon
+              iconId="icon-Telegram"
+              className="size-5 fill-[var(--accent-color)] stroke-[var(--accent-color)]"
+            />
           </a>
         </li>
         <li>
@@ -94,7 +109,10 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon iconId="icon-Viber" className="size-5" />
+            <Icon
+              iconId="icon-Viber"
+              className="size-5 fill-[var(--accent-color)]"
+            />
           </a>
         </li>
       </ul>

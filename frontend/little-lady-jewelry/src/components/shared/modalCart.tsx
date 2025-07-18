@@ -34,6 +34,8 @@ export const ModalCart: React.FC<ModalCartProps> = ({
             images={images}
             weight={weight}
             quantity={quantity}
+            onClick={() => deleteFromCart(id)}
+            onClose={setModalCartOpen}
           />
         ))
       ) : (
