@@ -25,19 +25,23 @@ export const ModalCart: React.FC<ModalCartProps> = ({
       header="Кошик"
     >
       {cartItems.length > 0 ? (
-        cartItems.map(({ _id: id, name, price, images, weight, quantity }) => (
-          <CartItem
-            key={id}
-            id={id}
-            name={name}
-            price={price}
-            images={images}
-            weight={weight}
-            quantity={quantity}
-            onClick={() => deleteFromCart(id)}
-            onClose={setModalCartOpen}
-          />
-        ))
+        <ul>
+          {cartItems.map(
+            ({ _id: id, name, price, images, weight, quantity }) => (
+              <CartItem
+                key={id}
+                id={id}
+                name={name}
+                price={price}
+                images={images}
+                weight={weight}
+                quantity={quantity}
+                onClick={() => deleteFromCart(id)}
+                onClose={setModalCartOpen}
+              />
+            ),
+          )}
+        </ul>
       ) : (
         <p> Нажаль в кошику поки що нічого немає</p>
       )}

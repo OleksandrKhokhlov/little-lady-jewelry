@@ -5,6 +5,5 @@ export { Hero } from "./hero";
 export { ProduktCard } from "./produkt-card";
 export { ModalBurgerMenu } from "./modalBurgerMenu";
 export { ModalCart } from "./modalCart";
-export { WrapCatalog } from "./wrapCatalog";
 export { ProduktCardDetails } from "./produkt-card-details";
 export { CartItem } from "./cartItem";

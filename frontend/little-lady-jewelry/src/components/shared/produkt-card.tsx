@@ -46,7 +46,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
   }, [favoriteProdukts, id]);
 
   return (
-    <div className={className}>
+    <li className={className}>
       <Link href={`/product/${id}`} className="block">
         <div className="w-full h-[120px] relative">
           <Image
@@ -101,6 +101,6 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
           disabled={!quantity}
         />
       </div>
-    </div>
+    </li>
   );
 };

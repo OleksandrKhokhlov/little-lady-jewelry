@@ -1,10 +1,10 @@
 "use client";
+
 import { SetStateAction, useEffect, useState } from "react";
 import { Container } from "../components/shared";
 import { FiltrPopUp } from "../components/shared";
 import { Hero } from "../components/shared";
 import { ProduktCard } from "../components/shared";
-import { WrapCatalog } from "../components/shared";
 import { useProduktContext } from "@/lib";
 
 export default function Home() {
@@ -38,16 +38,16 @@ export default function Home() {
             setSelectedValue(e.target.value)
           }
         />
-        <WrapCatalog className="mt-2 gap-x-2 gap-y-6">
-          {produkts.length === 0 ? (
-            <span className="loader"></span>
-          ) : filtredProdukts.length === 0 ? (
-            <p>
-              Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
-              {selectedValue}.
-            </p>
-          ) : (
-            filtredProdukts.map((produkt) => (
+        {produkts.length === 0 ? (
+          <span className="loader"></span>
+        ) : filtredProdukts.length === 0 ? (
+          <p>
+            Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
+            {selectedValue}.
+          </p>
+        ) : (
+          <ul className="flex flex-wrap gap-x-2 gap-y-6 mt-2">
+            {filtredProdukts.map((produkt) => (
               <ProduktCard
                 key={produkt._id}
                 produkt={produkt}
@@ -57,9 +57,9 @@ export default function Home() {
                   "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
                 }
               />
-            ))
-          )}
-        </WrapCatalog>
+            ))}
+          </ul>
+        )}
       </Container>
     </>
   );
