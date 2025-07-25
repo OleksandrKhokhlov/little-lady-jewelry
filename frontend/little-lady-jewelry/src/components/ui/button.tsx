@@ -7,6 +7,7 @@ interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   disabled?: boolean;
+  ariaLabel?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -16,9 +17,16 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   className,
   disabled = false,
+  ariaLabel,
 }) => {
   return (
-    <button type={type} onClick={onClick} className={className} disabled={disabled}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={className}
+      disabled={disabled}
+      aria-label={ariaLabel}
+    >
       {icon && icon}
       {text && text}
     </button>
