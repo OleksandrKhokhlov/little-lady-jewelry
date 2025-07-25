@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "./icon";
 
 interface ModalProps {
@@ -18,6 +18,17 @@ export const Modal: React.FC<ModalProps> = ({
   className,
   children,
 }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <div
       className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${
@@ -36,7 +47,7 @@ export const Modal: React.FC<ModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div
-          className={` flex  ${header ? "justify-between border-b-2 border-[var(--accent-color)]" : "justify-end "}  `}
+          className={` flex  ${header ? "justify-between border-b-2 border-[var(--accent-color)]" : "justify-end "} align-baseline `}
         >
           {" "}
           {header && <h2 className="text-[20px]">{header}</h2>}
