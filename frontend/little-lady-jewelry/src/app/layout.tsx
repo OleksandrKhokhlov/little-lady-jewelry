@@ -1,4 +1,5 @@
 import React from "react";
+import metadata from "./metadata";
 import { Toaster } from "react-hot-toast";
 import {
   CabinSketch,
@@ -9,6 +10,7 @@ import {
 import { Header } from "../components/shared/header";
 import { ProductProvider } from "@/lib";
 import "@/styles/globals.css";
+export { metadata };
 
 export default function RootLayout({
   children,
@@ -23,9 +25,6 @@ export default function RootLayout({
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Little Lady Jewelry</title>
-        <meta name="description" content="Ювелірні вироби зі срібла" />
-        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="font-cormorant">
         <ProductProvider>
