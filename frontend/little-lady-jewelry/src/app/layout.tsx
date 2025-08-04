@@ -9,6 +9,7 @@ import {
 } from "@/styles/fonts/fonts";
 import { Header } from "../components/shared/header";
 import { ProductProvider } from "@/lib";
+import "@/styles/embla.css";
 import "@/styles/globals.css";
 export { metadata };
 
