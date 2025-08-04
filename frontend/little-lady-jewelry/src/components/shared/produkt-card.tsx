@@ -38,6 +38,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
   className,
 }) => {
   const [isFavorite, setIsFavorite] = useState(favoriteProdukts.includes(id));
+  const [imageError, setImageError] = useState(false);
   const { inCart, addToCart } = useProduktContext();
   const isInCart = inCart.includes(id);
 
@@ -50,11 +51,13 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
       <Link href={`/product/${id}`} className="block">
         <div className="w-full h-[120px] relative">
           <Image
-            src={images?.[0] ?? "/no-photo.png"}
+            src={imageError || !images?.[0] ? "/no-photo.png" : images[0]}
             alt={name || "Зображення відсутне"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover rounded-md"
+            onError={() => setImageError(true)}
+            priority={false}
           />
           <button
             type="button"
