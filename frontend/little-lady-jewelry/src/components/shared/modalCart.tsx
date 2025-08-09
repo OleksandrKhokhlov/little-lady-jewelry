@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "../ui";
 import { createPortal } from "react-dom";
@@ -13,9 +15,24 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   isModalCartOpen,
   setModalCartOpen,
 }) => {
-  if (!isModalCartOpen) return null;
   const { produkts, inCart, deleteFromCart } = useProduktContext();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isModalCartOpen) {
+      const cartItems = produkts.filter((product) =>
+        inCart.includes(product._id),
+      );
+      setSelectedIds(cartItems.map((product) => product._id));
+    }
+  }, [isModalCartOpen, inCart, produkts]);
+
+  if (!isModalCartOpen || !mounted) return null;
 
   const cartItems = produkts.filter((product) => inCart.includes(product._id));
   const checkedItems = cartItems.filter((product) =>
@@ -26,12 +43,6 @@ export const ModalCart: React.FC<ModalCartProps> = ({
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
-
-  useEffect(() => {
-    if (isModalCartOpen) {
-      setSelectedIds(cartItems.map((product) => product._id));
-    }
-  }, []);
 
   return createPortal(
     <Modal
