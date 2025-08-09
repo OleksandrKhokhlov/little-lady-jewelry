@@ -1,10 +1,10 @@
 "use client";
+
 import { FC, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useProduktContext } from "@/lib";
 import { getProduktById } from "@/app/api";
-import { EmblaCarousel } from "@/components/ui";
-import { EmblaOptionsType } from "embla-carousel";
+import { Container, ProduktCardDetails } from "@/components/shared";
 
 interface ProductPageProps {
   id: string;
@@ -42,34 +42,11 @@ const ProductPage: FC<ProductPageProps> = () => {
       </div>
     );
   }
-  const OPTIONS: EmblaOptionsType = {};
 
-  const {
-    name,
-    images,
-    video,
-    price,
-    type,
-    material,
-    insert,
-    weight,
-    dimensions,
-    quantity,
-  } = product;
   return (
-    <section key={id} className="container p-2">
-      <h1 className="text-3xl font-bold mb-1 mx-auto">{name}</h1>
-      <div className="flex flex-col items-center">
-        {images && images.length > 0 && (
-          <EmblaCarousel
-            name={name}
-            slides={images}
-            video={video}
-            options={OPTIONS}
-          />
-        )}
-      </div>
-    </section>
+    <Container tag="section">
+      <ProduktCardDetails product={product} />
+    </Container>
   );
 };
 

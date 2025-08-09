@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -26,7 +28,7 @@ export const Thumb: React.FC<PropType> = (props) => {
         alt="Мініатюра"
         width={80}
         height={80}
-        className="object-cover rounded-sm"
+        className={`h-[80px] rounded-[10px] ${imageUrl === "/poster-video.jpg" ? "" : "object-cover"}`}
         onError={() => setImageError(true)}
         priority={false}
       />

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useCallback, use } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
@@ -60,6 +62,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={() => handleImageError(index)}
                   priority={index === 0}
+                  className="object-cover rounded-[20px]"
                 />
               </div>
             </div>
