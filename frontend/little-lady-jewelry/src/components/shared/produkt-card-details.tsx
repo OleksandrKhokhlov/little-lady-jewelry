@@ -1,9 +1,12 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { EmblaOptionsType } from "embla-carousel";
-import { EmblaCarousel } from "../ui";
+import { Button, EmblaCarousel } from "../ui";
+import { ProductDescription } from "./productDescription";
+import { useProduktContext } from "@/lib";
 
 interface ProduktCardDetailsProps {
   product: {
+    _id: string;
     name: string;
     images: string[];
     video?: string;
@@ -11,8 +14,8 @@ interface ProduktCardDetailsProps {
     type: string;
     material: string;
     insert: string;
-    weight: string;
-    dimensions?: {
+    weight: number;
+    dimensions: {
       width?: number;
       height?: number;
     };
@@ -24,6 +27,7 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
   product,
 }) => {
   const {
+    _id: id,
     name,
     images,
     video,
@@ -38,17 +42,67 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
 
   const OPTIONS: EmblaOptionsType = {};
 
+  const { inCart, favoriteProdukts, addToCart, toggleFavorite } =
+    useProduktContext();
+  const [isFavorite, setIsFavorite] = useState(favoriteProdukts.includes(id));
+  const isInCart = inCart.includes(id);
+
+  useEffect(() => {
+    setIsFavorite(favoriteProdukts.includes(id));
+  }, [favoriteProdukts, id]);
+
   return (
     <>
       <h1 className="text-[20px] mb-1 text-center">{name}</h1>
-        {images && images.length > 0 && (
-          <EmblaCarousel
-            name={name}
-            slides={images}
-            video={video}
-            options={OPTIONS}
-          />
-        )}
+      {images && images.length > 0 && (
+        <EmblaCarousel
+          name={name}
+          slides={images}
+          video={video}
+          options={OPTIONS}
+        />
+      )}
+      <ProductDescription
+        price={price}
+        type={type}
+        material={material}
+        insert={insert}
+        weight={weight}
+        dimensions={dimensions}
+      />
+      <div className="flex flex-wrap gap-x-4 gap-y-2 mt-[5px] justify-center">
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addToCart(id);
+          }}
+          text={
+            !quantity
+              ? "Немає в наявності"
+              : isInCart
+                ? "Вже у кошику"
+                : "Додати у кошик"
+          }
+          className={`w-[150px] h-[30px] bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+          disabled={!quantity}
+        />
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleFavorite(id);
+          }}
+          ariaLabel="Додати/видалити в/з обране"
+          text={isFavorite ? "Видалити з обраного" : "Додати в обране"}
+          className="bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[150px] h-[30px] "
+        />
+        <Button
+          onClick={(e) => console.log("Оформити замовлення")}
+          text="Оформити замовлення"
+          className="bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[150px] h-[30px] "
+        />
+      </div>
     </>
   );
 };

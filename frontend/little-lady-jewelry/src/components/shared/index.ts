@@ -7,3 +7,4 @@ export { ModalBurgerMenu } from "./modalBurgerMenu";
 export { ModalCart } from "./modalCart";
 export { ProduktCardDetails } from "./produkt-card-details";
 export { CartItem } from "./cartItem";
+export { ProductDescription } from "./productDescription";
