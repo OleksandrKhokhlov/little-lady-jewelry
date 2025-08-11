@@ -48,10 +48,10 @@ export const ModalCart: React.FC<ModalCartProps> = ({
     <Modal
       isOpen={isModalCartOpen}
       onClose={setModalCartOpen}
-      className="px-3 py-1"
+      className="px-3 py-3 "
       header="Кошик"
     >
-      <div className="flex flex-col justify-between h-[90vh] overflow-y-auto">
+      <div className="flex flex-col justify-between h-[80vh] overflow-y-auto">
         {cartItems.length > 0 ? (
           <ul className="flex-1">
             {cartItems.map(
