@@ -1,38 +1,33 @@
 "use client";
 
 import toast from "react-hot-toast";
-import { useState } from "react";
 import { Icon } from "./icon";
 import { Button } from "./button";
 
 interface CartCounterProps {
+  value: number;
   min?: number;
   max?: number;
-  onChange?: (value: number) => void;
+  onChange: (value: number) => void;
 }
 
 export const CartCounter: React.FC<CartCounterProps> = ({
+  value,
   min = 1,
   max = 99,
   onChange,
 }) => {
-  const [value, setValue] = useState(min);
-
   const handleIncrement = () => {
     if (value >= max) {
       toast.error(`Максимальна кількість: ${max}`);
       return;
     }
-    const newValue = value + 1;
-    setValue(newValue);
-    onChange?.(newValue);
+    onChange(value + 1);
   };
 
   const handleDecrement = () => {
     if (value > min) {
-      const newValue = value - 1;
-      setValue(newValue);
-      onChange?.(newValue);
+      onChange(value - 1);
     }
   };
 

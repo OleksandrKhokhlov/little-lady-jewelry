@@ -18,33 +18,48 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   const { produkts, inCart, deleteFromCart } = useProduktContext();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (isModalCartOpen) {
-      const cartItems = produkts.filter((product) =>
-        inCart.includes(product._id),
-      );
-      setSelectedIds(cartItems.map((product) => product._id));
-    }
+    if (!isModalCartOpen) return;
+
+    const cartItems = produkts.filter((product) =>
+      inCart.includes(product._id),
+    );
+    setSelectedIds(cartItems.map((product) => product._id));
+    setCounts((prev) => {
+      const newCount = { ...prev };
+      cartItems.forEach((item) => {
+        if (!newCount[item._id]) newCount[item._id] = 1;
+      });
+      return newCount;
+    });
   }, [isModalCartOpen, inCart, produkts]);
 
-  if (!isModalCartOpen || !mounted) return null;
+  if (!isModalCartOpen) return null;
 
   const cartItems = produkts.filter((product) => inCart.includes(product._id));
   const checkedItems = cartItems.filter((product) =>
     selectedIds.includes(product._id),
   );
+
   const handleCheckboxChange = (id: string) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
-  return createPortal(
+  const handleCountChange = (id: string, newCount: number) => {
+    setCounts((prev) => ({
+      ...prev,
+      [id]: newCount,
+    }));
+  };
+  const modalContent = (
     <Modal
       isOpen={isModalCartOpen}
       onClose={setModalCartOpen}
@@ -64,6 +79,8 @@ export const ModalCart: React.FC<ModalCartProps> = ({
                   images={images}
                   weight={weight}
                   quantity={quantity}
+                  count={counts[id] || 1}
+                  onCountChange={handleCountChange}
                   onClick={() => deleteFromCart(id)}
                   onClose={setModalCartOpen}
                   checked={selectedIds.includes(id)}
@@ -79,7 +96,11 @@ export const ModalCart: React.FC<ModalCartProps> = ({
         <div className="flex justify-between items-end border-b-2 border-[var(--accent-color)]">
           <p>До сплати: </p>
           <p>
-            {checkedItems.reduce((total, item) => total + item.price, 0)} грн
+            {checkedItems.reduce(
+              (total, item) => total + item.price * (counts[item._id] || 1),
+              0,
+            )}{" "}
+            грн
           </p>
         </div>
         <Button
@@ -88,7 +109,9 @@ export const ModalCart: React.FC<ModalCartProps> = ({
           className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto"
         />
       </div>
-    </Modal>,
-    document.body,
+    </Modal>
   );
+  return mounted && typeof document !== "undefined"
+    ? createPortal(modalContent, document.body)
+    : modalContent;
 };

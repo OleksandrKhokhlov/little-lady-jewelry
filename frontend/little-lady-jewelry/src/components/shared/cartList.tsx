@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { Button, CartCounter, Icon } from "../ui";
-import { useState } from "react";
 
 interface CartItemProps {
   id: string;
@@ -12,10 +11,12 @@ interface CartItemProps {
   images: string[];
   weight: number;
   quantity: number;
+  count: number;
+  onCountChange: (id: string, newCount: number) => void;
   onClick: () => void;
-  onClose?: () => void; // Optional prop for closing the modal
-  checked?: boolean; // Optional prop for checkbox state
-  onCheckboxChange?: (id: string) => void; // Optional prop for checkbox change
+  onClose?: () => void;
+  checked?: boolean;
+  onCheckboxChange?: (id: string) => void;
 }
 
 export const CartList: React.FC<CartItemProps> = ({
@@ -25,19 +26,13 @@ export const CartList: React.FC<CartItemProps> = ({
   images,
   weight,
   quantity,
+  count,
+  onCountChange,
   onClick,
   onClose,
   checked = true,
   onCheckboxChange,
 }) => {
-  const [count, setCount] = useState<number>(1);
-
-  const handleCountChange = (newCount: number) => {
-    setCount(newCount);
-  };
-
-  
-
   return (
     <li className="flex items-center gap-2 border-b-2 border-[var(--accent-color)]">
       <input
@@ -65,7 +60,11 @@ export const CartList: React.FC<CartItemProps> = ({
           <h3>{name}</h3>
           <p>Вага: {weight} г</p>
         </div>
-        <CartCounter onChange={handleCountChange} max={quantity} />
+        <CartCounter
+          onChange={(value) => onCountChange(id, value)}
+          max={quantity}
+          value={count}
+        />
         <p>Ціна: {`${price} \u20B4`}</p>
         <Button
           onClick={onClick}
