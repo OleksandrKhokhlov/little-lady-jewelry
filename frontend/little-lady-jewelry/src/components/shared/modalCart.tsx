@@ -5,6 +5,8 @@ import { Button, Modal } from "../ui";
 import { createPortal } from "react-dom";
 import { useProduktContext } from "@/lib";
 import { CartList } from "./cartList";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface ModalCartProps {
   isModalCartOpen: boolean;
@@ -19,6 +21,7 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
   const [counts, setCounts] = useState<Record<string, number>>({});
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -104,7 +107,23 @@ export const ModalCart: React.FC<ModalCartProps> = ({
           </p>
         </div>
         <Button
-          onClick={(e) => console.log("Оформити замовлення")}
+          onClick={(e) => {
+            e.preventDefault();
+            if (selectedIds.length === 0) {
+              toast.error(
+                "Будь ласка, оберіть товари для оформлення замовлення.",
+              );
+              return;
+            }
+            const filteredCounts = Object.fromEntries(
+              selectedIds.map((id) => [id, counts[id] || 1]),
+            );
+            setModalCartOpen();
+            const query = new URLSearchParams({
+              counts: encodeURIComponent(JSON.stringify(filteredCounts)),
+            }).toString();
+            router.push(`/checkout?${query}`);
+          }}
           text="Оформити замовлення"
           className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto"
         />
