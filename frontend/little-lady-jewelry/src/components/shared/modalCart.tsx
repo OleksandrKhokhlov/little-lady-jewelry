@@ -49,6 +49,10 @@ export const ModalCart: React.FC<ModalCartProps> = ({
   const checkedItems = cartItems.filter((product) =>
     selectedIds.includes(product._id),
   );
+  const totalPrice = checkedItems.reduce(
+    (total, item) => total + item.price * (counts[item._id] || 1),
+    0,
+  );
 
   const handleCheckboxChange = (id: string) => {
     setSelectedIds((prev) =>
@@ -62,6 +66,28 @@ export const ModalCart: React.FC<ModalCartProps> = ({
       [id]: newCount,
     }));
   };
+
+  const handleCheckout = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (selectedIds.length === 0) {
+      toast.error("Будь ласка, оберіть товари для оформлення замовлення.");
+      return;
+    }
+
+    const filteredCounts = Object.fromEntries(
+      selectedIds.map((id) => [id, counts[id] || 1]),
+    );
+
+    setModalCartOpen();
+
+    const query = new URLSearchParams({
+      counts: encodeURIComponent(JSON.stringify(filteredCounts)),
+      totalPrice: totalPrice.toString(),
+    }).toString();
+
+    router.push(`/checkout?${query}`);
+  };
+
   const modalContent = (
     <Modal
       isOpen={isModalCartOpen}
@@ -98,32 +124,10 @@ export const ModalCart: React.FC<ModalCartProps> = ({
 
         <div className="flex justify-between items-end border-b-2 border-[var(--accent-color)]">
           <p>До сплати: </p>
-          <p>
-            {checkedItems.reduce(
-              (total, item) => total + item.price * (counts[item._id] || 1),
-              0,
-            )}{" "}
-            грн
-          </p>
+          <p>{totalPrice} грн</p>
         </div>
         <Button
-          onClick={(e) => {
-            e.preventDefault();
-            if (selectedIds.length === 0) {
-              toast.error(
-                "Будь ласка, оберіть товари для оформлення замовлення.",
-              );
-              return;
-            }
-            const filteredCounts = Object.fromEntries(
-              selectedIds.map((id) => [id, counts[id] || 1]),
-            );
-            setModalCartOpen();
-            const query = new URLSearchParams({
-              counts: encodeURIComponent(JSON.stringify(filteredCounts)),
-            }).toString();
-            router.push(`/checkout?${query}`);
-          }}
+          onClick={handleCheckout}
           text="Оформити замовлення"
           className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto"
         />
