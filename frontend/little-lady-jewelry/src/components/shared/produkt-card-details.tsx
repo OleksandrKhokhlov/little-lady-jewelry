@@ -3,6 +3,7 @@ import { EmblaOptionsType } from "embla-carousel";
 import { Button, EmblaCarousel } from "../ui";
 import { ProductDescription } from "./productDescription";
 import { useProduktContext } from "@/lib";
+import { useRouter } from "next/navigation";
 
 interface ProduktCardDetailsProps {
   product: {
@@ -41,6 +42,7 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
   } = product;
 
   const OPTIONS: EmblaOptionsType = {};
+  const router = useRouter();
 
   const { inCart, favoriteProdukts, addToCart, toggleFavorite } =
     useProduktContext();
@@ -50,6 +52,19 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
   useEffect(() => {
     setIsFavorite(favoriteProdukts.includes(id));
   }, [favoriteProdukts, id]);
+
+  const handleCheckout = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const filteredCounts = { [id]: 1 };
+
+    const query = new URLSearchParams({
+      counts: encodeURIComponent(JSON.stringify(filteredCounts)),
+      totalPrice: price.toString(),
+    }).toString();
+
+    router.push(`/checkout?${query}`);
+  };
 
   return (
     <>
@@ -98,7 +113,7 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
           className="bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[150px] h-[30px] "
         />
         <Button
-          onClick={(e) => console.log("Оформити замовлення")}
+          onClick={handleCheckout}
           text="Оформити замовлення"
           className="bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[150px] h-[30px] "
         />
