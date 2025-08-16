@@ -5,3 +5,4 @@ export { Modal } from "./modal";
 export { CartCounter } from "./cartCounter";
 export { Thumb } from "./emblaCarouselThumbsButtons";
 export { EmblaCarousel } from "./emblaCarousel";
+export { CheckoutForm } from "./checkoutForm";
