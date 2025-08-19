@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button, CartCounter, Icon } from "../ui";
+import { CustomCheckbox } from "./customCheckbox";
 
 interface CartItemProps {
   id: string;
@@ -35,12 +36,8 @@ export const CartList: React.FC<CartItemProps> = ({
 }) => {
   return (
     <li className="flex items-center gap-2 border-b-2 border-[var(--accent-color)]">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => onCheckboxChange?.(id)}
-        className="appearance-none rounded-md border-2 border-[var(--accent-color)] w-[10px] h-[10px] cursor-pointer  checked:bg-[var(--accent-color)] "
-      />
+      <CustomCheckbox checked={checked} onChange={onCheckboxChange} id={id} />
+
       <Link
         href={`/product/${id}`}
         onClick={onClose}

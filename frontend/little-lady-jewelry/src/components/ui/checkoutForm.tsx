@@ -2,6 +2,7 @@ import React from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "../ui";
 import * as Yup from "yup";
+import { CustomRadioButton } from "../shared";
 
 interface Values {
   counts: Record<string, number>;
@@ -97,14 +98,28 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
             ) : null}
             <div>
               <h3>Доставка</h3>
-              <label>
-                <Field type="radio" name="delivery" value="Нова пошта" />
-                Нова пошта
-              </label>
-              <label>
-                <Field type="radio" name="delivery" value="Укрпошта" />
-                Укрпошта
-              </label>
+              <div className="space-y-2">
+                <Field name="delivery">
+                  {({ field }: { field: any }) => (
+                    <>
+                      <CustomRadioButton
+                        name="delivery"
+                        value="Нова пошта"
+                        label="Нова пошта"
+                        checked={field.value === "Нова пошта"}
+                        onChange={field.onChange}
+                      />
+                      <CustomRadioButton
+                        name="delivery"
+                        value="Укрпошта"
+                        label="Укрпошта"
+                        checked={field.value === "Укрпошта"}
+                        onChange={field.onChange}
+                      />
+                    </>
+                  )}
+                </Field>
+              </div>
             </div>
             <Field
               id="settlementArea"
@@ -129,14 +144,28 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
             <Field id="comment" name="comment" placeholder="Коментарій" />
             <div>
               <h3>Оплата</h3>
-              <label>
-                <Field type="radio" name="payment" value="При отриманні" />
-                При отриманні
-              </label>
-              <label>
-                <Field type="radio" name="payment" value="Онлайн" />
-                Онлайн
-              </label>
+              <div className="space-y-2">
+                <Field name="payment">
+                  {({ field }: { field: any }) => (
+                    <>
+                      <CustomRadioButton
+                        name="payment"
+                        value="При отриманні"
+                        label="При отриманні"
+                        checked={field.value === "При отриманні"}
+                        onChange={field.onChange}
+                      />
+                      <CustomRadioButton
+                        name="payment"
+                        value="Онлайн"
+                        label="Онлайн"
+                        checked={field.value === "Онлайн"}
+                        onChange={field.onChange}
+                      />
+                    </>
+                  )}
+                </Field>
+              </div>
             </div>
             <div className="flex justify-between items-end border-b-2 border-[var(--accent-color)]">
               <p>До сплати: </p>
