@@ -8,3 +8,5 @@ export { ModalCart } from "./modalCart";
 export { ProduktCardDetails } from "./produkt-card-details";
 export { CartItem } from "./cartItem";
 export { ProductDescription } from "./productDescription";
+export { CustomCheckbox } from "./customCheckbox";
+export { CustomRadioButton } from "./customRadioButton";
