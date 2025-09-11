@@ -141,3 +141,19 @@ body {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
 }
+
+@layer components {
+  .form-input {
+    padding: 3px;
+    border: 1px solid var(--accent-color);
+    border-radius: 0.25rem;
+    background-color: transparent;
+    outline: none;
+    transition: box-shadow 0.2s ease;
+  }
+  .form-input:focus,
+  .form-input:hover {
+    border-color: var(--hover-color);
+    box-shadow: 0 0 0 1px var(--hover-color);
+  }
+}

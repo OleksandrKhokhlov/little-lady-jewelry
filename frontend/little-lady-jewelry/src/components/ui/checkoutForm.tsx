@@ -62,7 +62,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
 
   return (
     <>
-      <h2 className="justify-between border-b-2 border-[var(--accent-color)]">
+      <h2 className="text-[16px] justify-between border-b-2 border-[var(--accent-color)]">
         Оформлення замовлення
       </h2>
       <Formik
@@ -79,26 +79,47 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
         }}
       >
         {({ errors, touched }) => (
-          <Form>
-            <Field id="firstName" name="firstName" placeholder={`Ім\u0027я`} />
-            {errors.firstName && touched.firstName ? (
-              <div className="text-red-500">{errors.firstName}</div>
-            ) : null}
-            <Field id="lastName" name="lastName" placeholder="Призвіще" />
-            {errors.lastName && touched.lastName ? (
-              <div className="text-red-500">{errors.lastName}</div>
-            ) : null}
-            <Field
-              id="telephone"
-              name="telephone"
-              placeholder="+380XXXXXXXXX"
-            />
-            {errors.telephone && touched.telephone ? (
-              <div className="text-red-500">{errors.telephone}</div>
-            ) : null}
+          <Form
+            className="m-auto w-[calc(100%-10px)] [&>div>div>input]:form-input [&>textarea]:form-input [&>div>div]:w-[calc(50%-4px)]"
+            autoComplete="off"
+          >
+            <div className="mt-1 flex flex-wrap justify-between gap-y-1">
+              <div className="flex flex-col relative pb-3">
+                <Field
+                  id="firstName"
+                  name="firstName"
+                  placeholder={`Ім\u0027я`}
+                />
+                {errors.firstName && touched.firstName ? (
+                  <span className="text-[10px] text-red-500 absolute bottom-0">
+                    {errors.firstName}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col relative pb-3">
+                <Field id="lastName" name="lastName" placeholder="Призвіще" />
+                {errors.lastName && touched.lastName ? (
+                  <span className="text-[10px] text-red-500 absolute bottom-0">
+                    {errors.lastName}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col relative pb-3">
+                <Field
+                  id="telephone"
+                  name="telephone"
+                  placeholder="+380XXXXXXXXX"
+                />
+                {errors.telephone && touched.telephone ? (
+                  <span className="text-[10px] text-red-500 absolute bottom-0">
+                    {errors.telephone}
+                  </span>
+                ) : null}
+              </div>
+            </div>
             <div>
-              <h3>Доставка</h3>
-              <div className="space-y-2">
+              <h3 className="text-[16px]">Доставка</h3>
+              <div className="mt-1 flex flex-col">
                 <Field name="delivery">
                   {({ field }: { field: any }) => (
                     <>
@@ -121,30 +142,51 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                 </Field>
               </div>
             </div>
+            <div className="mt-1 flex flex-wrap justify-between gap-y-1">
+              <div className="flex flex-col relative pb-3">
+                <Field
+                  id="settlementArea"
+                  name="settlementArea"
+                  placeholder="Область"
+                />
+                {errors.settlementArea && touched.settlementArea ? (
+                  <span className="text-[10px] text-red-500 absolute bottom-0">
+                    {errors.settlementArea}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col relative pb-3">
+                <Field id="town" name="town" placeholder="Населений пункт" />
+                {errors.town && touched.town ? (
+                  <span className="text-[10px] text-red-500 absolute bottom-0">
+                    {errors.town}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col relative pb-3">
+                <Field
+                  id="branchNumber"
+                  name="branchNumber"
+                  placeholder="Номер відділення"
+                />
+                {errors.branchNumber && touched.branchNumber ? (
+                  <span className="text-[10px] text-red-500 absolute bottom-0">
+                    {errors.branchNumber}
+                  </span>
+                ) : null}
+              </div>
+            </div>
             <Field
-              id="settlementArea"
-              name="settlementArea"
-              placeholder="Область"
+              id="comment"
+              name="comment"
+              as="textarea"
+              placeholder="Коментарій"
+              className="w-full mt-1"
+              rows={3}
             />
-            {errors.settlementArea && touched.settlementArea ? (
-              <div className="text-red-500">{errors.settlementArea}</div>
-            ) : null}
-            <Field id="town" name="town" placeholder="Населений пункт" />
-            {errors.town && touched.town ? (
-              <div className="text-red-500">{errors.town}</div>
-            ) : null}
-            <Field
-              id="branchNumber"
-              name="branchNumber"
-              placeholder="Номер відділення"
-            />
-            {errors.branchNumber && touched.branchNumber ? (
-              <div className="text-red-500">{errors.branchNumber}</div>
-            ) : null}
-            <Field id="comment" name="comment" placeholder="Коментарій" />
             <div>
-              <h3>Оплата</h3>
-              <div className="space-y-2">
+              <h3 className=" text-[16px]">Оплата</h3>
+              <div className="mt-1 flex flex-col">
                 <Field name="payment">
                   {({ field }: { field: any }) => (
                     <>
@@ -167,7 +209,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                 </Field>
               </div>
             </div>
-            <div className="flex justify-between items-end border-b-2 border-[var(--accent-color)]">
+            <div className="mt-4 flex justify-between items-end border-b-2 border-[var(--accent-color)]">
               <p>До сплати: </p>
               <p>{totalPrice} грн</p>
             </div>
@@ -175,7 +217,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               type="submit"
               text="Перейти до оплати"
               onClick={(e) => console.log(e)}
-              className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto"
+              className="block mt-2 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%]"
             />
           </Form>
         )}
