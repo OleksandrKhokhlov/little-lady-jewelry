@@ -4,7 +4,7 @@ interface ButtonProps {
   type?: "submit" | "reset" | "button";
   text?: string;
   icon?: React.ReactNode;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   disabled?: boolean;
   ariaLabel?: string;

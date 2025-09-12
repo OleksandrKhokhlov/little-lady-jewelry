@@ -78,7 +78,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
           }, 500);
         }}
       >
-        {({ errors, touched }) => (
+        {({ isSubmitting, errors, touched }) => (
           <Form
             className="m-auto w-[calc(100%-10px)] [&>div>div>input]:form-input [&>textarea]:form-input [&>div>div]:w-[calc(50%-4px)]"
             autoComplete="off"
@@ -223,9 +223,13 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
             </div>
             <Button
               type="submit"
-              text="Перейти до оплати"
-              onClick={(e) => console.log(e)}
-              className="block mt-2 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%]"
+              disabled={isSubmitting || Object.keys(errors).length > 0}
+              text={
+                Object.keys(errors).length > 0
+                  ? `Заповніть обов'язкові поля`
+                  : "Перейти до оплати"
+              }
+              className="block mt-2 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
             />
           </Form>
         )}
