@@ -164,11 +164,19 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                 ) : null}
               </div>
               <div className="flex flex-col relative pb-3">
-                <Field
-                  id="branchNumber"
-                  name="branchNumber"
-                  placeholder="Номер відділення"
-                />
+                <Field name="branchNumber">
+                  {({ field, form }: { field: any; form: any }) => (
+                    <input
+                      id="branchNumber"
+                      {...field}
+                      placeholder={
+                        form.values.delivery === "Нова пошта"
+                          ? "Номер відділення"
+                          : "Індекс"
+                      }
+                    />
+                  )}
+                </Field>
                 {errors.branchNumber && touched.branchNumber ? (
                   <span className="text-[10px] text-red-500 absolute bottom-0">
                     {errors.branchNumber}
