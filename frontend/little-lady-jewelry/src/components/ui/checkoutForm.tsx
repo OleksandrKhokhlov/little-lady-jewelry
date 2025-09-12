@@ -2,7 +2,7 @@ import React from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "../ui";
 import * as Yup from "yup";
-import { CustomRadioButton } from "../shared";
+import { CustomRadioButton, PhoneField } from "../shared";
 
 interface Values {
   counts: Record<string, number>;
@@ -28,7 +28,7 @@ const CheckoutFormSchema = Yup.object().shape({
   lastName: Yup.string().required("Обов\u0027язкове поле"),
   telephone: Yup.string()
     .required("Обов\u0027язкове поле")
-    .matches(/^\+380\d{9}$/, "Введіть коректний номер у форматі +380XXXXXXXXX")
+    .matches(/^\+380\d{9}$/, "Некоректний номер телефону")
     .length(13, "Номер телефону має бути 13 символів"),
   delivery: Yup.string()
     .oneOf(["Нова пошта", "Укрпошта"])
@@ -104,18 +104,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-col relative pb-3">
-                <Field
-                  id="telephone"
-                  name="telephone"
-                  placeholder="+380XXXXXXXXX"
-                />
-                {errors.telephone && touched.telephone ? (
-                  <span className="text-[10px] text-red-500 absolute bottom-0">
-                    {errors.telephone}
-                  </span>
-                ) : null}
-              </div>
+              <PhoneField />
             </div>
             <div>
               <h3 className="text-[16px]">Доставка</h3>
