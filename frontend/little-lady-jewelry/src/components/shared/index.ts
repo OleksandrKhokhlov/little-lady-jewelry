@@ -11,3 +11,4 @@ export { ProductDescription } from "./productDescription";
 export { CustomCheckbox } from "./customCheckbox";
 export { CustomRadioButton } from "./customRadioButton";
 export { PhoneField } from "./phoneField";
+export { TownField } from "./townField";

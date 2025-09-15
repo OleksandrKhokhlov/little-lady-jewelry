@@ -2,7 +2,7 @@ import React from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "../ui";
 import * as Yup from "yup";
-import { CustomRadioButton, PhoneField } from "../shared";
+import { CustomRadioButton, PhoneField, TownField } from "../shared";
 
 interface Values {
   counts: Record<string, number>;
@@ -11,9 +11,8 @@ interface Values {
   lastName: string;
   telephone: string;
   delivery: "Нова пошта" | "Укрпошта";
-  settlementArea: string;
   town: string;
-  branchNumber: string;
+  warehouse: string;
   comment?: string;
   payment: "При отриманні" | "Онлайн";
 }
@@ -33,9 +32,8 @@ const CheckoutFormSchema = Yup.object().shape({
   delivery: Yup.string()
     .oneOf(["Нова пошта", "Укрпошта"])
     .required("Обов\u0027язкове поле"),
-  settlementArea: Yup.string().required("Обов\u0027язкове поле"),
   town: Yup.string().required("Обов\u0027язкове поле"),
-  branchNumber: Yup.string().required("Обов\u0027язкове поле"),
+  warehouse: Yup.string().required("Обов\u0027язкове поле"),
   comment: Yup.string().max(300, "Comment is too long"),
   payment: Yup.string()
     .oneOf(["При отриманні", "Онлайн"])
@@ -53,9 +51,8 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
     lastName: "",
     telephone: "",
     delivery: "Нова пошта",
-    settlementArea: "",
     town: "",
-    branchNumber: "",
+    warehouse: "",
     comment: "",
     payment: "При отриманні",
   };
@@ -131,48 +128,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                 </Field>
               </div>
             </div>
-            <div className="mt-1 flex flex-wrap justify-between gap-y-1">
-              <div className="flex flex-col relative pb-3">
-                <Field
-                  id="settlementArea"
-                  name="settlementArea"
-                  placeholder="Область"
-                />
-                {errors.settlementArea && touched.settlementArea ? (
-                  <span className="text-[10px] text-red-500 absolute bottom-0">
-                    {errors.settlementArea}
-                  </span>
-                ) : null}
-              </div>
-              <div className="flex flex-col relative pb-3">
-                <Field id="town" name="town" placeholder="Населений пункт" />
-                {errors.town && touched.town ? (
-                  <span className="text-[10px] text-red-500 absolute bottom-0">
-                    {errors.town}
-                  </span>
-                ) : null}
-              </div>
-              <div className="flex flex-col relative pb-3">
-                <Field name="branchNumber">
-                  {({ field, form }: { field: any; form: any }) => (
-                    <input
-                      id="branchNumber"
-                      {...field}
-                      placeholder={
-                        form.values.delivery === "Нова пошта"
-                          ? "Номер відділення"
-                          : "Індекс"
-                      }
-                    />
-                  )}
-                </Field>
-                {errors.branchNumber && touched.branchNumber ? (
-                  <span className="text-[10px] text-red-500 absolute bottom-0">
-                    {errors.branchNumber}
-                  </span>
-                ) : null}
-              </div>
-            </div>
+            <TownField />
             <Field
               id="comment"
               name="comment"

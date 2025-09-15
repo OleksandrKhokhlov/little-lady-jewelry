@@ -36,7 +36,6 @@ export const PhoneField = () => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         className="form-input pl-12"
-        placeholder="Телефон"
       />
       {error && touched && (
         <span className="text-[10px] text-red-500 absolute bottom-0">
