@@ -55,7 +55,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
             alt={name || "Зображення відсутне"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover rounded-md"
+            className="rounded-md"
             onError={() => setImageError(true)}
             priority={false}
           />
