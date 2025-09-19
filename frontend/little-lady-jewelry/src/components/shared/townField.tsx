@@ -6,7 +6,7 @@ import { Field, useFormikContext } from "formik";
 import { use, useCallback, useEffect, useState } from "react";
 
 export const TownField = () => {
-  const { setFieldValue, errors, touched } = useFormikContext<any>();
+  const { values, setFieldValue, errors, touched } = useFormikContext<any>();
   const [suggestions, setSuggestions] = useState<
     { Present: string; Ref: string }[]
   >([]);
@@ -121,7 +121,7 @@ export const TownField = () => {
       <Field
         id="warehouse"
         name="warehouse"
-        placeholder="Відділення"
+        placeholder={values.delivery === "Нова пошта" ? "Відділення" : "Індекс"}
         value={warehouseQuery}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleWarehouseSearch(e.target.value)
@@ -136,7 +136,7 @@ export const TownField = () => {
         </span>
       ) : null}
 
-      {warehouses.length > 0 && (
+      {warehouses.length > 0 && values.delivery === "Нова пошта" && (
         <ul className="absolute z-10 top-full left-0 rounded shadow-md bg-white border border-gray-300 w-full max-h-40 overflow-y-auto">
           {warehouses.map((wh) => (
             <li
