@@ -1,12 +1,10 @@
-import axios from "axios";
+import { api } from "./api";
 
 export const getProdukts = async (setProdukts: (products: []) => void) => {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const apiUrl = `${baseUrl}api/product`;
-    const resp = await axios.get(apiUrl);
+    const res = await api.get(`/product`);
 
-    setProdukts(resp.data);
+    setProdukts(res.data);
   } catch (error) {
     console.error("Error fetching products:", error);
   }
