@@ -1,5 +1,5 @@
 const express = require("express");
-const { validateBody, isValidId, isValidType } = require("../middlewares");
+const { validateBody, isValidId, isValidType, authAdmin } = require("../middlewares");
 const {
   productSchema,
   updateQuantitySchema,
@@ -22,17 +22,17 @@ const {
 router.get("/", getAll);
 router.get("/type", isValidType, getByType);
 router.get("/:productId", isValidId, getById);
-router.post("/", validateBody(productSchema), add);
-router.delete("/:productId", isValidId, deleteById);
-router.put("/:productId", isValidId, validateBody(productSchema), updateById);
+router.post("/", authAdmin, validateBody(productSchema), add);
+router.delete("/:productId", authAdmin, isValidId, deleteById);
+router.put("/:productId", authAdmin, isValidId, validateBody(productSchema), updateById);
 router.patch(
-  "/:productId/quantity",
+  "/:productId/quantity", authAdmin,
   isValidId,
   validateBody(updateQuantitySchema),
   updateQuantity
 );
 router.patch(
-  "/:productId/price",
+  "/:productId/price", authAdmin,
   isValidId,
   validateBody(updatePriceSchema),
   updatePrice
