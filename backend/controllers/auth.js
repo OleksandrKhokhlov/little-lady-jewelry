@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 
 const Admin = require('../models/admin')
 const { HttpError } = require("../helpers");
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, ADMIN_EMAIL } = process.env;
 
 
 const register = async (req, res, next) => {
   const { password, email } = req.body;
   try {
-    if (email !== 'tanyabalyuk27@gmail.com') {
+    if (email !== ADMIN_EMAIL) {
       throw HttpError(409, "Ви не можете бути адміном");
     }
     const passwordHash = await bcrypt.hash(password, 10);
