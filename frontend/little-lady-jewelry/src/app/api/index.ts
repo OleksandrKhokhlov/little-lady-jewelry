@@ -3,3 +3,8 @@ export { getProdukts } from "./getProdukts";
 export { searchSettlements, getWarehouses } from "./novaPoshtaApi";
 export { loginAdmin, logoutAdmin, getToken } from "./auth";
 export { api } from "./api";
+export { addProdukt } from "./addProdukt";
+export { updateProdukt } from "./updateProdukt";
+export { deleteProdukt } from "./deleteProdukt";
+export { updatePrice } from "./updatePrice";
+export { updateQuantity } from "./updateQuantity";
