@@ -19,7 +19,6 @@ export const CartItem: React.FC<CartItemProps> = ({
   price,
   images,
   weight,
-  quantity,
   onClick,
   onClose,
 }) => {
