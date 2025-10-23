@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { api } from "./api";
 
 export const updatePrice = async (productId: string, newPrice: number) => {
@@ -7,15 +6,11 @@ export const updatePrice = async (productId: string, newPrice: number) => {
       price: newPrice,
     });
     if (res.status !== 200) {
-      toast.error("Помилка при оновленні ціни");
-      console.error("Error updating price:", res.statusText);
-      return null;
+      return { success: false, message: res.statusText };
     }
-    toast.success("Ціна успішно оновлена");
-    return res.data;
+    return { success: true, data: res.data };
   } catch (error) {
     console.error("Error updating price:", error);
-    toast.error("Помилка при оновленні ціни");
-    return null;
+    return { success: false, message: "Server error" };
   }
 };

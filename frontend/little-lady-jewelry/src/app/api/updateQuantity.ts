@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { api } from "./api";
 
 export const updateQuantity = async (
@@ -10,15 +9,11 @@ export const updateQuantity = async (
       quantity: newQuantity,
     });
     if (res.status !== 200) {
-      toast.error("Помилка при оновленні кількості");
-      console.error("Error updating quantity:", res.statusText);
-      return null;
+      return { success: false, message: res.statusText };
     }
-    toast.success("Кількість успішно оновлена");
-    return res.data;
+    return { success: true, data: res.data };
   } catch (error) {
-    toast.error("Помилка при оновленні кількості");
     console.error("Error updating quantity:", error);
-    return null;
+    return { success: false, message: "Server error" };
   }
 };
