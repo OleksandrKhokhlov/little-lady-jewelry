@@ -1,9 +1,12 @@
+import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui";
 import { Icon } from "../ui";
 import { useProduktContext } from "@/lib";
+import { usePathname } from "next/navigation";
+import { updatePrice, updateQuantity } from "@/app/api";
 
 interface ProduktCardProps {
   produkt: {
@@ -19,8 +22,8 @@ interface ProduktCardProps {
     quantity: number;
   };
 
-  favoriteProdukts: string[];
-  onToggleFavorite: () => void;
+  favoriteProdukts?: string[];
+  onToggleFavorite?: () => void;
   className?: string;
 }
 
@@ -29,22 +32,56 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
     _id: id,
     images,
     name = "Немає назви",
-    price = 0,
+    price: initialPrice = 0,
     type = "Невизначений",
-    quantity = 0,
+    quantity: initialQuantity = 0,
   },
-  favoriteProdukts,
-  onToggleFavorite,
+  favoriteProdukts = [],
+  onToggleFavorite = () => {},
   className,
 }) => {
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith("/admin");
+  const { inCart, addToCart, setProdukts } = useProduktContext();
+
   const [isFavorite, setIsFavorite] = useState(favoriteProdukts.includes(id));
   const [imageError, setImageError] = useState(false);
-  const { inCart, addToCart } = useProduktContext();
+  const [price, setPrice] = useState(initialPrice);
+  const [quantity, setQuantity] = useState(initialQuantity);
   const isInCart = inCart.includes(id);
 
   useEffect(() => {
     setIsFavorite(favoriteProdukts.includes(id));
   }, [favoriteProdukts, id]);
+
+  const handleUpdatePrice = async (newPrice: number) => {
+    const res = await updatePrice(id, newPrice);
+    if (res.success) {
+      setProdukts((prevProdukts) =>
+        prevProdukts.map((produkt) =>
+          produkt._id === id ? { ...produkt, price: newPrice } : produkt,
+        ),
+      );
+      toast.success("Ціну оновлено");
+      return;
+    } else {
+      toast.error(res.message || "Не вдалося оновити ціну");
+    }
+  };
+
+  const handleUpdateQuantity = async (newQuantity: number) => {
+    const res = await updateQuantity(id, newQuantity);
+    if (res.success) {
+      setProdukts((prevProdukts) =>
+        prevProdukts.map((produkt) =>
+          produkt._id === id ? { ...produkt, quantity: newQuantity } : produkt,
+        ),
+      );
+      toast.success("Кількість оновлено");
+    } else {
+     toast.error(res.message || "Не вдалося оновити кількість");
+    }
+  };
 
   return (
     <li className={className}>
@@ -59,50 +96,89 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
             onError={() => setImageError(true)}
             priority={false}
           />
-          <button
-            type="button"
-            className="absolute bottom-1 right-1 size-[17px] flex items-center justify-center p-0"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onToggleFavorite();
-            }}
-            aria-label="Додати в обране"
-          >
-            {isFavorite ? (
-              <Icon
-                iconId="icon-Heart-Active"
-                className="fill-[var(--accent-color)]"
-              />
-            ) : (
-              <Icon
-                iconId="icon-Heart"
-                className="fill-[var(--accent-color)]"
-              />
-            )}
-          </button>
+          {!isAdminPage && (
+            <button
+              type="button"
+              className="absolute bottom-1 right-1 size-[17px] flex items-center justify-center p-0"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onToggleFavorite();
+              }}
+              aria-label="Додати в обране"
+            >
+              {isFavorite ? (
+                <Icon
+                  iconId="icon-Heart-Active"
+                  className="fill-[var(--accent-color)]"
+                />
+              ) : (
+                <Icon
+                  iconId="icon-Heart"
+                  className="fill-[var(--accent-color)]"
+                />
+              )}
+            </button>
+          )}
         </div>
         <h2 className="mt-1">{name}</h2>
         <p className="text-[12px] mt-1 capitalize-first">{type}</p>
       </Link>
       <div>
-        <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            addToCart(id);
-          }}
-          text={
-            !quantity
-              ? "Немає в наявності"
-              : isInCart
-                ? "Вже у кошику"
-                : "Додати у кошик"
-          }
-          className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
-          disabled={!quantity}
-        />
+        {isAdminPage ? (
+          <>
+            <label className="text-xs text-gray-600">Ціна:</label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              className="form-input text-center text-sm"
+            />
+            <button type="button" onClick={() => handleUpdatePrice(price)}>
+              <Icon
+                iconId="icon-Check-Admin"
+                className="fill-[var(--accent-color)]"
+              />
+            </button>
+
+            <label className="text-xs text-gray-600">Кількість:</label>
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              className="form-input text-center text-sm"
+            />
+            <button
+              type="button"
+              onClick={() => handleUpdateQuantity(quantity)}
+            >
+              <Icon
+                iconId="icon-Check-Admin"
+                className="fill-[var(--accent-color)]"
+              />
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                addToCart(id);
+              }}
+              text={
+                !quantity
+                  ? "Немає в наявності"
+                  : isInCart
+                    ? "Вже у кошику"
+                    : "Додати у кошик"
+              }
+              className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+              disabled={!quantity}
+            />
+          </>
+        )}
       </div>
     </li>
   );
