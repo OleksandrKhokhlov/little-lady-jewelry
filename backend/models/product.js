@@ -5,7 +5,12 @@ const productSchema = new Schema(
   {
     name: String,
 
-    images: [String],
+    images: [
+      {
+        public_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+    ],
 
     video: String,
 

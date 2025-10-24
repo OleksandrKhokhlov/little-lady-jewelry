@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const cloudinary = require("../helpers/cloudinary");
 
 const getAll = async (req, res, next) => {
   try {
@@ -38,9 +39,52 @@ const getByType = async (req, res, next) => {
 };
 
 const add = async (req, res, next) => {
+  const {
+    name,
+    images = [],
+    video,
+    price,
+    type,
+    material,
+    insert,
+    weight,
+    dimensions,
+    quantity,
+  } = req.body;
+
   try {
-    const newproduct = await Product.create({ ...req.body });
-    res.status(201).json(newproduct);
+    if (!images || !Array.isArray(images) || images.length === 0) {
+      return res.status(400).json({ message: "Images are required" });
+    }
+
+    const result = await Promise.all(
+      images.map((image) =>
+        cloudinary.uploader.upload(image, {
+          folder: "little-lady-jewelry",
+          width: 300,
+          crop: "scale",
+        })
+      )
+    );
+
+    const uploadedImages = result.map((res) => ({
+      public_id: res.public_id,
+      url: res.secure_url,
+    }));
+
+    const newProduct = await Product.create({
+      name,
+      images: uploadedImages,
+      video,
+      price,
+      type,
+      material,
+      insert,
+      weight,
+      dimensions,
+      quantity,
+    });
+    res.status(201).json(newProduct);
   } catch (error) {
     next(error);
   }
