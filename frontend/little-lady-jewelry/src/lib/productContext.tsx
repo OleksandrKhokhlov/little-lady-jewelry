@@ -6,7 +6,7 @@ import { getLocalStorage } from "./localStorage";
 
 interface Produkt {
   _id: string;
-  images: string[];
+  images: Array<{ public_id: string; url: string }>;
   name: string;
   price: number;
   type:

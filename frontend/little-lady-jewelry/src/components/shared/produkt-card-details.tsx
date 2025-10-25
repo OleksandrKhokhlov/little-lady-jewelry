@@ -9,7 +9,7 @@ interface ProduktCardDetailsProps {
   product: {
     _id: string;
     name: string;
-    images: string[];
+    images: Array<{ public_id: string; url: string }>;
     video?: string;
     price: number;
     type: string;

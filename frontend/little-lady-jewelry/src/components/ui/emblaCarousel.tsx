@@ -8,7 +8,7 @@ import Image from "next/image";
 
 type PropType = {
   name?: string;
-  slides: string[];
+  slides: Array<{ public_id: string; url: string }>;
   video?: string;
   options?: EmblaOptionsType;
 };
@@ -52,11 +52,11 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
     <div className="embla">
       <div className="embla__viewport" ref={emblaMainRef}>
         <div className="embla__container ">
-          {slides.map((imageUrl, index) => (
+          {slides.map(({ url }, index) => (
             <div className="embla__slide" key={index}>
               <div className="embla__slide__image-container w-[80%] mx-auto">
                 <Image
-                  src={errorSlides[index] || !imageUrl ? "/no-photo.png" : imageUrl}
+                  src={errorSlides[index] || !url ? "/no-photo.png" : url}
                   alt={name || "Зображення відсутне"}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -88,12 +88,12 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
       <div className="embla-thumbs">
         <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
           <div className="embla-thumbs__container">
-            {slides.map((imageUrl, index) => (
+            {slides.map(({ url }, index) => (
               <Thumb
                 key={index}
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
-                imageUrl={imageUrl}
+                imageUrl={url}
               />
             ))}
             {video && (

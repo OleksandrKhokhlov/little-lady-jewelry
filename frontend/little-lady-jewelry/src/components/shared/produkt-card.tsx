@@ -11,7 +11,7 @@ import { updatePrice, updateQuantity } from "@/app/api";
 interface ProduktCardProps {
   produkt: {
     _id: string;
-    images: Array<string>;
+    images: Array<{ public_id: string; url: string }>;
     name?: string;
     price: number;
     type:
@@ -79,7 +79,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
       );
       toast.success("Кількість оновлено");
     } else {
-     toast.error(res.message || "Не вдалося оновити кількість");
+      toast.error(res.message || "Не вдалося оновити кількість");
     }
   };
 
@@ -88,7 +88,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
       <Link href={`/product/${id}`} className="block">
         <div className="w-full h-[120px] relative">
           <Image
-            src={imageError || !images?.[0] ? "/no-photo.png" : images[0]}
+            src={imageError || !images[0].url ? "/no-photo.png" : images[0].url}
             alt={name || "Зображення відсутне"}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
