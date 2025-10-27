@@ -8,14 +8,17 @@ const AdminProducts = () => {
   const { produkts, setProdukts } = useProduktContext();
   return (
     <Container className="py-0 mt-2">
-      {produkts.map((produkt) => (
-        <ProduktCard
-          produkt={produkt}
-          className={
-            "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
-          }
-        />
-      ))}
+      <ul className="flex flex-wrap gap-x-2 gap-y-6 mt-2">
+        {produkts.map((produkt) => (
+          <ProduktCard
+            key={produkt._id}
+            produkt={produkt}
+            className={
+              "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
+            }
+          />
+        ))}
+      </ul>
     </Container>
   );
 };

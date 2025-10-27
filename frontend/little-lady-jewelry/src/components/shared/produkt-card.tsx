@@ -124,62 +124,76 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
         <h2 className="mt-1">{name}</h2>
         <p className="text-[12px] mt-1 capitalize-first">{type}</p>
       </Link>
-      <div>
-        {isAdminPage ? (
-          <>
-            <label className="text-xs text-gray-600">Ціна:</label>
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-              className="form-input text-center text-sm"
-            />
-            <button type="button" onClick={() => handleUpdatePrice(price)}>
-              <Icon
-                iconId="icon-Check-Admin"
-                className="fill-[var(--accent-color)]"
-              />
-            </button>
 
-            <label className="text-xs text-gray-600">Кількість:</label>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
-              className="form-input text-center text-sm"
-            />
+      {isAdminPage ? (
+        <div>
+          <div className="flex gap-1 items-center justify-between">
+            <label className="text-xs text-gray-600 w-[70%]">
+              Ціна:
+              <input
+                name="price"
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value))}
+                className="form-input text-center text-sm w-[90%]"
+              />
+            </label>
             <button
               type="button"
-              onClick={() => handleUpdateQuantity(quantity)}
+              onClick={() => handleUpdatePrice(price)}
+              className="size-[26px] "
             >
               <Icon
                 iconId="icon-Check-Admin"
                 className="fill-[var(--accent-color)]"
               />
             </button>
-          </>
-        ) : (
-          <>
-            <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                addToCart(id);
-              }}
-              text={
-                !quantity
-                  ? "Немає в наявності"
-                  : isInCart
-                    ? "Вже у кошику"
-                    : "Додати у кошик"
-              }
-              className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
-              disabled={!quantity}
-            />
-          </>
-        )}
-      </div>
+          </div>
+
+          <div className="flex gap-1 items-center justify-between">
+            <label className="text-xs text-gray-600 w-[70%]">
+              Кількість:
+              <input
+                name="quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                className="form-input text-center text-sm w-[90%]"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={() => handleUpdateQuantity(quantity)}
+              className="size-[26px] "
+            >
+              <Icon
+                iconId="icon-Check-Admin"
+                className="fill-[var(--accent-color)]"
+              />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToCart(id);
+            }}
+            text={
+              !quantity
+                ? "Немає в наявності"
+                : isInCart
+                  ? "Вже у кошику"
+                  : "Додати у кошик"
+            }
+            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            disabled={!quantity}
+          />
+        </>
+      )}
     </li>
   );
 };
