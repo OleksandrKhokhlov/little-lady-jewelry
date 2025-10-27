@@ -12,24 +12,25 @@ export default function withAdminAuth<P>(
       false,
     );
 
+    const ADMIN_DASHBOARD_PATH = "/admin/products";
+    const ADMIN_LOGIN_PATH = "/admin/login";
+
     useEffect(() => {
       const token = getToken();
+      const onLoginPage = pathname === ADMIN_LOGIN_PATH;
+      const onAdminPage = pathname.startsWith("/admin");
 
-      if (
-        !token &&
-        pathname.startsWith("/admin") &&
-        pathname !== "/admin/login"
-      ) {
-        router.replace("/admin/login");
-        return;
-      }
-
-      if (token && pathname === "/admin/login") {
-        router.replace("/admin/products");
-        return;
-      }
-
-      if (token || pathname === "/admin/login") {
+      if (token) {
+        if (onLoginPage) {
+          router.replace(ADMIN_DASHBOARD_PATH);
+          return;
+        }
+        setIsAuthenticated(true);
+      } else {
+        if (onAdminPage && !onLoginPage) {
+          router.replace(ADMIN_LOGIN_PATH);
+          return;
+        }
         setIsAuthenticated(true);
       }
     }, [router, pathname]);
