@@ -96,6 +96,17 @@ const add = async (req, res, next) => {
 const deleteById = async (req, res, next) => {
   try {
     const { productId } = req.params;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (product.images && product.images.length > 0) {
+      const publicIds = product.images.map((img) => img.public_id);
+      await Promise.all(publicIds.map((id) => cloudinary.uploader.destroy(id)));
+    }
+
     await Product.findByIdAndDelete(productId);
     res.status(200).json({ message: "product deleted" });
   } catch (error) {
@@ -106,11 +117,64 @@ const deleteById = async (req, res, next) => {
 const updateById = async (req, res, next) => {
   try {
     const { productId } = req.params;
-    const product = await Product.findByIdAndUpdate(productId, req.body, {
-      new: true,
-    });
+    const { images, ...otherUpdates } = req.body;
 
-    res.status(200).json(product);
+    if (images && Array.isArray(images) && images.length > 0) {
+      const updateProduct = await Product.findByIdAndUpdate(
+        productId,
+        otherUpdates,
+        {
+          new: true,
+        }
+      );
+
+      if (!updateProduct) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      return res.status(200).json(updateProduct);
+    }
+
+    const oldProduct = await Product.findById(productId);
+    if (!oldProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const oldPublicIds = oldProduct.images.map((img) => img.public_id);
+    const result = await Promise.all(
+      images.map((image) =>
+        cloudinary.uploader.upload(image, {
+          folder: "little-lady-jewelry",
+          width: 300,
+          crop: "scale",
+        })
+      )
+    );
+
+    const uploadedImages = result.map((res) => ({
+      public_id: res.public_id,
+      url: res.secure_url,
+    }));
+
+    const updateData = {
+      ...otherUpdates,
+      images: uploadedImages,
+    };
+
+    const updateProduct = await Product.findByIdAndUpdate(
+      productId,
+      updateData,
+      {
+        new: true,
+      }
+    );
+
+    if (oldPublicIds.length > 0) {
+      await Promise.all(
+        oldPublicIds.map((id) => cloudinary.uploader.destroy(id))
+      );
+    }
+
+    res.status(200).json(updateProduct);
   } catch (error) {
     next(error);
   }
