@@ -5,7 +5,10 @@ const getAll = async (req, res, next) => {
   try {
     const { page = 1, limit = 20 } = req.query;
     const skip = (page - 1) * limit;
-    const result = await Product.find({}).skip(skip).limit(parseInt(limit));
+    const result = await Product.find({})
+      .sort({ quantity: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
     res.status(200).json(result);
   } catch (error) {
     next(error);
