@@ -1,10 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const Admin = require('../models/admin')
+const Admin = require("../models/admin");
 const { HttpError } = require("../helpers");
 const { SECRET_KEY, ADMIN_EMAIL } = process.env;
-
 
 const register = async (req, res, next) => {
   const { password, email } = req.body;
@@ -28,6 +27,8 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
+  const tokenExpiresIn = "23h";
+
   try {
     const admin = await Admin.findOne({ email });
 
@@ -41,11 +42,11 @@ const login = async (req, res, next) => {
       throw HttpError(401, "Email or password is wrong");
     }
     const payload = { id: admin._id };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: tokenExpiresIn });
 
     await Admin.findByIdAndUpdate(admin._id, { token });
 
-    res.status(200).json({ token, admin: { email } });
+    res.status(200).json({ token, admin: { email }, expires_in: tokenExpiresIn });
   } catch (error) {
     next(error);
   }

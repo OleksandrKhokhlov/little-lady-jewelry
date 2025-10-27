@@ -12,13 +12,15 @@ const adminSchema = new Schema(
       required: [true, "Set password for admin"],
     },
 
+    expires_in: { type: Number },
+
     token: String,
   },
   { versionKey: false }
 );
 
-adminSchema.post('save', handlerMongooseErr);
+adminSchema.post("save", handlerMongooseErr);
 
-const Admin = model('admin', adminSchema);
+const Admin = model("admin", adminSchema);
 
 module.exports = Admin;
