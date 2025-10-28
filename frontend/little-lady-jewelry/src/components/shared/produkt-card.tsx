@@ -6,7 +6,8 @@ import { Button } from "../ui";
 import { Icon } from "../ui";
 import { useProduktContext } from "@/lib";
 import { usePathname } from "next/navigation";
-import { updatePrice, updateQuantity } from "@/app/api";
+import { deleteProdukt, updatePrice, updateQuantity } from "@/app/api";
+import Swal from "sweetalert2";
 
 interface ProduktCardProps {
   produkt: {
@@ -83,8 +84,29 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
     }
   };
 
+  const handleDeleteProdukt = async (productId: string) => {
+    const res = await Swal.fire({
+      title: "Видалити товар?",
+      text: "Цю дію не можна буде скасувати!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Так, видалити!",
+      cancelButtonText: "Скасувати",
+    });
+
+    if (res.isConfirmed) {
+      await deleteProdukt(productId);
+      setProdukts((prevProdukts) =>
+        prevProdukts.filter((produkt) => produkt._id !== productId),
+      );
+      toast.success("Товар видалено");
+    }
+  };
+
   return (
-    <li className={className}>
+    <li key={id} className={className}>
       <Link href={`/product/${id}`} className="block">
         <div className="w-full h-[120px] relative">
           <Image
@@ -96,7 +118,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
             onError={() => setImageError(true)}
             priority={false}
           />
-          {!isAdminPage && (
+          {!isAdminPage ? (
             <button
               type="button"
               className="absolute bottom-1 right-1 size-[17px] flex items-center justify-center p-0"
@@ -118,6 +140,20 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
                   className="fill-[var(--accent-color)]"
                 />
               )}
+            </button>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleDeleteProdukt(id);
+              }}
+              className="absolute top-1 right-1 size-[17px] flex items-center justify-center p-0"
+            >
+              <Icon
+                iconId="icon-Cross"
+                className="size-[15px] fill-[var(--accent-color)]"
+              />
             </button>
           )}
         </div>
