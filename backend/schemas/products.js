@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const productSchema = Joi.object({
   name: Joi.string(),
-  images: Joi.array().items(Joi.object()),
+  images: Joi.array().items(Joi.string()),
   video: Joi.string(),
   price: Joi.number(),
   type: Joi.string().valid(
