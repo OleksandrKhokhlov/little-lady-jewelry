@@ -119,28 +119,24 @@ const updateById = async (req, res, next) => {
     const { productId } = req.params;
     const { images, ...otherUpdates } = req.body;
 
-    if (images && Array.isArray(images) && images.length > 0) {
-      const updateProduct = await Product.findByIdAndUpdate(
-        productId,
-        otherUpdates,
-        {
-          new: true,
-        }
-      );
-
-      if (!updateProduct) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-      return res.status(200).json(updateProduct);
-    }
-
     const oldProduct = await Product.findById(productId);
     if (!oldProduct) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    const oldPublicIds = oldProduct.images.map((img) => img.public_id);
-    const result = await Promise.all(
+    let uploadedImages = oldProduct.images;
+
+    if (Array.isArray(images) && images.length > 0) {
+      if (oldProduct.images?.length) {
+        await Promise.all(
+          oldProduct.images.map((img) =>
+            cloudinary.uploader.destroy(img.public_id)
+          )
+        );
+      }
+    }
+
+    const uploadResult = await Promise.all(
       images.map((image) =>
         cloudinary.uploader.upload(image, {
           folder: "little-lady-jewelry",
@@ -150,32 +146,22 @@ const updateById = async (req, res, next) => {
       )
     );
 
-    const uploadedImages = result.map((res) => ({
+    uploadedImages = uploadResult.map((res) => ({
       public_id: res.public_id,
       url: res.secure_url,
     }));
 
-    const updateData = {
-      ...otherUpdates,
-      images: uploadedImages,
-    };
-
     const updateProduct = await Product.findByIdAndUpdate(
       productId,
-      updateData,
+      { ...otherUpdates, images: uploadedImages },
       {
         new: true,
       }
     );
 
-    if (oldPublicIds.length > 0) {
-      await Promise.all(
-        oldPublicIds.map((id) => cloudinary.uploader.destroy(id))
-      );
-    }
-
     res.status(200).json(updateProduct);
   } catch (error) {
+    console.log("Error updating product:", error);
     next(error);
   }
 };

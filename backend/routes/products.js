@@ -24,7 +24,7 @@ router.get("/type", isValidType, getByType);
 router.get("/:productId", isValidId, getById);
 router.post("/", authAdmin, validateBody(productSchema), add);
 router.delete("/:productId", authAdmin, isValidId, deleteById);
-router.put("/:productId", authAdmin, isValidId, validateBody(productSchema), updateById);
+router.patch("/:productId", authAdmin, isValidId, validateBody(productSchema), updateById);
 router.patch(
   "/:productId/quantity", authAdmin,
   isValidId,
