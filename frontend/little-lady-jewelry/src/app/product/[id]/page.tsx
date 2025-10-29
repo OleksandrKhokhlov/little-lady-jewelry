@@ -21,6 +21,7 @@ const ProductPage: FC<ProductPageProps> = () => {
     const found = produkts.find((produkt) => produkt._id === id);
     if (found) {
       setProduct(found);
+      return;
     } else {
       setLoading(true);
       getProduktById(id)

@@ -28,7 +28,7 @@ export const updateProdukt = async (
   updatedData: AddProduktResponse,
 ) => {
   try {
-    const res = await api.put(`/product/${productId}`, updatedData);
+    const res = await api.patch(`/product/${productId}`, updatedData);
     if (res.status !== 200) {
       toast.error("Помилка при оновленні продукту");
       console.error("Error updating product:", res.statusText);

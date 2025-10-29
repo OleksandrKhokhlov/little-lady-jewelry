@@ -5,7 +5,7 @@ import withAdminAuth from "@/components/shared/withAdminAuth";
 import { useProduktContext } from "@/lib";
 
 const AdminProducts = () => {
-  const { produkts, setProdukts } = useProduktContext();
+  const { produkts } = useProduktContext();
   return (
     <Container className="py-0 mt-2">
       <ul className="flex flex-wrap gap-x-2 gap-y-6 mt-2">

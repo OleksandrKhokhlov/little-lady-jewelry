@@ -107,7 +107,10 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
 
   return (
     <li key={id} className={className}>
-      <Link href={`/product/${id}`} className="block">
+      <Link
+        href={`${isAdminPage ? `/admin/product/${id}` : `/product/${id}`}`}
+        className="block"
+      >
         <div className="w-full h-[120px] relative">
           <Image
             src={imageError || !images[0].url ? "/no-photo.png" : images[0].url}
