@@ -13,3 +13,5 @@ export { CustomRadioButton } from "./customRadioButton";
 export { PhoneField } from "./phoneField";
 export { TownField } from "./townField";
 export { default as withAdminAuth } from "./withAdminAuth";
+export { ImageUploader } from "./imageUploader";
+export { AdminProductEditor } from "./adminProductEditor";
