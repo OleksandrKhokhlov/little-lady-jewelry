@@ -124,42 +124,54 @@ const updateById = async (req, res, next) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    let uploadedImages = oldProduct.images;
-
     if (Array.isArray(images) && images.length > 0) {
-      if (oldProduct.images?.length) {
+      const oldPublicIds = oldProduct.images?.map((img) => img.public_id || []);
+
+      const result = await Promise.all(
+        images.map((image) =>
+          cloudinary.uploader.upload(image, {
+            folder: "little-lady-jewelry",
+            width: 300,
+            crop: "scale",
+          })
+        )
+      );
+
+      const uploadedImages = result.map((res) => ({
+        public_id: res.public_id,
+        url: res.secure_url,
+      }));
+
+      const updateData = {
+        ...otherUpdates,
+        images: uploadedImages,
+      };
+
+      const updateProduct = await Product.findByIdAndUpdate(
+        productId,
+        updateData,
+        {
+          new: true,
+        }
+      );
+
+      if (oldPublicIds.length > 0) {
         await Promise.all(
-          oldProduct.images.map((img) =>
-            cloudinary.uploader.destroy(img.public_id)
-          )
+          oldPublicIds.map((id) => cloudinary.uploader.destroy(id))
         );
       }
+      return res.status(200).json(updateProduct);
     }
-
-    const uploadResult = await Promise.all(
-      images.map((image) =>
-        cloudinary.uploader.upload(image, {
-          folder: "little-lady-jewelry",
-          width: 300,
-          crop: "scale",
-        })
-      )
-    );
-
-    uploadedImages = uploadResult.map((res) => ({
-      public_id: res.public_id,
-      url: res.secure_url,
-    }));
 
     const updateProduct = await Product.findByIdAndUpdate(
       productId,
-      { ...otherUpdates, images: uploadedImages },
+      otherUpdates,
       {
         new: true,
       }
     );
 
-    res.status(200).json(updateProduct);
+    return res.status(200).json(updateProduct);
   } catch (error) {
     console.log("Error updating product:", error);
     next(error);
