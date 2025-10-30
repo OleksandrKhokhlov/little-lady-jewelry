@@ -7,7 +7,7 @@ import {
   CormorantSC,
   Kallithea,
 } from "@/styles/fonts/fonts";
-import { Header } from "../components/shared/header";
+import { Header } from "../components/header";
 import { ProductProvider } from "@/lib";
 import "@/styles/embla.css";
 import "@/styles/globals.css";

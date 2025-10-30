@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "../ui";
 import { createPortal } from "react-dom";
 import { useProduktContext } from "@/lib";
 import { CartList } from "./cartList";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { Modal } from "./modal";
+import { Button } from "./button";
 
 interface ModalCartProps {
   isModalCartOpen: boolean;

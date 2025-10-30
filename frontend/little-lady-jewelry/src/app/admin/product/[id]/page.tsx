@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useProduktContext } from "@/lib";
 import { getProduktById } from "@/app/api";
-import { AdminProductEditor, Container } from "@/components/shared";
+import { AdminProductEditor, Container } from "@/components";
 
 const AdminProductPage = () => {
   const params = useParams();

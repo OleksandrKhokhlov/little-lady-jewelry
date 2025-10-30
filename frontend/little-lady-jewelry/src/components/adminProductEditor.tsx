@@ -4,8 +4,8 @@ import { updateProdukt } from "@/app/api";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { ImageUploader } from "./imageUploader";
-import { Button } from "../ui";
 import toast from "react-hot-toast";
+import { Button } from "./button";
 
 interface AdminProductEditorProps {
   product: {

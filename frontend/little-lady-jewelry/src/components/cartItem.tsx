@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "../ui";
+import { Icon } from "./icon";
 
 interface CartItemProps {
   id: string;

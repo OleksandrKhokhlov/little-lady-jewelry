@@ -2,14 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Button, CartCounter, Icon } from "../ui";
 import { CustomCheckbox } from "./customCheckbox";
+import { CartCounter } from "./cartCounter";
+import { Button } from "./button";
+import { Icon } from "./icon";
 
 interface CartItemProps {
   id: string;
   name: string;
   price: number;
-  images: string[];
+  images: { public_id: string; url: string }[];
   weight: number;
   quantity: number;
   count: number;
@@ -44,7 +46,7 @@ export const CartList: React.FC<CartItemProps> = ({
         className="block w-[50px] h-[50px] relative"
       >
         <Image
-          src={images?.[0] ?? "/no-photo.png"}
+          src={images[0].url ?? "/no-photo.png"}
           alt={name || "Зображення відсутне"}
           fill
           sizes="(max-width: 640px) 50px, (max-width: 768px) 50px, 50px"

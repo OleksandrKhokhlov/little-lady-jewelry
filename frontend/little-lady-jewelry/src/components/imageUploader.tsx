@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { use, useEffect, useRef, useState } from "react";
-import { Icon } from "../ui";
+import { Icon } from "./icon";
 
 interface ImageUploaderProps {
   onImageChange: (images: string[]) => void;

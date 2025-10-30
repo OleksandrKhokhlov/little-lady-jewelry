@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import { EmblaOptionsType } from "embla-carousel";
-import { Button, EmblaCarousel } from "../ui";
 import { ProductDescription } from "./productDescription";
 import { useProduktContext } from "@/lib";
 import { useRouter } from "next/navigation";
+import { EmblaCarousel } from "./emblaCarousel";
+import { Button } from "./button";
 
 interface ProduktCardDetailsProps {
   product: {

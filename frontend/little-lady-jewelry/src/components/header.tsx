@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Container } from "./container";
-import { Icon } from "../ui";
-import { Button } from "../ui";
-import { Logo } from "../ui";
+import { Icon } from "./icon";
+import { Button } from "./button";
+import { Logo } from "./logo";
 import { ModalBurgerMenu } from "./modalBurgerMenu";
 import { ModalCart } from "./modalCart";
 

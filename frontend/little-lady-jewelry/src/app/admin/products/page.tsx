@@ -1,7 +1,7 @@
 "use client";
 
-import { Container, ProduktCard } from "@/components/shared";
-import withAdminAuth from "@/components/shared/withAdminAuth";
+import { Container, ProduktCard } from "@/components";
+import withAdminAuth from "@/components/withAdminAuth";
 import { useProduktContext } from "@/lib";
 
 const AdminProducts = () => {

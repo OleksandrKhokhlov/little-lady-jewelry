@@ -1,10 +1,10 @@
 "use client";
 
 import { SetStateAction, useEffect, useState } from "react";
-import { Container } from "../components/shared";
-import { FiltrPopUp } from "../components/shared";
-import { Hero } from "../components/shared";
-import { ProduktCard } from "../components/shared";
+import { Container } from "../components";
+import { FiltrPopUp } from "../components";
+import { Hero } from "../components";
+import { ProduktCard } from "../components";
 import { useProduktContext } from "@/lib";
 
 export default function Home() {

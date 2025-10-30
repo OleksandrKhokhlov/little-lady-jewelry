@@ -1,7 +1,7 @@
 "use client";
 
-import { Container } from "@/components/shared";
-import { CheckoutForm } from "@/components/ui";
+import { Container } from "@/components";
+import { CheckoutForm } from "@/components/checkoutForm";
 import { useSearchParams } from "next/navigation";
 
 export default function CheckoutPage() {
@@ -13,7 +13,7 @@ export default function CheckoutPage() {
 
   return (
     <Container tag="section">
-      <CheckoutForm counts={counts} totalPrice={ totalPrice} />
+      <CheckoutForm counts={counts} totalPrice={totalPrice} />
     </Container>
   );
 }

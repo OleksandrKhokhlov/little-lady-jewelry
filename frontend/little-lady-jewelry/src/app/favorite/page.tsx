@@ -1,7 +1,7 @@
 "use client";
-import { Container } from "../../components/shared/container";
+import { Container } from "../../components/container";
 import { useProduktContext } from "@/lib/productContext";
-import { ProduktCard } from "../../components/shared/produktCard";
+import { ProduktCard } from "../../components/produktCard";
 
 export default function FavoritePage() {
   const { produkts, favoriteProdukts, toggleFavorite } = useProduktContext();

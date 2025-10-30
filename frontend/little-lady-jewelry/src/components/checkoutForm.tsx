@@ -1,8 +1,8 @@
 import React from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import { Button } from "../ui";
+import { Button } from "./button";
 import * as Yup from "yup";
-import { CustomRadioButton, PhoneField, TownField } from "../shared";
+import { CustomRadioButton, PhoneField, TownField } from ".";
 
 interface Values {
   counts: Record<string, number>;

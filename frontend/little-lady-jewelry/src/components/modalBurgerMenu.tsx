@@ -2,13 +2,13 @@ import React from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Modal } from "../ui";
-import { Icon } from "../ui";
+import { Modal } from "./modal";
+import { Icon } from "./icon";
 
 interface BurgerMenuProps {
   isModalBurgerOpen: boolean;
   setModalBurgerOpen: () => void;
-  setModalCartOpen: () => void; // Optional prop for closing the cart modal
+  setModalCartOpen: () => void; 
 }
 
 export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({

@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useProduktContext } from "@/lib";
 import { getProduktById } from "@/app/api";
-import { Container, ProduktCardDetails } from "@/components/shared";
+import { Container, ProduktCardDetails } from "@/components";
 
 interface ProductPageProps {
   id: string;
