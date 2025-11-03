@@ -1,11 +1,13 @@
 "use client";
 
-import { Container, Icon, ProduktCard } from "@/components";
+import { Container, Icon, ModalCreateProduct, ProduktCard } from "@/components";
 import withAdminAuth from "@/components/withAdminAuth";
 import { useProduktContext } from "@/lib";
+import { useState } from "react";
 
 const AdminProducts = () => {
   const { produkts } = useProduktContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <Container className="py-0 mt-2">
       <ul className="flex flex-wrap gap-x-2 gap-y-6 mt-2">
@@ -13,7 +15,7 @@ const AdminProducts = () => {
           <button
             type="button"
             className="w-[40%] text-[var(--accent-color)]"
-            onClick={() => console.log("add card")}
+            onClick={() => setIsModalOpen(true)}
           >
             <Icon iconId="icon-Plus" className="fill-current" />
           </button>
@@ -28,6 +30,10 @@ const AdminProducts = () => {
           />
         ))}
       </ul>
+      <ModalCreateProduct
+        isModalOpen={isModalOpen}
+        setModalOpen={() => setIsModalOpen(!isModalOpen)}
+      />
     </Container>
   );
 };
