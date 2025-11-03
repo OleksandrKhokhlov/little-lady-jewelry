@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { api } from "./api";
 
 interface ProductData {
@@ -34,15 +33,12 @@ export const updateProdukt = async (
       updatedData,
     );
     if (res.status !== 200) {
-      toast.error("Помилка при оновленні продукту");
       console.error("Error updating product:", res.statusText);
       return null;
     }
-    toast.success("Продукт успішно оновлено");
     return res.data;
   } catch (error) {
     console.error("Error updating product:", error);
-    toast.error("Помилка при оновленні продукту");
     return null;
   }
 };

@@ -1,6 +1,6 @@
 "use client";
 import { loginAdmin } from "@/app/api";
-import { Button } from "@/components/ui";
+import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
