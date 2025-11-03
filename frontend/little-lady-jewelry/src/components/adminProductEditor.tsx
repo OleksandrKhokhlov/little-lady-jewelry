@@ -87,10 +87,6 @@ export const AdminProductEditor: React.FC<AdminProductEditorProps> = ({
     images: initialImages,
   };
 
-  const formTitle = isEditMode
-    ? `Редагування продукту: ${product?.name}`
-    : "Створення нового продукту";
-
   const buttonText = isEditMode ? "Зберегти зміни" : "Створити продукт";
 
   const handleSubmit = async (
@@ -139,8 +135,7 @@ export const AdminProductEditor: React.FC<AdminProductEditorProps> = ({
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-white p-2 rounded-lg shadow-md border border-gray-100">
-      <h2 className="text-2xl font-bold text-center">{formTitle}</h2>
+    <div className="max-w-lg mx-auto h-[90vh] bg-white p-2 rounded-lg shadow-md border border-gray-100 overflow-y-auto">
       <Formik<FormValues> initialValues={initialValues} onSubmit={handleSubmit}>
         {({ values, setFieldValue, isSubmitting }) => (
           <Form className="flex flex-col gap-1">
