@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ImageUploader } from "./imageUploader";
 import toast from "react-hot-toast";
 import { Button } from "./button";
+import { useProduktContext } from "@/lib";
 
 interface ProductDetails {
   _id: string;
@@ -70,6 +71,7 @@ export const AdminProductEditor: React.FC<AdminProductEditorProps> = ({
   const isEditMode = !!product?._id;
   const initialImagesUrls = product?.images?.map((img) => img.url) || [];
   const [initialImages] = useState<string[]>(initialImagesUrls);
+  const { setProdukts } = useProduktContext();
 
   const initialValues: FormValues = {
     name: product?.name || DEFAULT_PRODUCT_VALUES.name,
@@ -112,9 +114,15 @@ export const AdminProductEditor: React.FC<AdminProductEditorProps> = ({
           delete payloadToUpdate.images;
         }
         await updateProdukt(product._id, payloadToUpdate);
+        setProdukts((prev) =>
+          prev.map((p) => (p._id === product._id ? { ...p, ...payload } : p)),
+        );
+
         toast.success("Продукт успішно оновлено!");
       } else {
         await addProdukt(payload);
+        setProdukts((prev) => [...prev, payload]);
+
         toast.success("Продукт успішно створено!");
         resetForm({ values: DEFAULT_PRODUCT_VALUES });
       }
@@ -133,10 +141,7 @@ export const AdminProductEditor: React.FC<AdminProductEditorProps> = ({
   return (
     <div className="max-w-lg mx-auto bg-white p-2 rounded-lg shadow-md border border-gray-100">
       <h2 className="text-2xl font-bold text-center">{formTitle}</h2>
-      <Formik<FormValues>
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-      >
+      <Formik<FormValues> initialValues={initialValues} onSubmit={handleSubmit}>
         {({ values, setFieldValue, isSubmitting }) => (
           <Form className="flex flex-col gap-1">
             <label className="flex flex-col text-sm text-center mx-auto">
