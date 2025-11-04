@@ -8,6 +8,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   ariaLabel?: string;
+  children?: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -18,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   disabled = false,
   ariaLabel,
+  children,
 }) => {
   return (
     <button
@@ -29,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {icon && icon}
       {text && text}
+      {children && children}
     </button>
   );
 };
