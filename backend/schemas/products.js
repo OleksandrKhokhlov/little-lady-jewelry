@@ -26,4 +26,22 @@ const updatePriceSchema = Joi.object({
   price: Joi.number().required(),
 });
 
-module.exports = { productSchema, updateQuantitySchema, updatePriceSchema };
+const orderedSchema = Joi.object({
+  comment: Joi.string().allow(""),
+  counts: Joi.object(),
+  delivery: Joi.string().valid("Нова пошта", "Укрпошта"),
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  telephone: Joi.string().required(),
+  payment: Joi.string().valid("Онлайн", "Післяплата"),
+  totalPrice: Joi.number().required(),
+  town: Joi.string().required(),
+  warehouse: Joi.string(),
+});
+
+module.exports = {
+  productSchema,
+  updateQuantitySchema,
+  updatePriceSchema,
+  orderedSchema,
+};
