@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const productRouter = require("./routes/products");
 const adminRouter = require("./routes/auth");
+const orderToTelegramRouter = require("./routes/orderToTelegram");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/api/product", productRouter);
 app.use("/api/auth", adminRouter);
+app.use("/api/orders", orderToTelegramRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
