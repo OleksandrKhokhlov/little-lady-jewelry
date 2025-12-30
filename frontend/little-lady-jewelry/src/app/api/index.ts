@@ -8,3 +8,4 @@ export { updateProdukt } from "./updateProdukt";
 export { deleteProdukt } from "./deleteProdukt";
 export { updatePrice } from "./updatePrice";
 export { updateQuantity } from "./updateQuantity";
+export { submitOrder } from "./submitOrder";

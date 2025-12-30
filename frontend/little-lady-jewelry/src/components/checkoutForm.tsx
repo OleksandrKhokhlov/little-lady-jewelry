@@ -3,6 +3,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "./button";
 import * as Yup from "yup";
 import { CustomRadioButton, PhoneField, TownField } from ".";
+import { submitOrder } from "@/app/api";
 
 interface Values {
   counts: Record<string, number>;
@@ -65,14 +66,19 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
       <Formik
         initialValues={initialValues}
         validationSchema={CheckoutFormSchema}
-        onSubmit={(
+        onSubmit={async (
           values: Values,
           { setSubmitting }: FormikHelpers<Values>,
         ) => {
-          setTimeout(() => {
+          try {
+            await submitOrder(values);
+            values = initialValues;
+            window.location.href = "/";
+          } catch (error) {
+            console.error("Error submitting order:", error);
+          } finally {
             setSubmitting(false);
-            console.log(values);
-          }, 500);
+          }
         }}
       >
         {({ isSubmitting, errors, touched }) => (
@@ -172,7 +178,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               text={
                 Object.keys(errors).length > 0
                   ? `Заповніть обов'язкові поля`
-                  : "Перейти до оплати"
+                  : "Замовити"
               }
               className="block mt-2 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
             />
