@@ -33,7 +33,7 @@ const orderedSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   telephone: Joi.string().required(),
-  payment: Joi.string().valid("Онлайн", "Післяплата"),
+  payment: Joi.string().valid("Онлайн", "При отриманні"),
   totalPrice: Joi.number().required(),
   town: Joi.string().required(),
   warehouse: Joi.string(),
