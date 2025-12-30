@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const { handlerMongooseErr } = require("../helpers");
 
 const productSchema = new Schema(
   {
@@ -41,9 +40,10 @@ const productSchema = new Schema(
   },
   { versionKey: false }
 );
-
-productSchema.post("save", handlerMongooseErr);
+exports.productSchema = productSchema;
 
 const Product = model("product", productSchema);
+
+Product.productSchema = productSchema;
 
 module.exports = Product;
