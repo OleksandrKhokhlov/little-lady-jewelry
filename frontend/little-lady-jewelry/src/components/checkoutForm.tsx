@@ -4,6 +4,7 @@ import { Button } from "./button";
 import * as Yup from "yup";
 import { CustomRadioButton, PhoneField, TownField } from ".";
 import { submitOrder } from "@/app/api";
+import { useProduktContext } from "@/lib";
 
 interface Values {
   counts: Record<string, number>;
@@ -45,6 +46,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
   counts,
   totalPrice,
 }) => {
+  const { inCart, deleteFromCart } = useProduktContext();
   const initialValues: Values = {
     counts: counts || {},
     totalPrice: totalPrice || 0,
@@ -74,6 +76,13 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
             await submitOrder(values);
             values = initialValues;
             window.location.href = "/";
+            if (counts.length === inCart.length) {
+              localStorage.removeItem("inCart");
+            }
+            inCart.forEach((id) => {
+              if (Object.entries(counts).find(([key]) => key === id))
+                deleteFromCart(id);
+            });
           } catch (error) {
             console.error("Error submitting order:", error);
           } finally {
