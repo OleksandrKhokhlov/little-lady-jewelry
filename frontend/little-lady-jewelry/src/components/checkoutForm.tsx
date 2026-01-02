@@ -3,7 +3,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "./button";
 import * as Yup from "yup";
 import { CustomRadioButton, PhoneField, TownField } from ".";
-import { submitOrder } from "@/app/api";
+import { submitOrder, updateQuantity } from "@/app/api";
 import { useProduktContext } from "@/lib";
 
 interface Values {
@@ -74,10 +74,17 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
         ) => {
           try {
             await submitOrder(values);
+            await Promise.all(
+              Object.entries(counts).map(async ([id, quantity]) => {
+                await updateQuantity(id, quantity);
+              }),
+            );
+
             values = initialValues;
             window.location.href = "/";
             if (counts.length === inCart.length) {
               localStorage.removeItem("inCart");
+              return;
             }
             inCart.forEach((id) => {
               if (Object.entries(counts).find(([key]) => key === id))
