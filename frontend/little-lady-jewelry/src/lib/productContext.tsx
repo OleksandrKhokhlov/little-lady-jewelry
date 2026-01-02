@@ -74,12 +74,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
     setInCart((prev) =>
       isInCart ? prev.filter((cartId) => cartId !== id) : prev,
     );
-
-    setTimeout(() => {
-      toast.success(isInCart ? "Видалено з кошика" : "Не знайдено в кошику", {
-        duration: 2000,
-      });
-    }, 0);
   };
 
   useEffect(() => {
