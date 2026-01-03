@@ -1,4 +1,4 @@
-const { totalOrders } = require("../helpers");
+const { totalOrders, updateStockAfterOrder } = require("../helpers");
 
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -13,6 +13,8 @@ const sendOrderToTelegram = async (req, res, next) => {
     }
 
     const orderItems = Object.entries(orderData.counts);
+    await updateStockAfterOrder(orderItems);
+
     const orderDetails = await totalOrders(orderItems);
 
     const formatOrderDetails = () => {
