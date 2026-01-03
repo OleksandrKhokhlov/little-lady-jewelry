@@ -181,9 +181,22 @@ const updateById = async (req, res, next) => {
 const updateQuantity = async (req, res, next) => {
   try {
     const { productId } = req.params;
-    const product = await Product.findByIdAndUpdate(productId, req.body, {
-      new: true,
-    });
+    const { quantity } = req.body;
+
+    if (!quantity || quantity <= 0) {
+      return res.status(400).json({ message: "Invalid quantity value" });
+    }
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (product.quantity < quantity) {
+      return res.status(400).json({ message: "Not enough product in stock" });
+    }
+    product.quantity -= quantity;
+    await product.save();
 
     res.status(200).json(product);
   } catch (error) {
