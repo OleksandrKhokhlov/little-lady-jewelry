@@ -3,7 +3,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "./button";
 import * as Yup from "yup";
 import { CustomRadioButton, PhoneField, TownField } from ".";
-import { submitOrder, updateQuantity } from "@/app/api";
+import { submitOrder } from "@/app/api";
 import { useProduktContext } from "@/lib";
 
 interface Values {
@@ -46,7 +46,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
   counts,
   totalPrice,
 }) => {
-  const { inCart, deleteFromCart } = useProduktContext();
+  const { setProdukts, inCart, deleteFromCart } = useProduktContext();
   const initialValues: Values = {
     counts: counts || {},
     totalPrice: totalPrice || 0,
@@ -74,11 +74,15 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
         ) => {
           try {
             await submitOrder(values);
-            await Promise.all(
-              Object.entries(counts).map(async ([id, quantity]) => {
-                await updateQuantity(id, quantity);
-              }),
-            );
+            Object.entries(counts).map(([id, quantity]) => {
+              setProdukts((prevProdukts) =>
+                prevProdukts.map((produkt) =>
+                  produkt._id === id
+                    ? { ...produkt, quantity: produkt.quantity - quantity }
+                    : produkt,
+                ),
+              );
+            });
 
             values = initialValues;
             window.location.href = "/";
