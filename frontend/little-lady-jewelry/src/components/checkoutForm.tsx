@@ -163,6 +163,8 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               as="textarea"
               placeholder="Коментарій"
               className="w-full mt-1"
+              autoComplete="off"
+              spellCheck={false}
               rows={3}
             />
             <div>
@@ -204,6 +206,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               }
               className="block mt-2 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
             />
+            {isSubmitting && <span className="loader"></span>}
           </Form>
         )}
       </Formik>
