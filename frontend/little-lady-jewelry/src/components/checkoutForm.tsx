@@ -85,7 +85,9 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
             });
 
             values = initialValues;
-            window.location.href = "/";
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 3000);
             if (counts.length === inCart.length) {
               localStorage.removeItem("inCart");
               return;

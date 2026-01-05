@@ -17,7 +17,7 @@ interface OrderData {
 export const submitOrder = async (orderData: OrderData) => {
   try {
     const res = await api.post("/orders", orderData);
-    if (res.status !== 201) {
+    if (res.status !== 201 && res.status !== 200) {
       console.error("Error submitting order:", res.statusText);
       toast.error("Помилка при оформленні замовлення. Спробуйте ще раз.");
       return null;
