@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { totalOrders, updateStockAfterOrder } = require("../helpers");
 
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -59,39 +60,17 @@ const sendOrderToTelegram = async (req, res, next) => {
         Дата замовлення: ${new Date().toLocaleString("uk-UA")}
         `;
 
-    const response = await fetch(TELEGRAM_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: message,
-      }),
+    await axios.post(TELEGRAM_API_URL, {
+      chat_id: CHAT_ID,
+      text: message,
     });
-
-    if (!response.ok) {
-      let bodyText;
-      try {
-        bodyText = await response.text();
-      } catch (err) {
-        bodyText = "<unable to read response body>";
-      }
-      console.error("Telegram API error", {
-        status: response.status,
-        body: bodyText,
-      });
-      return res.status(500).json({
-        message: "Failed to send order to Telegram",
-        details: bodyText,
-      });
-    }
-
     return res
       .status(200)
       .json({ message: "Order sent to Telegram successfully" });
   } catch (error) {
-    console.error("Помилка при надсиланні замовлення:", error);
+    if (error.response) {
+      console.error("Помилка відповіді від Telegram API:", error.response.data);
+    }
     return res
       .status(500)
       .json({ message: "Failed to send order to Telegram" });
