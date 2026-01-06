@@ -5,7 +5,6 @@ const cors = require("cors");
 const productRouter = require("./routes/products");
 const adminRouter = require("./routes/auth");
 const orderToTelegramRouter = require("./routes/orderToTelegram");
-const e = require("express");
 
 const app = express();
 
