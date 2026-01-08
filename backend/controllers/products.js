@@ -64,8 +64,10 @@ const add = async (req, res, next) => {
       images.map((image) =>
         cloudinary.uploader.upload(image, {
           folder: "little-lady-jewelry",
-          width: 300,
-          crop: "scale",
+          transformation: [
+            { width: 600, crop: "limit" },
+            { quality: "auto", fetch_format: "auto" },
+          ],
         })
       )
     );
@@ -89,6 +91,7 @@ const add = async (req, res, next) => {
     });
     res.status(201).json(newProduct);
   } catch (error) {
+    console.error("Error adding product in Cloudinary:", error);
     next(error);
   }
 };
