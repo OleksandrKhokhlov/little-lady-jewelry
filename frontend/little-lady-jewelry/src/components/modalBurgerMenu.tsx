@@ -4,11 +4,12 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Modal } from "./modal";
 import { Icon } from "./icon";
+import { NavMenu } from "./navMenu";
 
 interface BurgerMenuProps {
   isModalBurgerOpen: boolean;
   setModalBurgerOpen: () => void;
-  setModalCartOpen: () => void; 
+  setModalCartOpen: () => void;
 }
 
 export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
@@ -26,56 +27,10 @@ export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
       side="left"
       className="md:hidden p-3"
     >
-      <nav>
-        <ul className="flex flex-col gap-4 mt-2 ">
-          <li>
-            <Link
-              href={"/"}
-              onClick={setModalBurgerOpen}
-              className={`px-1 border-b-2  w-fit  ${pathname === "/" ? "text-[var(--accent-color)] border-[var(--accent-color)]" : "border-[var(--text-color)]"}`}
-            >
-              Головна
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/favorite"}
-              onClick={setModalBurgerOpen}
-              className={`px-1 border-b-2  w-fit ${pathname === "/favorite" ? "text-[var(--accent-color)] border-[var(--accent-color)]" : "border-[var(--text-color)]"}`}
-            >
-              Улюблене
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/"}
-              onClick={(e) => {
-                e.preventDefault();
-                setModalCartOpen();
-                setModalBurgerOpen();
-              }}
-              className={
-                "px-1 flex gap-4 border-b-2 border-[var(--text-color)] w-fit"
-              }
-            >
-              Кошик
-              <Icon
-                iconId="icon-Cart"
-                className="w-[13px] h-[15px] fill-[var(--accent-color)]"
-              />
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={"/deliveryAndPayment"}
-              onClick={setModalBurgerOpen}
-              className={`px-1 border-b-2  w-fit ${pathname === "/deliveryAndPayment" ? "text-[var(--accent-color)] border-[var(--accent-color)]" : "border-[var(--text-color)]"}`}
-            >
-              Доставка та оплата
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <NavMenu
+        setModalBurgerOpen={setModalBurgerOpen}
+        setModalCartOpen={setModalCartOpen}
+      />
       <ul className="flex gap-10 mt-8">
         <li>
           <a
