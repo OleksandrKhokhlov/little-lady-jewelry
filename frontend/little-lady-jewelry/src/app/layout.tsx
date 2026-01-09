@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-cormorant">
         <ProductProvider>
-          <Header />
+          <Header className="mb-3 md:mb-1"/>
           <main>{children}</main>
           <Toaster containerStyle={{ marginTop: 30 }} />
         </ProductProvider>

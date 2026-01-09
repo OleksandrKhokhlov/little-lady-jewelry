@@ -9,6 +9,7 @@ import { Logo } from "./logo";
 import { ModalBurgerMenu } from "./modalBurgerMenu";
 import { ModalCart } from "./modalCart";
 import { useProduktContext } from "@/lib";
+import { NavMenu } from "./navMenu";
 
 interface Props {
   className?: string;
@@ -31,7 +32,7 @@ export const Header: React.FC<Props> = ({ className }) => {
           icon={
             <Icon
               iconId="icon-Burger"
-              className="w-5 h-[15px] fill-[var(--accent-color)]"
+              className="w-4 h-[16px] fill-[var(--accent-color)]"
             />
           }
           onClick={() => {
@@ -40,25 +41,26 @@ export const Header: React.FC<Props> = ({ className }) => {
           }}
           className="md:hidden  w-[72px]"
         />
+        <NavMenu className="hidden"/>
         <Logo />
         <div className="flex items-center justify-between gap-11">
-          <Link href={"./favorite"} className="relative">
+          <Link href={"./favorite"} className="relative h-[100%] p-1">
             <Icon
               iconId="icon-Heart"
-              className="size-[15px] fill-[var(--accent-color)] stroke-2"
+              className="size-[16px] fill-[var(--accent-color)] stroke-2"
             />
             {favoriteProdukts.length > 0 && isClient && (
-              <span className="absolute top-0 left-[50%] transform -translate-x-1/2 text-[10px] block">
+              <span className="absolute top-[45%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-[10px] block">
                 {favoriteProdukts.length}
               </span>
             )}
           </Link>
           <Button
-            className="relative"
+            className="relative h-[100%] p-1"
             icon={
               <Icon
                 iconId="icon-Cart"
-                className=" w-[13px] h-[15px] fill-[var(--accent-color)]"
+                className=" w-[14px] h-[16px] fill-[var(--accent-color)]"
               />
             }
             onClick={() => {
