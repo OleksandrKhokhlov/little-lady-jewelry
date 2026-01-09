@@ -1,4 +1,6 @@
 export { Container } from "./container";
+export { NavMenu } from "./navMenu";
+export { NavLink } from "./navLink";
 export { FiltrPopUp } from "./filtrPopUp";
 export { Header } from "./header";
 export { Hero } from "./hero";
