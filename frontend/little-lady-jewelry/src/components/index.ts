@@ -1,6 +1,8 @@
 export { Container } from "./container";
 export { NavMenu } from "./navMenu";
 export { NavLink } from "./navLink";
+export { ContactsMenu } from "./contactsMenu";
+export { ContactLink } from "./contactLink";
 export { FiltrPopUp } from "./filtrPopUp";
 export { Header } from "./header";
 export { Hero } from "./hero";
