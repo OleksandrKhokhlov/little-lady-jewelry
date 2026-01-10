@@ -1,7 +1,6 @@
 "use client";
 
 import { Icon } from "./icon";
-import { cn } from "@/lib";
 import { NavLink } from "./navLink";
 
 interface NavMenuProps {
@@ -16,8 +15,8 @@ export const NavMenu: React.FC<NavMenuProps> = ({
   className,
 }) => {
   return (
-    <nav className={cn("md:block md:max-w-4xl", className)}>
-      <ul className="flex flex-col gap-4 mt-2 md:flex-row md:gap-3 md:mt-0  md:items-center  md:justify-center  md:h-full">
+    <nav className={className}>
+      <ul className="flex flex-col gap-4 mt-2 md:flex-row md:mt-0  md:items-center  md:justify-between md:w-full  md:h-full">
         <li>
           <NavLink href={"/"} onClick={setModalBurgerOpen}>
             Головна

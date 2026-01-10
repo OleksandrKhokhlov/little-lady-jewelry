@@ -10,6 +10,7 @@ import { ModalBurgerMenu } from "./modalBurgerMenu";
 import { ModalCart } from "./modalCart";
 import { useProduktContext } from "@/lib";
 import { NavMenu } from "./navMenu";
+import { ContactsMenu } from "./contactsMenu";
 
 interface Props {
   className?: string;
@@ -41,14 +42,15 @@ export const Header: React.FC<Props> = ({ className }) => {
           }}
           className="md:hidden  w-[72px]"
         />
-        <NavMenu className="hidden"/>
+        <NavMenu className="hidden md:block" />
         <Logo />
-        <div className="flex items-center justify-between gap-11">
-          <Link href={"./favorite"} className="relative h-[100%] p-1">
-            <Icon
-              iconId="icon-Heart"
-              className="size-[16px] fill-[var(--accent-color)] stroke-2"
-            />
+        <div className="flex items-center justify-between gap-10">
+          <ContactsMenu className="hidden md:flex " />
+          <Link
+            href={"./favorite"}
+            className="relative h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300"
+          >
+            <Icon iconId="icon-Heart" className="size-[16px] stroke-2" />
             {favoriteProdukts.length > 0 && isClient && (
               <span className="absolute top-[45%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-[10px] block">
                 {favoriteProdukts.length}
@@ -56,13 +58,8 @@ export const Header: React.FC<Props> = ({ className }) => {
             )}
           </Link>
           <Button
-            className="relative h-[100%] p-1"
-            icon={
-              <Icon
-                iconId="icon-Cart"
-                className=" w-[14px] h-[16px] fill-[var(--accent-color)]"
-              />
-            }
+            className="relative h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300"
+            icon={<Icon iconId="icon-Cart" className=" w-[14px] h-[16px]" />}
             onClick={() => {
               setModalCartOpen(true);
               setModalBurgerOpen(false);
