@@ -30,8 +30,8 @@ export default function Home() {
 
   return (
     <>
-      <Hero width={1280} height={648} />
-      <Container className="py-0 mt-2">
+      <Container className="py-0 ">
+      <Hero />
         <FiltrPopUp
           selectedValue={selectedValue}
           handleChange={(e: { target: { value: SetStateAction<string> } }) =>

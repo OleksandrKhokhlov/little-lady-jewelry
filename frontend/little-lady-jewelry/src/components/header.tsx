@@ -28,7 +28,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
   return (
     <header className={className}>
-      <Container className="flex items-center justify-between">
+      <Container className="flex items-center justify-between pt-2">
         <Button
           icon={
             <Icon
@@ -50,7 +50,10 @@ export const Header: React.FC<Props> = ({ className }) => {
             href={"./favorite"}
             className="relative h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300"
           >
-            <Icon iconId="icon-Heart" className="size-[16px] stroke-2" />
+            <Icon
+              iconId="icon-Heart"
+              className="size-[16px] stroke-2"
+            />
             {favoriteProdukts.length > 0 && isClient && (
               <span className="absolute top-[45%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-[10px] block">
                 {favoriteProdukts.length}
@@ -59,7 +62,12 @@ export const Header: React.FC<Props> = ({ className }) => {
           </Link>
           <Button
             className="relative h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300"
-            icon={<Icon iconId="icon-Cart" className=" w-[14px] h-[16px]" />}
+            icon={
+              <Icon
+                iconId="icon-Cart"
+                className=" w-[14px] h-[16px]"
+              />
+            }
             onClick={() => {
               setModalCartOpen(true);
               setModalBurgerOpen(false);

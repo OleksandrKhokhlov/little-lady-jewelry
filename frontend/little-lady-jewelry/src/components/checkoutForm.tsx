@@ -61,7 +61,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
   };
 
   return (
-    <>
+    <div className="m-auto md:max-w-lg">
       <h2 className="text-[16px] justify-between border-b-2 border-[var(--accent-color)]">
         Оформлення замовлення
       </h2>
@@ -108,7 +108,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
             className="m-auto w-[calc(100%-10px)] [&>div>div>input]:form-input [&>textarea]:form-input [&>div>div]:w-[calc(50%-4px)]"
             autoComplete="off"
           >
-            <div className="mt-1 flex flex-wrap justify-between gap-y-1">
+            <div className="mt-2 flex flex-wrap justify-between">
               <div className="flex flex-col relative pb-3">
                 <Field
                   id="firstName"
@@ -162,12 +162,12 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               name="comment"
               as="textarea"
               placeholder="Коментарій"
-              className="w-full mt-1"
+              className="w-full"
               autoComplete="off"
               spellCheck={false}
               rows={3}
             />
-            <div>
+            <div className="mt-2">
               <h3 className=" text-[16px]">Оплата</h3>
               <div className="mt-1 flex flex-col">
                 <Field name="payment">
@@ -204,12 +204,12 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                   ? `Заповніть обов'язкові поля`
                   : "Замовити"
               }
-              className="block mt-2 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
+              className="block mt-3 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
             />
             {isSubmitting && <span className="loader"></span>}
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };

@@ -51,8 +51,8 @@ export const Modal: React.FC<ModalProps> = ({
         >
           {" "}
           {header && <h2 className="text-[20px]">{header}</h2>}
-          <button onClick={onClose} className="hover:text-black">
-            <Icon iconId="icon-Cross" className="size-[15px]" />
+          <button onClick={onClose} className="fill-[var(--text-color)] hover:fill-[var(--hover-color)] transition-all duration-300">
+            <Icon iconId="icon-Cross" className="size-[15px] " />
           </button>
         </div>
         {children}

@@ -82,7 +82,7 @@ export const TownField = () => {
   };
 
   return (
-    <div className="mt-2 flex flex-col relative pb-3">
+    <div className="mt-3 flex flex-col relative pb-3">
       <Field
         id="town"
         name="town"
@@ -126,7 +126,7 @@ export const TownField = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleWarehouseSearch(e.target.value)
         }
-        className={`mt-4 form-input ${isCitySelected ? "" : "focus:shadow-none hover:shadow-none cursor-not-allowed"}`}
+        className={`mt-3 form-input ${isCitySelected ? "" : "focus:shadow-none hover:shadow-none cursor-not-allowed"}`}
         disabled={!isCitySelected}
       />
 

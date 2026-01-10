@@ -11,5 +11,5 @@ interface Props {
 export const Container: React.FC<React.PropsWithChildren<Props>> = ({ className, children, tag = 'div' }) => {
     const Tag = tag;
 
-    return <Tag className={cn('mx-auto max-w-[400px] px-[8px] pt-[6px] md:max-w-full md:px-[12px] md:pt-2', className)}>{ children}</Tag>
+    return <Tag className={cn('mx-auto max-w-[400px] px-[8px]  md:max-w-6xl md:px-[12px]', className)}>{ children}</Tag>
 }

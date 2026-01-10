@@ -1,20 +1,15 @@
 import Image from "next/image";
 import React from "react";
 
-interface HeroProps {
-  width: number;
-  height: number;
-}
-
-export const Hero: React.FC<HeroProps> = ({ width, height }) => {
+export const Hero = () => {
   return (
     <Image
       src={"/hero.jpg"}
       alt="Подарунок під ключ"
-      width={width}
-      height={height}
+      width={1280}
+      height={648}
       priority
-      className="w-full h-auto object-cover"
+      className="w-full mx-auto h-auto object-cover"
     />
   );
 };
