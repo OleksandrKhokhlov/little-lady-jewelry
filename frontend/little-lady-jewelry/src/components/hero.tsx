@@ -9,7 +9,7 @@ export const Hero = () => {
       width={1280}
       height={648}
       priority
-      className="w-full mx-auto h-auto object-cover"
+      className="w-full mx-auto object-cover"
     />
   );
 };

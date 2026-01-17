@@ -16,7 +16,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
 }) => {
   return (
     <nav className={className}>
-      <ul className="flex flex-col gap-4 mt-2 md:flex-row md:mt-0  md:items-center  md:justify-between md:w-full  md:h-full">
+      <ul className="flex flex-col gap-2 mt-2 md:flex-row md:mt-0 md:items-center md:w-full md:h-full">
         <li>
           <NavLink href={"/"} onClick={setModalBurgerOpen}>
             Головна

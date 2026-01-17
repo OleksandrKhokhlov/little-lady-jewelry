@@ -14,7 +14,7 @@ export const ContactLink: React.FC<{
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "block size-5 md:size-4  fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300",
+        "block size-5 md:size-7 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300",
         className,
       )}
     >
