@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <>
-      <Hero />
+      <Hero  />
       <Container className="py-0 ">
         <FiltrPopUp
           selectedValue={selectedValue}

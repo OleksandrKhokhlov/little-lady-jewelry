@@ -44,33 +44,37 @@ export const Header: React.FC<Props> = ({ className }) => {
         />
         <NavMenu className="text-[16px] hidden md:block md:min-w-[330px]" />
         <Logo />
-        <div className="flex items-center justify-end gap-6">
+        <div className="flex items-center justify-between md:min-w-[330px]">
           <ContactsMenu className="hidden md:flex" />
-          <Link
-            href={"./favorite"}
-            className="relative w-8 md:w-5 h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)] hover:scale-125 transition-all duration-300"
-          >
-            <Icon iconId="icon-Heart" className="size-7 md:size-5 stroke-2" />
-            {favoriteProdukts.length > 0 && isClient && (
-              <span className="absolute top-[45%] left-[55%] md:left-[70%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
-                {favoriteProdukts.length}
-              </span>
-            )}
-          </Link>
-          <Button
-            className="relative w-8 md:w-5 h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300"
-            icon={<Icon iconId="icon-Cart" className=" w-6 h-7 md:w-4 md:h-5" />}
-            onClick={() => {
-              setModalCartOpen(true);
-              setModalBurgerOpen(false);
-            }}
-          >
-            {isClient && inCart.length > 0 && (
-              <span className="absolute top-[55%] left-[50%] md:left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
-                {inCart.length}
-              </span>
-            )}
-          </Button>
+          <div className="flex items-center justify-end gap-8">
+            <Link
+              href={"./favorite"}
+              className="relative w-8 md:w-5 h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)] hover:scale-125 transition-all duration-300"
+            >
+              <Icon iconId="icon-Heart" className="size-7 md:size-5 stroke-2" />
+              {favoriteProdukts.length > 0 && isClient && (
+                <span className="absolute top-[45%] left-[55%] md:left-[70%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
+                  {favoriteProdukts.length}
+                </span>
+              )}
+            </Link>
+            <Button
+              className="relative w-8 md:w-5 h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)]  hover:scale-125 transition-all duration-300"
+              icon={
+                <Icon iconId="icon-Cart" className=" w-6 h-7 md:w-4 md:h-5" />
+              }
+              onClick={() => {
+                setModalCartOpen(true);
+                setModalBurgerOpen(false);
+              }}
+            >
+              {isClient && inCart.length > 0 && (
+                <span className="absolute top-[55%] left-[50%] md:left-[60%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
+                  {inCart.length}
+                </span>
+              )}
+            </Button>
+          </div>
         </div>
         <ModalBurgerMenu
           isModalBurgerOpen={isModalBurgerOpen}
