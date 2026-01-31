@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "./button";
 import { Icon } from "./icon";
-import { useProduktContext } from "@/lib";
+import { cn, useProduktContext } from "@/lib";
 import { usePathname } from "next/navigation";
 import { deleteProdukt, updatePrice, updateQuantity } from "@/app/api";
 import Swal from "sweetalert2";
@@ -106,12 +106,12 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
   };
 
   return (
-    <li key={id} className={className}>
+    <li key={id} className={cn('md:min-w-[120px]',className)}>
       <Link
         href={`${isAdminPage ? `/admin/product/${id}` : `/product/${id}`}`}
         className="block"
       >
-        <div className="w-full h-[120px] relative">
+        <div className="w-full h-[120px] md:h-[150px] relative">
           <Image
             src={imageError || !images[0].url ? "/no-photo.png" : images[0].url}
             alt={name || "Зображення відсутне"}
@@ -160,7 +160,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
             </button>
           )}
         </div>
-        <h2 className="mt-1">{name}</h2>
+        <h2 className="mt-1 md:text-lg/5 ">{name}</h2>
         <p className="text-[12px] mt-1 capitalize-first">{type}</p>
       </Link>
 
@@ -213,8 +213,8 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
           </div>
         </div>
       ) : (
-        <>
-          <span className="font-cabinsketch text-[var(--accent-color)] mt-1 block">{`${price} \u20B4`}</span>
+        <div>
+          <span className="font-cabinsketch text-[var(--accent-color)] md:text-lg mt-1 block">{`${price} \u20B4`}</span>
           <Button
             onClick={(e) => {
               e.preventDefault();
@@ -228,10 +228,10 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
             disabled={!quantity}
           />
-        </>
+        </div>
       )}
     </li>
   );

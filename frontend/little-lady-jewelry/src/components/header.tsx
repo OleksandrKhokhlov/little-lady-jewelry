@@ -40,7 +40,7 @@ export const Header: React.FC<Props> = ({ className }) => {
             setModalBurgerOpen(true);
             setModalCartOpen(false);
           }}
-          className="md:hidden w-8 min-w-[88px] h-full p-1"
+          className="md:hidden w-8 min-w-[96px] h-full p-1"
         />
         <NavMenu className="text-[16px] hidden md:block md:min-w-[330px]" />
         <Logo />

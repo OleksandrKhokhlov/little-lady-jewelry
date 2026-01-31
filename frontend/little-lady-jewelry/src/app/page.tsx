@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <>
-      <Hero  />
+      <Hero />
       <Container className="py-0 ">
         <FiltrPopUp
           selectedValue={selectedValue}
@@ -46,7 +46,7 @@ export default function Home() {
             {selectedValue}.
           </p>
         ) : (
-          <ul className="flex flex-wrap gap-x-2 gap-y-6 mt-2">
+          <ul className="grid grid-cols-3 min-[570px]:grid-cols-5 min-[840px]:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mt-2 md:mt-4">
             {filtredProdukts.map((produkt) => (
               <ProduktCard
                 key={produkt._id}
@@ -54,7 +54,7 @@ export default function Home() {
                 favoriteProdukts={favoriteProdukts}
                 onToggleFavorite={() => toggleFavorite(produkt._id)}
                 className={
-                  "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
+                  "flex flex-col justify-between font-bold max-w-[150px]"
                 }
               />
             ))}
