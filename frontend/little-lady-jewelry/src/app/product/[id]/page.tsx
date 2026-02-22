@@ -45,7 +45,7 @@ const ProductPage: FC<ProductPageProps> = () => {
   }
 
   return (
-    <Container tag="section">
+    <Container tag="section" className="md:mt-4 md:flex md:gap-6">
       <ProduktCardDetails product={product} />
     </Container>
   );

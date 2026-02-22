@@ -28,7 +28,7 @@ export const Header: React.FC<Props> = ({ className }) => {
 
   return (
     <header className={className}>
-      <Container className="flex justify-between items-center pt-2">
+      <Container className="flex justify-between items-center py-2">
         <Button
           icon={
             <Icon

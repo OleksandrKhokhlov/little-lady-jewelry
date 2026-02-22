@@ -54,7 +54,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
         <div className="embla__container ">
           {slides.map(({ url }, index) => (
             <div className="embla__slide" key={index}>
-              <div className="embla__slide__image-container w-[80%] mx-auto">
+              <div className="embla__slide__image-container rounded-[20px] overflow-hidden mx-auto">
                 <Image
                   src={errorSlides[index] || !url ? "/no-photo.png" : url}
                   alt={name || "Зображення відсутне"}
@@ -62,7 +62,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={() => handleImageError(index)}
                   priority={index === 0}
-                  className="object-cover rounded-[20px]"
+                  className="object-cover "
                 />
               </div>
             </div>

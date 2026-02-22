@@ -69,7 +69,7 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
 
   return (
     <>
-      <h1 className="text-[20px] mb-1 text-center">{name}</h1>
+      <h2 className="text-[20px] my-1 text-center md:hidden">{name}</h2>
       {images && images.length > 0 && (
         <EmblaCarousel
           name={name}
@@ -78,46 +78,49 @@ export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
           options={OPTIONS}
         />
       )}
-      <ProductDescription
-        price={price}
-        type={type}
-        material={material}
-        insert={insert}
-        weight={weight}
-        dimensions={dimensions}
-      />
-      <div className="flex flex-wrap gap-x-4 gap-y-2 mt-[5px] justify-center">
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            addToCart(id);
-          }}
-          text={
-            !quantity
-              ? "Немає в наявності"
-              : isInCart
-                ? "Вже у кошику"
-                : "Додати у кошик"
-          }
-          className={`w-[150px] h-[30px] bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
-          disabled={!quantity}
+      <div className="relative md:flex md:flex-col md:justify-between md:pl-2 md:before:content-[''] md:before:absolute md:before:left-0 md:before:top-0 md:before:w-[3px] md:before:h-full md:before:bg-[var(--accent-color)] md:before:opacity-80">
+        <ProductDescription
+          name={name}
+          price={price}
+          type={type}
+          material={material}
+          insert={insert}
+          weight={weight}
+          dimensions={dimensions}
         />
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleFavorite(id);
-          }}
-          ariaLabel="Додати/видалити в/з обране"
-          text={isFavorite ? "Видалити з обраного" : "Додати в обране"}
-          className="bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[150px] h-[30px] "
-        />
-        <Button
-          onClick={handleCheckout}
-          text="Оформити замовлення"
-          className="bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[150px] h-[30px] "
-        />
+        <div className="flex flex-wrap gap-x-4 md:gap-x-6 gap-y-2 md:gap-y-4 mt-[5px] md:mt-0 justify-center">
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToCart(id);
+            }}
+            text={
+              !quantity
+                ? "Немає в наявності"
+                : isInCart
+                  ? "Вже у кошику"
+                  : "Додати у кошик"
+            }
+            className={`w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2  ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            disabled={!quantity}
+          />
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleFavorite(id);
+            }}
+            ariaLabel="Додати/видалити в/з обране"
+            text={isFavorite ? "Видалити з обраного" : "Додати в обране"}
+            className="w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2"
+          />
+          <Button
+            onClick={handleCheckout}
+            text="Оформити замовлення"
+            className="bg-[var(--accent-color)] text-white rounded-md p-2"
+          />
+        </div>
       </div>
     </>
   );

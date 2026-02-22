@@ -21,16 +21,15 @@ export const Thumb: React.FC<PropType> = (props) => {
     <button
       type="button"
       onClick={onClick}
-      className={`emba-thumbs__slide ${selected ? "is-selected" : ""}`}
+      className={`emba-thumbs__slide relative size-20 md:size-[100px] rounded-[10px] overflow-hidden ${selected ? "is-selected" : ""}`}
     >
       <Image
         src={imageError || !imageUrl ? "/no-photo.png" : imageUrl}
         alt="Мініатюра"
-        width={80}
-        height={80}
-        className={`h-[80px] rounded-[10px] ${imageUrl === "/poster-video.jpg" ? "" : "object-cover"}`}
+        className={`${imageUrl === "/poster-video.jpg" ? "" : "object-cover"}`}
         onError={() => setImageError(true)}
         priority={false}
+        fill
       />
     </button>
   );
