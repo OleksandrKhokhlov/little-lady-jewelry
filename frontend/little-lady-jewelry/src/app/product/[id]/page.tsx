@@ -10,17 +10,38 @@ interface ProductPageProps {
   id: string;
 }
 
+interface ProductDetails {
+  _id: string;
+  name: string;
+  images: Array<{ public_id: string; url: string }>;
+  video?: string;
+  price: number;
+  type:
+    | "пусети на заглушках"
+    | "пусети на закрутках"
+    | "англійський замок"
+    | "конго";
+  material: string;
+  insert: string;
+  weight: number;
+  dimensions: {
+    height?: number;
+    width?: number;
+  };
+  quantity: number;
+}
+
 const ProductPage: FC<ProductPageProps> = () => {
   const params = useParams();
   const { id } = params as { id: string };
   const { produkts } = useProduktContext();
-  const [product, setProduct] = useState<any | null>(null);
+  const [product, setProduct] = useState<ProductDetails | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const found = produkts.find((produkt) => produkt._id === id);
     if (found) {
-      setProduct(found);
+      setProduct(found as ProductDetails);
       return;
     } else {
       setLoading(true);

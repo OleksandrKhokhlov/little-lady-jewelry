@@ -39,6 +39,14 @@ interface WarehousesResponse {
   data: Warehouse[];
 }
 
+type GetWarehousesMethodProperties = {
+  SettlementRef: string;
+  WarehouseId?: string;
+  Page: string;
+  Limit: string;
+  Language: string;
+};
+
 export async function searchSettlements(query: string, limit = 20, page = 1) {
   try {
     const { data } = await axios.post<SearchSettlementsResponse>(
@@ -67,7 +75,7 @@ export async function getWarehouses(
   warehouseId?: string,
 ): Promise<Warehouse[]> {
   try {
-    const methodProperties: any = {
+    const methodProperties: GetWarehousesMethodProperties = {
       SettlementRef: settlementRef,
       Page: "1",
       Limit: "50",
