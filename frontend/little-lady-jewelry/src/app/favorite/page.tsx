@@ -11,24 +11,26 @@ export default function FavoritePage() {
   );
 
   return (
-    <Container tag="section" className={"flex flex-wrap mt-2 gap-x-2 gap-y-6"}>
+    <Container tag="section" >
       {favoriteProduktsList.length > 0 ? (
-        favoriteProduktsList.map((favoriteProdukt) => (
-          <ProduktCard
-            key={favoriteProdukt._id}
-            produkt={favoriteProdukt}
-            favoriteProdukts={favoriteProdukts}
-            onToggleFavorite={() => toggleFavorite(favoriteProdukt._id)}
-            className={
-              "w-[calc((100%/3)-6px)]  flex flex-col justify-between font-bold "
-            }
-          />
-        ))
+        <ul className="grid grid-cols-3 min-[570px]:grid-cols-5 min-[840px]:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mt-2 md:mt-4">
+          {favoriteProduktsList.map((favoriteProdukt) => (
+            <ProduktCard
+              key={favoriteProdukt._id}
+              produkt={favoriteProdukt}
+              favoriteProdukts={favoriteProdukts}
+              onToggleFavorite={() => toggleFavorite(favoriteProdukt._id)}
+              className={
+                "flex flex-col justify-between font-bold max-w-[150px]"
+              }
+            />
+          ))}
+        </ul>
       ) : (
-        <h1 className="text-sm text-center">
+        <h2 className="text-sm text-center">
           Сторінка обраних товарів порожня. Додайте товари до обраних, щоб вони
           з&apos;явилися тут.
-        </h1>
+        </h2>
       )}
     </Container>
   );

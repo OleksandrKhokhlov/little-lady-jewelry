@@ -8,7 +8,7 @@ export const ContactsMenu: React.FC<{ className?: string }> = ({
   className,
 }) => {
   return (
-    <ul className={cn("flex gap-10 mt-8 md:mt-0", className)}>
+    <ul className={cn("flex gap-10 mt-16 md:mt-0", className)}>
       <li>
         <ContactLink href="https://www.instagram.com/little.lady.jewelry?igsh=cWJmaWYwdmVxdjJ1">
           <Icon iconId="icon-Instagram" />
