@@ -228,7 +228,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-2 md:p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
             disabled={!quantity}
           />
         </div>
