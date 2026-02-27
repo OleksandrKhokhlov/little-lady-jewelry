@@ -34,9 +34,9 @@ export default function DeliveryAndPaymentPage() {
           У разі виявлення виробничого браку або дефекту ви маєте право на:
         </p>
         <ul className="space-y-2 [&>li]:ml-2 [&>li]:relative [&>li]:pl-2 [&>li::before]:content-[''] [&>li::before]:absolute [&>li::before]:left-0 [&>li::before]:top-2 [&>li::before]:h-1 [&>li::before]:w-1 [&>li::before]:rounded-full [&>li::before]:bg-[var(--accent-color)]  ">
-          <li>безкоштовний ремонт</li>
-          <li>заміну виробу</li>
-          <li>повернення коштів</li>
+          <li>безкоштовний ремонт;</li>
+          <li>заміну виробу;</li>
+          <li>повернення коштів.</li>
         </ul>
       </section>
     </Container>
