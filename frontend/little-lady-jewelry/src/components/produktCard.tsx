@@ -1,3 +1,5 @@
+"use client";
+
 import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
@@ -106,7 +108,7 @@ export const ProduktCard: React.FC<ProduktCardProps> = ({
   };
 
   return (
-    <li key={id} className={cn('md:min-w-[120px]',className)}>
+    <li key={id} className={cn("md:min-w-[120px]", className)}>
       <Link
         href={`${isAdminPage ? `/admin/product/${id}` : `/product/${id}`}`}
         className="block"

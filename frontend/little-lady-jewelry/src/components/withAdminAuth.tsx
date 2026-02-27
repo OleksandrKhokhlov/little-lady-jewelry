@@ -1,3 +1,5 @@
+"use client";
+
 import { getToken } from "@/app/api";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
