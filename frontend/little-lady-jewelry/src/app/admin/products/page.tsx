@@ -42,8 +42,6 @@ const AdminProducts = () => {
         }
       />
       {produkts.length === 0 ? (
-        <span className="loader"></span>
-      ) : filtredProdukts.length === 0 ? (
         <p>
           {" "}
           Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
