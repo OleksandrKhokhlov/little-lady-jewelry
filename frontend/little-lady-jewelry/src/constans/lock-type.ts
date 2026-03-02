@@ -4,7 +4,7 @@ export const mapLockType = {
   3: "Англійский замок",
   4: "Пусети на закрутках",
   5: "Пусети на заглушках",
-};
+} as const;
 
 export const lockTypes = Object.entries(mapLockType).map(([value, name]) => ({
   name,
@@ -12,3 +12,4 @@ export const lockTypes = Object.entries(mapLockType).map(([value, name]) => ({
 }));
 
 export type LockTypes = keyof typeof mapLockType;
+export type LockTypeValues = typeof mapLockType[keyof typeof mapLockType];
