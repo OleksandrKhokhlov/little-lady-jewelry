@@ -1,34 +1,12 @@
+import { ProductPayload, Produkt } from "@/types";
 import { api } from "./api";
-
-interface ProductData {
-  name: string;
-  images: string[];
-  video?: string;
-  price: number;
-  type:
-    | "пусети на заглушках"
-    | "пусети на закрутках"
-    | "англійський замок"
-    | "конго";
-  material: string;
-  insert: string;
-  weight: number;
-  dimensions: {
-    width?: number;
-    height?: number;
-  };
-  quantity: number;
-}
-
-type UpdateProductPayload = Partial<ProductData>;
-type UpdateProductReasponse = ProductData;
 
 export const updateProdukt = async (
   productId: string,
-  updatedData: UpdateProductPayload,
-) => {
+  updatedData: Partial<ProductPayload>,
+): Promise<Produkt | null> => {
   try {
-    const res = await api.patch<UpdateProductReasponse>(
+    const res = await api.patch<Produkt>(
       `/product/${productId}`,
       updatedData,
     );

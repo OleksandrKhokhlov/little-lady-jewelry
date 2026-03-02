@@ -1,19 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, use } from "react";
-import { EmblaOptionsType } from "embla-carousel";
+import { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Thumb } from "./emblaCarouselThumbsButtons";
 import Image from "next/image";
+import { EmblaCarouselProps } from "@/types";
 
-type PropType = {
-  name?: string;
-  slides: Array<{ public_id: string; url: string }>;
-  video?: string;
-  options?: EmblaOptionsType;
-};
-
-export const EmblaCarousel: React.FC<PropType> = (props) => {
+export const EmblaCarousel = (props: EmblaCarouselProps) => {
   const { name, slides, video, options } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [errorSlides, setErrorSlides] = useState<Record<number, boolean>>({});

@@ -1,15 +1,6 @@
-interface CustomRadioProps {
-  name: string;
-  value: string;
-  label: string;
-  checked?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
-  className?: string;
-  labelClassName?: string;
-}
+import { CustomRadioProps } from "@/types";
 
-export const CustomRadioButton: React.FC<CustomRadioProps> = ({
+export const CustomRadioButton = ({
   name,
   value,
   label,
@@ -18,7 +9,7 @@ export const CustomRadioButton: React.FC<CustomRadioProps> = ({
   disabled = false,
   className = "",
   labelClassName = "",
-}) => {
+}: CustomRadioProps) => {
   return (
     <label
       className={`inline-flex items-center cursor-pointer ${

@@ -1,59 +1,27 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useProduktContext } from "@/lib";
 import { getProduktById } from "@/app/api";
 import { Container, ProduktCardDetails } from "@/components";
+import { Produkt } from "@/types";
 
-interface ProductPageProps {
-  id: string;
-}
-
-interface ProductDetails {
-  _id: string;
-  name: string;
-  images: Array<{ public_id: string; url: string }>;
-  video?: string;
-  price: number;
-  type:
-    | "пусети на заглушках"
-    | "пусети на закрутках"
-    | "англійський замок"
-    | "конго";
-  material: string;
-  insert: string;
-  weight: number;
-  dimensions: {
-    height?: number;
-    width?: number;
-  };
-  quantity: number;
-}
-
-const ProductPage: FC<ProductPageProps> = () => {
+const ProductPage = () => {
   const params = useParams();
   const { id } = params as { id: string };
   const { produkts } = useProduktContext();
-  const [product, setProduct] = useState<ProductDetails | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [product, setProduct] = useState<Produkt | null>(null);
 
   useEffect(() => {
     const found = produkts.find((produkt) => produkt._id === id);
     if (found) {
-      setProduct(found as ProductDetails);
+      setProduct(found as Produkt);
       return;
     } else {
-      setLoading(true);
-      getProduktById(id)
-        .then((data) => setProduct(data))
-        .finally(() => setLoading(false));
+      getProduktById(id).then((data) => setProduct(data));
     }
   }, [id, produkts]);
-
-  if (loading) {
-    return <span className="loader"></span>;
-  }
 
   if (!product) {
     return (
@@ -67,7 +35,7 @@ const ProductPage: FC<ProductPageProps> = () => {
 
   return (
     <Container tag="section" className="md:mt-4 md:flex md:gap-6">
-      <ProduktCardDetails product={product} />
+      <ProduktCardDetails {...product} />
     </Container>
   );
 };

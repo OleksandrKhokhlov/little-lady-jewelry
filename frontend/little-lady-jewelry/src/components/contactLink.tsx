@@ -2,12 +2,18 @@
 
 import { cn } from "@/lib/cn";
 import Link from "next/link";
+import { PropsWithChildren } from "react";
 
-export const ContactLink: React.FC<{
+interface ContactLinkProps {
   className?: string;
   href: string;
-  children?: React.ReactNode;
-}> = ({ className, href, children }) => {
+}
+
+export const ContactLink = ({
+  className,
+  href,
+  children,
+}: PropsWithChildren<ContactLinkProps>) => {
   return (
     <Link
       href={href}

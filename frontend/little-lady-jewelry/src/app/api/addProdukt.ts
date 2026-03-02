@@ -1,37 +1,16 @@
 import toast from "react-hot-toast";
 import { api } from "./api";
+import { ProductPayload, Produkt } from "@/types";
 
-interface AddProduktResponse {
-  product: {
-    name: string;
-    images: string[];
-    video?: string;
-    price: number;
-    type:
-      | "пусети на заглушках"
-      | "пусети на закрутках"
-      | "англійський замок"
-      | "конго";
-    material: string;
-    insert: string;
-    weight: number;
-    dimensions: {
-      width?: number;
-      height?: number;
-    };
-    quantity: number;
-  };
-}
-
-export const addProdukt = async (product: AddProduktResponse) => {
+export const addProdukt = async (payload: ProductPayload): Promise<Produkt | null> => {
   try {
-    const res = await api.post("/product", product);
+    const res = await api.post<{product: Produkt}>("/product", {product: payload});
     if (res.status !== 201) {
       console.error("Error adding product:", res.statusText);
       return null;
     }
     toast.success("Продукт успішно додано");
-    return res.data;
+    return res.data.product;
   } catch (error) {
     console.error("Error adding product:", error);
     toast.error("Помилка при додаванні продукту");

@@ -1,9 +1,10 @@
 "use client";
-import { Field, useField } from "formik";
+
+import { useField } from "formik";
 import { useState } from "react";
 
 export const PhoneField = () => {
-  const [field, meta, helpers] = useField("telephone");
+  const [, meta, helpers] = useField("telephone");
   const [inputValue, setInputValue] = useState("+380");
 
   const { error, touched } = meta;
@@ -29,7 +30,7 @@ export const PhoneField = () => {
 
   return (
     <div className="flex flex-col relative pb-3">
-      <Field
+      <input
         id="telephone"
         name="telephone"
         value={inputValue}

@@ -1,25 +1,17 @@
-'use client';
+"use client";
 
-import React, { useEffect } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { Icon } from "./icon";
+import { ModalProps } from "@/types";
 
-interface ModalProps {
-  header?: string;
-  isOpen: boolean;
-  onClose: () => void;
-  side?: "left" | "right";
-  className?: string;
-  children: React.ReactNode;
-}
-
-export const Modal: React.FC<ModalProps> = ({
+export const Modal = ({
   header,
   isOpen,
   onClose,
   side = "right",
   className,
   children,
-}) => {
+}: PropsWithChildren<ModalProps>) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -53,7 +45,10 @@ export const Modal: React.FC<ModalProps> = ({
         >
           {" "}
           {header && <h2 className="text-[20px]">{header}</h2>}
-          <button onClick={onClose} className="fill-[var(--text-color)] hover:fill-[var(--hover-color)] transition-all duration-300">
+          <button
+            onClick={onClose}
+            className="fill-[var(--text-color)] hover:fill-[var(--hover-color)] transition-all duration-300"
+          >
             <Icon iconId="icon-Cross" className="size-[15px] " />
           </button>
         </div>

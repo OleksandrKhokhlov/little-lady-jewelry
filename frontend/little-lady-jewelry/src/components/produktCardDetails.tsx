@@ -1,49 +1,27 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import { ProductDescription } from "./productDescription";
 import { useProduktContext } from "@/lib";
 import { useRouter } from "next/navigation";
 import { EmblaCarousel } from "./emblaCarousel";
 import { Button } from "./button";
+import { Produkt } from "@/types";
 
-interface ProduktCardDetailsProps {
-  product: {
-    _id: string;
-    name: string;
-    images: Array<{ public_id: string; url: string }>;
-    video?: string;
-    price: number;
-    type: string;
-    material: string;
-    insert: string;
-    weight: number;
-    dimensions: {
-      width?: number;
-      height?: number;
-    };
-    quantity: number;
-  };
-}
-
-export const ProduktCardDetails: FC<ProduktCardDetailsProps> = ({
-  product,
-}) => {
-  const {
-    _id: id,
-    name,
-    images,
-    video,
-    price,
-    type,
-    material,
-    insert,
-    weight,
-    dimensions,
-    quantity,
-  } = product;
-
+export const ProduktCardDetails = ({
+  _id: id,
+  name,
+  images,
+  video,
+  price,
+  type,
+  material,
+  insert,
+  weight,
+  dimensions,
+  quantity,
+}: Produkt) => {
   const OPTIONS: EmblaOptionsType = {};
   const router = useRouter();
 

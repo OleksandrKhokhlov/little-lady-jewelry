@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "./icon";
 
 interface ImageUploaderProps {
@@ -9,48 +9,45 @@ interface ImageUploaderProps {
   initialImages?: string[];
 }
 
-export const ImageUploader: React.FC<ImageUploaderProps> = ({
+export const ImageUploader = ({
   onImageChange,
   initialImages = [],
-}) => {
-  const [previewImages, setPreviewImages] = useState<string[]>(initialImages);
-  const isInitialMount = useRef(true);
+}: ImageUploaderProps) => {
+  const [previewImages, setPreviewImages] = useState<string[]>(
+    () => initialImages,
+  );
 
   useEffect(() => {
-    if (!isInitialMount.current) {
-      onImageChange(previewImages);
-    } else {
-      isInitialMount.current = false;
-    }
-  }, [previewImages]);
+    onImageChange(previewImages);
+  }, [previewImages, onImageChange]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
-    if (files.length === 0) return;
+    if (!files.length) return;
 
-    Promise.all(
-      files.map(
-        (file) =>
-          new Promise<string>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              if (typeof reader.result === "string") {
-                resolve(reader.result);
-              } else {
-                reject("Error reading file");
-              }
-            };
-            reader.readAsDataURL(file);
-          }),
-      ),
-    )
-      .then((base64Images) => {
-        setPreviewImages((prevImages) => [...prevImages, ...base64Images]);
-      })
-      .catch((error) => {
-        console.error("Error uploading images:", error);
-      });
+    try {
+      const base64Images = await Promise.all(
+        files.map(
+          (file) =>
+            new Promise<string>((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                if (typeof reader.result === "string") {
+                  resolve(reader.result);
+                } else {
+                  reject("Error reading file");
+                }
+              };
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            }),
+        ),
+      );
+      setPreviewImages((prevImages) => [...prevImages, ...base64Images]);
+    } catch (error) {
+      console.error("Error uploading images:", error);
+    }
   };
 
   const handleRemoveImage = (index: number) => {

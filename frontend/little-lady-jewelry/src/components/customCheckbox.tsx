@@ -6,11 +6,11 @@ interface CustomCheckboxProps {
   id: string;
 }
 
-export const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
+export const CustomCheckbox = ({
   checked,
   onChange,
   id,
-}) => {
+}: CustomCheckboxProps) => {
   return (
     <label className="relative inline-flex items-center cursor-pointer">
       <input

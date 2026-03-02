@@ -1,19 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "./icon";
+import { CartItemProps } from "@/types";
 
-interface CartItemProps {
-  id: string;
-  name: string;
-  price: number;
-  images: string[];
-  weight: number;
-  quantity: number;
-  onClick: () => void;
-  onClose?: () => void; // Optional prop for closing the modal
-}
 
-export const CartItem: React.FC<CartItemProps> = ({
+export const CartItem = ({
   id,
   name,
   price,
@@ -21,7 +12,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   weight,
   onClick,
   onClose,
-}) => {
+}: CartItemProps) => {
   return (
     <div className="flex items-center gap-4 border-b-2 border-[var(--accent-color)]">
       <Link

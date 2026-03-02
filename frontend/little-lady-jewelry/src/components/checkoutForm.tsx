@@ -1,53 +1,16 @@
-import React from "react";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+"use client";
+
+import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
 import { Button } from "./button";
-import * as Yup from "yup";
 import { CustomRadioButton, PhoneField, TownField } from ".";
 import { submitOrder } from "@/app/api";
 import { useProduktContext } from "@/lib";
+import { CheckoutFormSchema } from "@/app/schemas";
+import { CheckoutFormProps, CheckoutFormValues } from "@/types";
 
-interface Values {
-  counts: Record<string, number>;
-  totalPrice: number;
-  firstName: string;
-  lastName: string;
-  telephone: string;
-  delivery: "Нова пошта" | "Укрпошта";
-  town: string;
-  warehouse: string;
-  comment?: string;
-  payment: "При отриманні" | "Онлайн";
-}
-
-interface CheckoutFormProps {
-  counts: Record<string, number>;
-  totalPrice: number;
-}
-
-const CheckoutFormSchema = Yup.object().shape({
-  firstName: Yup.string().required("Обов\u0027язкове поле"),
-  lastName: Yup.string().required("Обов\u0027язкове поле"),
-  telephone: Yup.string()
-    .required("Обов\u0027язкове поле")
-    .matches(/^\+380\d{9}$/, "Некоректний номер телефону")
-    .length(13, "Номер телефону має бути 13 символів"),
-  delivery: Yup.string()
-    .oneOf(["Нова пошта", "Укрпошта"])
-    .required("Обов\u0027язкове поле"),
-  town: Yup.string().required("Обов\u0027язкове поле"),
-  warehouse: Yup.string().required("Обов\u0027язкове поле"),
-  comment: Yup.string().max(300, "Comment is too long"),
-  payment: Yup.string()
-    .oneOf(["При отриманні", "Онлайн"])
-    .required("Обов\u0027язкове поле"),
-});
-
-export const CheckoutForm: React.FC<CheckoutFormProps> = ({
-  counts,
-  totalPrice,
-}) => {
+export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
   const { setProdukts, inCart, deleteFromCart } = useProduktContext();
-  const initialValues: Values = {
+  const initialValues: CheckoutFormValues = {
     counts: counts || {},
     totalPrice: totalPrice || 0,
     firstName: "",
@@ -65,12 +28,12 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
       <h2 className="text-[16px] justify-between border-b-2 border-[var(--accent-color)]">
         Оформлення замовлення
       </h2>
-      <Formik
+      <Formik<CheckoutFormValues>
         initialValues={initialValues}
         validationSchema={CheckoutFormSchema}
         onSubmit={async (
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>,
+          values: CheckoutFormValues,
+          { setSubmitting, resetForm }: FormikHelpers<CheckoutFormValues>,
         ) => {
           try {
             await submitOrder(values);
@@ -83,18 +46,17 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
                 ),
               );
             });
+            resetForm();
 
-            values = initialValues;
             setTimeout(() => {
               window.location.href = "/";
             }, 3000);
-            if (counts.length === inCart.length) {
+            if (Object.keys(counts).length === inCart.length) {
               localStorage.removeItem("inCart");
               return;
             }
             inCart.forEach((id) => {
-              if (Object.entries(counts).find(([key]) => key === id))
-                deleteFromCart(id);
+              if (counts[id]) deleteFromCart(id);
             });
           } catch (error) {
             console.error("Error submitting order:", error);
@@ -135,7 +97,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               <h3 className="text-[16px]">Доставка</h3>
               <div className="mt-1 flex flex-col">
                 <Field name="delivery">
-                  {({ field }: { field: any }) => (
+                  {({ field }: FieldProps<CheckoutFormValues["delivery"]>) => (
                     <>
                       <CustomRadioButton
                         name="delivery"
@@ -171,7 +133,7 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               <h3 className=" text-[16px]">Оплата</h3>
               <div className="mt-1 flex flex-col">
                 <Field name="payment">
-                  {({ field }: { field: any }) => (
+                  {({ field }: FieldProps<CheckoutFormValues["payment"]>) => (
                     <>
                       <CustomRadioButton
                         name="payment"
@@ -206,7 +168,6 @@ export const CheckoutForm: React.FC<CheckoutFormProps> = ({
               }
               className="block mt-3 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
             />
-            {isSubmitting && <span className="loader"></span>}
           </Form>
         )}
       </Formik>

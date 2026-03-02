@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Container } from "./container";
 import { Icon } from "./icon";
@@ -12,11 +12,7 @@ import { useProduktContext } from "@/lib";
 import { NavMenu } from "./navMenu";
 import { ContactsMenu } from "./contactsMenu";
 
-interface Props {
-  className?: string;
-}
-
-export const Header: React.FC<Props> = ({ className }) => {
+export const Header = ({ className }: { className?: string }) => {
   const { favoriteProdukts, inCart } = useProduktContext();
   const [isModalBurgerOpen, setModalBurgerOpen] = useState(false);
   const [isModalCartOpen, setModalCartOpen] = useState(false);

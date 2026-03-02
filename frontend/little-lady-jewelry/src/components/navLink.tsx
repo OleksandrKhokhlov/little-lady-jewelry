@@ -1,22 +1,17 @@
 "use client";
 
 import { cn } from "@/lib";
+import { NavLinkProps } from "@/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { PropsWithChildren } from "react";
 
-interface NavLinkProps {
-  href: string;
-  children: React.ReactNode;
-  onClick?: (e: React.MouseEvent) => void;
-  className?: string;
-}
-
-export const NavLink: React.FC<NavLinkProps> = ({
+export const NavLink = ({
   href,
   children,
   onClick,
   className,
-}) => {
+}: PropsWithChildren<NavLinkProps>) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 

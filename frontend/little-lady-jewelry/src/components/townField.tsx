@@ -1,12 +1,14 @@
 "use client";
 
 import { getWarehouses, searchSettlements } from "@/app/api";
+import { CheckoutFormValues } from "@/types";
 import debounce from "debounce";
 import { Field, useFormikContext } from "formik";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const TownField = () => {
-  const { values, setFieldValue, errors, touched } = useFormikContext<any>();
+  const { values, setFieldValue, errors, touched } =
+    useFormikContext<CheckoutFormValues>();
   const [suggestions, setSuggestions] = useState<
     { Present: string; Ref: string }[]
   >([]);
@@ -19,8 +21,8 @@ export const TownField = () => {
   const [warehouseQuery, setWarehouseQuery] = useState("");
   const [isWarehouseSelected, setIsWarehouseSelected] = useState(false);
 
-  const debouncedSearchWarehouses = useCallback(
-    debounce(async (ref: string, searchTerm: string) => {
+  const debouncedSearchWarehouses = useMemo(() => {
+    return debounce(async (ref: string, searchTerm: string) => {
       if (!ref) return;
       try {
         const result = await getWarehouses(ref, searchTerm || undefined);
@@ -37,9 +39,8 @@ export const TownField = () => {
       } catch (error) {
         console.error("Помилка пошуку відділень:", error);
       }
-    }, 500),
-    [],
-  );
+    }, 500);
+  }, []);
 
   useEffect(() => {
     if (isCitySelected || query.length < 3) {

@@ -1,19 +1,6 @@
-import { FC } from "react";
+import { ProductDescriptionType } from "@/types";
 
-interface ProductDescriptionProps {
-  name: string;
-  price: number;
-  type: string;
-  material: string;
-  insert: string;
-  weight: number;
-  dimensions: {
-    width?: number;
-    height?: number;
-  };
-}
-
-export const ProductDescription: FC<ProductDescriptionProps> = ({
+export const ProductDescription = ({
   name,
   price,
   type,
@@ -21,11 +8,11 @@ export const ProductDescription: FC<ProductDescriptionProps> = ({
   insert,
   weight,
   dimensions,
-}) => {
+}: ProductDescriptionType) => {
   const { width, height } = dimensions || {};
 
   return (
-    <div >
+    <div>
       <h2 className="text-[20px] hidden mb-1 text-center md:block">{name}</h2>
       <ul className="mt-2 text-[16px] md:mt-3 md:[&>li]:mb-2 px-2 border-b-2 border-t-2 border-[var(--accent-color)] [&>li]:flex [&>li]:justify-between [&>li]:border-b [&>li]:border-[var(--accent-color)] [&>li:last-child]:border-b-0 md:[&>li:first-child]:mt-2">
         <li>

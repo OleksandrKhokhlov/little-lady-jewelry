@@ -2,21 +2,9 @@ import toast from "react-hot-toast";
 import { api } from "./api";
 import { updateQuantity } from "./updateQuantity";
 import { getLocalStorage } from "@/lib";
+import { CheckoutFormValues } from "@/types";
 
-interface OrderData {
-  firstName: string;
-  lastName: string;
-  telephone: string;
-  delivery: "Нова пошта" | "Укрпошта";
-  town: string;
-  warehouse: string;
-  comment?: string;
-  payment: "При отриманні" | "Онлайн";
-  totalPrice: number;
-  counts: Record<string, number>;
-}
-
-export const submitOrder = async (orderData: OrderData) => {
+export const submitOrder = async (orderData: CheckoutFormValues) => {
   try {
     const res = await api.post("/orders", orderData);
     if (res.status !== 201 && res.status !== 200) {

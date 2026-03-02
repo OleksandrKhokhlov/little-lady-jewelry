@@ -1,15 +1,25 @@
-'use client';
+"use client";
 
-import React from "react";
 import { cn } from "@/lib";
+import { PropsWithChildren } from "react";
 
 interface Props {
-    className?: string;
-    tag?: keyof JSX.IntrinsicElements;
+  className?: string;
+  tag?: keyof JSX.IntrinsicElements;
 }
 
-export const Container: React.FC<React.PropsWithChildren<Props>> = ({ className, children, tag = 'div' }) => {
-    const Tag = tag;
+export const Container = ({
+  className,
+  children,
+  tag = "div",
+}: PropsWithChildren<Props>) => {
+  const Tag = tag;
 
-    return <Tag className={cn('mx-auto px-[8px]  md:max-w-6xl md:px-[36px]', className)}>{ children}</Tag>
-}
+  return (
+    <Tag
+      className={cn("mx-auto px-[8px]  md:max-w-6xl md:px-[36px]", className)}
+    >
+      {children}
+    </Tag>
+  );
+};

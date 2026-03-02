@@ -1,25 +1,16 @@
-'use client';
-
-import React from "react";
+"use client";
 
 import { createPortal } from "react-dom";
-import { usePathname } from "next/navigation";
 import { Modal } from "./modal";
 import { NavMenu } from "./navMenu";
 import { ContactsMenu } from "./contactsMenu";
+import { BurgerMenuProps } from "@/types";
 
-interface BurgerMenuProps {
-  isModalBurgerOpen: boolean;
-  setModalBurgerOpen: () => void;
-  setModalCartOpen: () => void;
-}
-
-export const ModalBurgerMenu: React.FC<BurgerMenuProps> = ({
+export const ModalBurgerMenu = ({
   isModalBurgerOpen,
   setModalBurgerOpen,
   setModalCartOpen,
-}) => {
-  const pathname = usePathname();
+}: BurgerMenuProps) => {
   if (!isModalBurgerOpen) return null;
 
   return createPortal(

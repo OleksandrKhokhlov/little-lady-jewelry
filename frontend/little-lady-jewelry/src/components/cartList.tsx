@@ -6,23 +6,9 @@ import { CustomCheckbox } from "./customCheckbox";
 import { CartCounter } from "./cartCounter";
 import { Button } from "./button";
 import { Icon } from "./icon";
+import { CartListItemProps } from "@/types";
 
-interface CartItemProps {
-  id: string;
-  name: string;
-  price: number;
-  images: { public_id: string; url: string }[];
-  weight: number;
-  quantity: number;
-  count: number;
-  onCountChange: (id: string, newCount: number) => void;
-  onClick: () => void;
-  onClose?: () => void;
-  checked?: boolean;
-  onCheckboxChange?: (id: string) => void;
-}
-
-export const CartList: React.FC<CartItemProps> = ({
+export const CartList = ({
   id,
   name,
   price,
@@ -35,7 +21,7 @@ export const CartList: React.FC<CartItemProps> = ({
   onClose,
   checked = true,
   onCheckboxChange,
-}) => {
+}: CartListItemProps) => {
   return (
     <li className="flex items-center gap-2 border-b-2 border-[var(--accent-color)]">
       <CustomCheckbox checked={checked} onChange={onCheckboxChange} id={id} />

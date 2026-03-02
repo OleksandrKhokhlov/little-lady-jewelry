@@ -3,46 +3,28 @@
 import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./button";
 import { Icon } from "./icon";
 import { cn, useProduktContext } from "@/lib";
 import { usePathname } from "next/navigation";
 import { deleteProdukt, updatePrice, updateQuantity } from "@/app/api";
 import Swal from "sweetalert2";
+import { ProduktCardProps } from "@/types";
 
-interface ProduktCardProps {
-  produkt: {
-    _id: string;
-    images: Array<{ public_id: string; url: string }>;
-    name?: string;
-    price: number;
-    type:
-      | "англійський замок"
-      | "конго"
-      | "пусети на закрутках"
-      | "пусети на заглушках";
-    quantity: number;
-  };
-
-  favoriteProdukts?: string[];
-  onToggleFavorite?: () => void;
-  className?: string;
-}
-
-export const ProduktCard: React.FC<ProduktCardProps> = ({
+export const ProduktCard = ({
   produkt: {
     _id: id,
     images,
     name = "Немає назви",
     price: initialPrice = 0,
-    type = "Невизначений",
+    type = "Всі",
     quantity: initialQuantity = 0,
   },
   favoriteProdukts = [],
   onToggleFavorite = () => {},
   className,
-}) => {
+}: ProduktCardProps) => {
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith("/admin");
   const { inCart, addToCart, setProdukts } = useProduktContext();

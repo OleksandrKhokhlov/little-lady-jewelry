@@ -4,9 +4,7 @@ import { cn } from "@/lib";
 import { Icon } from "./icon";
 import { ContactLink } from "./contactLink";
 
-export const ContactsMenu: React.FC<{ className?: string }> = ({
-  className,
-}) => {
+export const ContactsMenu = ({ className }: { className?: string }) => {
   return (
     <ul className={cn("flex gap-10 mt-16 md:mt-0", className)}>
       <li>

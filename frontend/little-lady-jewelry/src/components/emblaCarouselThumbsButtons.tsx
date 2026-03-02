@@ -1,15 +1,10 @@
 "use client";
 
+import { EmblaThumbProps } from "@/types";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-type PropType = {
-  imageUrl: string;
-  selected: boolean;
-  onClick: () => void;
-};
-
-export const Thumb: React.FC<PropType> = (props) => {
+export const Thumb = (props: EmblaThumbProps) => {
   const { selected, imageUrl, onClick } = props;
   const [imageError, setImageError] = useState(false);
 

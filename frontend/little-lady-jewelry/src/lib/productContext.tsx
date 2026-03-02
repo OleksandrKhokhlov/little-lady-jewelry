@@ -3,24 +3,11 @@ import toast from "react-hot-toast";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getProdukts } from "@/app/api";
 import { getLocalStorage } from "./localStorage";
-
-interface Produkt {
-  _id: string;
-  images: Array<{ public_id: string; url: string }>;
-  name: string;
-  price: number;
-  type:
-    | "англійський замок"
-    | "конго"
-    | "пусети на закрутках"
-    | "пусети на заглушках";
-  quantity: number;
-  weight: number;
-}
+import { Produkt as ProduktType } from "@/types";
 
 interface ProduktContextType {
-  produkts: Produkt[];
-  setProdukts: React.Dispatch<React.SetStateAction<Produkt[]>>;
+  produkts: ProduktType[];
+  setProdukts: React.Dispatch<React.SetStateAction<ProduktType[]>>;
   favoriteProdukts: string[];
   setFavoriteProdukts: React.Dispatch<React.SetStateAction<string[]>>;
   inCart: string[];
@@ -30,12 +17,12 @@ interface ProduktContextType {
   deleteFromCart: (id: string) => void;
 }
 
-const ProduktContext = createContext<ProduktContextType | undefined>(undefined);
+const ProduktContext = createContext<ProduktContextType | null>(null);
 
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [produkts, setProdukts] = useState<Produkt[]>([]);
+  const [produkts, setProdukts] = useState<ProduktType[]>([]);
   const [favoriteProdukts, setFavoriteProdukts] = useState<string[]>(() =>
     getLocalStorage<string[]>("favorites", []),
   );

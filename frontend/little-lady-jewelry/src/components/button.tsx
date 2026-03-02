@@ -1,17 +1,6 @@
-import React from "react";
+import { ButtonProps } from "@/types";
 
-interface ButtonProps {
-  type?: "submit" | "reset" | "button";
-  text?: string;
-  icon?: React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  className?: string;
-  disabled?: boolean;
-  ariaLabel?: string;
-  children?: React.ReactNode;
-}
-
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   type = "button",
   text,
   icon,
@@ -20,7 +9,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ariaLabel,
   children,
-}) => {
+}: ButtonProps) => {
   return (
     <button
       type={type}

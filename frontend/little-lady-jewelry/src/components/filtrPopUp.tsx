@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import { SetStateAction } from "react";
 import { lockTypes } from "@/constans/lock-type";
 
 interface FiltrProps {
@@ -6,10 +6,10 @@ interface FiltrProps {
   handleChange: (e: { target: { value: SetStateAction<string> } }) => void;
 }
 
-export const FiltrPopUp: React.FC<FiltrProps> = ({
+export const FiltrPopUp = ({
   selectedValue,
   handleChange,
-}) => {
+}: FiltrProps) => {
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     value: string,

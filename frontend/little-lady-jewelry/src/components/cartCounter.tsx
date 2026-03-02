@@ -3,20 +3,14 @@
 import toast from "react-hot-toast";
 import { Icon } from "./icon";
 import { Button } from "./button";
+import { CartCounterProps } from "@/types";
 
-interface CartCounterProps {
-  value: number;
-  min?: number;
-  max?: number;
-  onChange: (value: number) => void;
-}
-
-export const CartCounter: React.FC<CartCounterProps> = ({
+export const CartCounter = ({
   value,
   min = 1,
   max = 99,
   onChange,
-}) => {
+}: CartCounterProps) => {
   const handleIncrement = () => {
     if (value >= max) {
       toast.error(`Максимальна кількість: ${max}`);

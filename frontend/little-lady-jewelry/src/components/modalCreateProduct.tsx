@@ -7,10 +7,10 @@ interface ModalCreateProductProps {
   setModalOpen: () => void;
 }
 
-export const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
+export const ModalCreateProduct = ({
   isModalOpen,
   setModalOpen,
-}) => {
+}: ModalCreateProductProps) => {
   return createPortal(
     <Modal
       header="Створення продукту"

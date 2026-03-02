@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useProduktContext } from "@/lib";
 import { CartList } from "./cartList";
@@ -8,21 +8,16 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Modal } from "./modal";
 import { Button } from "./button";
+import { ModalCartProps } from "@/types";
 
-interface ModalCartProps {
-  isModalCartOpen: boolean;
-  setModalCartOpen: () => void;
-}
-
-export const ModalCart: React.FC<ModalCartProps> = ({
+export const ModalCart = ({
   isModalCartOpen,
   setModalCartOpen,
-}) => {
+}: ModalCartProps) => {
   const { produkts, inCart, deleteFromCart } = useProduktContext();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [mounted, setMounted] = useState(false);
   const [counts, setCounts] = useState<Record<string, number>>({});
-  const [isLoad, setIsLoad] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +26,6 @@ export const ModalCart: React.FC<ModalCartProps> = ({
 
   useEffect(() => {
     if (!isModalCartOpen) return;
-    setIsLoad(false);
 
     const cartItems = produkts.filter((product) =>
       inCart.includes(product._id),
@@ -76,7 +70,6 @@ export const ModalCart: React.FC<ModalCartProps> = ({
       toast.error("Будь ласка, оберіть товари для оформлення замовлення.");
       return;
     }
-    setIsLoad(true);
 
     const filteredCounts = Object.fromEntries(
       selectedIds.map((id) => [id, counts[id] || 1]),
@@ -136,7 +129,6 @@ export const ModalCart: React.FC<ModalCartProps> = ({
           className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto"
         />
       </div>
-      {isLoad && <span className="loader"></span>}
     </Modal>
   );
   return mounted && typeof document !== "undefined"

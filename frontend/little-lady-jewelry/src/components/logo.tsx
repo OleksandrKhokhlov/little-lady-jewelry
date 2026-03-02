@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib";
 
@@ -7,11 +6,20 @@ interface LogoProps {
   classNameH2?: string;
 }
 
-export const Logo: React.FC<LogoProps> = (classNameH1, classNameH2) => {
+export const Logo = ({ classNameH1, classNameH2 }: LogoProps) => {
   return (
     <Link href={"/"} className="text-center ">
-      <h1 className={cn ("font-kallithea text-[24px] md:text-[28px]", classNameH1)}>Little lady</h1>
-      <h2 className={cn("font-calisto text-[12px] md:text-[14px] text-[var(--accent-color)] uppercase", classNameH2)}>
+      <h1
+        className={cn("font-kallithea text-[24px] md:text-[28px]", classNameH1)}
+      >
+        Little lady
+      </h1>
+      <h2
+        className={cn(
+          "font-calisto text-[12px] md:text-[14px] text-[var(--accent-color)] uppercase",
+          classNameH2,
+        )}
+      >
         Jewelry
       </h2>
     </Link>

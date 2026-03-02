@@ -1,19 +1,14 @@
 "use client";
 
+import { NavMenuProps } from "@/types";
 import { Icon } from "./icon";
 import { NavLink } from "./navLink";
 
-interface NavMenuProps {
-  setModalBurgerOpen?: () => void;
-  setModalCartOpen?: () => void;
-  className?: string;
-}
-
-export const NavMenu: React.FC<NavMenuProps> = ({
+export const NavMenu = ({
   setModalBurgerOpen = () => {},
   setModalCartOpen = () => {},
   className,
-}) => {
+}: NavMenuProps) => {
   return (
     <nav className={className}>
       <ul className="text-[16px] flex flex-col gap-5 md:gap-2 mt-2 md:flex-row md:mt-0 md:items-center md:w-full md:h-full">
