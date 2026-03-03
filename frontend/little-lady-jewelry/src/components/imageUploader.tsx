@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Icon } from "./icon";
 
 interface ImageUploaderProps {
@@ -16,10 +16,6 @@ export const ImageUploader = ({
   const [previewImages, setPreviewImages] = useState<string[]>(
     () => initialImages,
   );
-
-  useEffect(() => {
-    onImageChange(previewImages);
-  }, [previewImages, onImageChange]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -44,14 +40,22 @@ export const ImageUploader = ({
             }),
         ),
       );
-      setPreviewImages((prevImages) => [...prevImages, ...base64Images]);
+      setPreviewImages((prevImages) => {
+        const updated = [...prevImages, ...base64Images];
+        onImageChange(updated);
+        return updated;
+      });
     } catch (error) {
       console.error("Error uploading images:", error);
     }
   };
 
   const handleRemoveImage = (index: number) => {
-    setPreviewImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setPreviewImages((prevImages) => {
+      const updated = prevImages.filter((_, i) => i !== index);
+      onImageChange(updated);
+      return updated;
+    });
   };
 
   return (
