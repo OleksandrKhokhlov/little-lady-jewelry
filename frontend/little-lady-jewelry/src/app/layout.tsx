@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-cormorant">
         <ProductProvider>
-          <Header className="sticky z-20 top-0 bg-[var(--background-color-header)] opacity-75" />
+          <Header className="sticky z-20 top-0 bg-[var(--background-color-header)]" />
           <main>{children}</main>
           <Toaster containerStyle={{ marginTop: 30 }} />
         </ProductProvider>
