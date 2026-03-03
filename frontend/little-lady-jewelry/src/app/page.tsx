@@ -38,10 +38,10 @@ export default function Home() {
             setSelectedValue(e.target.value)
           }
         />
-        {produkts.length === 0 ? (
+        {filtredProdukts.length === 0 ? (
           <p>
             Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
-            {selectedValue}.
+            <span className="text-[var(--accent-color)]">{selectedValue}</span>
           </p>
         ) : (
           <ul className="grid grid-cols-3 min-[570px]:grid-cols-5 min-[840px]:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mt-2 md:mt-4">

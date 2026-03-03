@@ -41,11 +41,11 @@ const AdminProducts = () => {
           setSelectedValue(e.target.value)
         }
       />
-      {produkts.length === 0 ? (
+      {filtredProdukts.length === 0 ? (
         <p>
           {" "}
-          Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
-          {selectedValue}.
+          Нажаль в продажу поки що немає прикрас з типом застібки: {" "}
+          <span className="text-[var(--accent-color)]">{selectedValue}</span>
         </p>
       ) : (
         <ul className="flex flex-wrap gap-x-2 gap-y-6 mt-2">
