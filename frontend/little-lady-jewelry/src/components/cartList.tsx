@@ -35,7 +35,7 @@ export const CartList = ({
           src={images[0].url ?? "/no-photo.png"}
           alt={name || "Зображення відсутне"}
           fill
-          sizes="(max-width: 640px) 50px, (max-width: 768px) 50px, 50px"
+          sizes="(max-width: 768px) 120px, (max-width: 1200px) 150px, 150px"
           className="object-cover rounded-md"
         />
       </Link>

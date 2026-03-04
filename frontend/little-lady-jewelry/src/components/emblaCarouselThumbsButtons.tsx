@@ -22,6 +22,7 @@ export const Thumb = (props: EmblaThumbProps) => {
         src={imageError || !imageUrl ? "/no-photo.png" : imageUrl}
         alt="Мініатюра"
         className={`${imageUrl === "/poster-video.jpg" ? "" : "object-cover"}`}
+        sizes="(max-width: 768px) 120px, (max-width: 1200px) 150px, 150px"
         onError={() => setImageError(true)}
         priority={false}
         fill
