@@ -38,7 +38,7 @@ export default function Home() {
             setSelectedValue(e.target.value)
           }
         />
-        {filtredProdukts.length === 0 ? (
+        {produkts.length === 0 ? (<span className="loader"></span>) : (filtredProdukts.length === 0 ? (
           <p>
             Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
             <span className="text-[var(--accent-color)]">{selectedValue}</span>
@@ -57,7 +57,7 @@ export default function Home() {
               />
             ))}
           </ul>
-        )}
+        ))}
       </Container>
     </>
   );
