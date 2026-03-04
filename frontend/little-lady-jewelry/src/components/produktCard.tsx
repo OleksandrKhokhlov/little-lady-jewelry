@@ -90,7 +90,16 @@ export const ProduktCard = ({
   };
 
   return (
-    <li key={id} className={cn("md:min-w-[120px]", className)}>
+    <li
+      key={id}
+      className={cn(
+        "md:min-w-[120px] p-1 rounded-md ",
+        "transition-all duration-300",
+        "hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)]",
+        "hover:shadow-[0_0_10px_var(--accent-color)]",
+        className,
+      )}
+    >
       <Link
         href={`${isAdminPage ? `/admin/product/${id}` : `/product/${id}`}`}
         className="block"

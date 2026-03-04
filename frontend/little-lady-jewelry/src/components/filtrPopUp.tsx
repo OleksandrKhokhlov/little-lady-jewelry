@@ -46,7 +46,7 @@ export const FiltrPopUp = ({
           id="lock-type"
           value={selectedValue}
           onChange={handleChange}
-          className="p-1 ml-1 border border-[var(--accent-color)] rounded focus:outline-none focus:border-[var(--hover-color)] bg-transparent"
+          className="p-1 ml-1 border border-[var(--accent-color)] rounded focus:outline-none focus:border-[var(--hover-color)] bg-transparent cursor-pointer"
         >
           {lockTypes.map((type) => (
             <option

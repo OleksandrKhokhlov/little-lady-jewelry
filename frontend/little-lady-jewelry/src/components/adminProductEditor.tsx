@@ -8,6 +8,7 @@ import { Button } from "./button";
 import { useProduktContext } from "@/lib";
 import { FormValues, ProductImage, ProductPayload, Produkt } from "@/types";
 import { LockTypeValues } from "@/constans";
+import { useRouter } from "next/navigation";
 
 interface AdminProductEditorProps {
   product?: Produkt;
@@ -31,6 +32,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
   const isEditMode = !!product?._id;
   const initialImages = product?.images || [];
   const { setProdukts } = useProduktContext();
+  const router = useRouter();
 
   const initialValues: FormValues = {
     name: product?.name || DEFAULT_PRODUCT_VALUES.name,
@@ -82,6 +84,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
             prev.map((p) => (p._id === product._id ? updatedProduct : p)),
           );
           toast.success("Продукт успішно оновлено!");
+          router.push("/admin/products");
         }
       } else {
         const createdProduct = await addProdukt(payload);
@@ -91,6 +94,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
 
         toast.success("Продукт успішно створено!");
         resetForm();
+        router.push("/admin/products");
       }
     } catch (error) {
       console.error(error);
@@ -116,7 +120,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
             <Form className="flex flex-col gap-1">
               <label className="flex flex-col text-sm text-center mx-auto">
                 Назва:
-                <Field name="name" className="form-input " />
+                <Field name="name" className="form-input mb-2" />
               </label>
               <ImageUploader
                 initialImages={values.images}
@@ -179,7 +183,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
                 type="submit"
                 text={isSubmitting ? "Збереження..." : buttonText}
                 disabled={isSubmitting}
-                className="w-[150px] h-[30px] mx-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1"
+                className="w-[150px] h-[30px] mt-3 mx-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1"
               />
             </Form>
           );
