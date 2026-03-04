@@ -16,7 +16,7 @@ export const Thumb = (props: EmblaThumbProps) => {
     <button
       type="button"
       onClick={onClick}
-      className={`emba-thumbs__slide relative size-20 md:size-[100px] rounded-[10px] overflow-hidden ${selected ? "is-selected" : ""}`}
+      className={`emba-thumbs__slide relative size-20 md:size-[100px] rounded-[10px] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_10px_var(--accent-color)] ${selected ? "is-selected" : ""}`}
     >
       <Image
         src={imageError || !imageUrl ? "/no-photo.png" : imageUrl}

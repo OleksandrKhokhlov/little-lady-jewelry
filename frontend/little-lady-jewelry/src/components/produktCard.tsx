@@ -95,7 +95,7 @@ export const ProduktCard = ({
       className={cn(
         "md:min-w-[120px] p-1 rounded-md ",
         "transition-all duration-300",
-        "hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)]",
+        "hover:-translate-y-1",
         "hover:shadow-[0_0_10px_var(--accent-color)]",
         className,
       )}
@@ -221,7 +221,7 @@ export const ProduktCard = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-2 md:p-1 mt-1 ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-2 md:p-1 mt-1 hover:bg-[var(--hover-color)] ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
             disabled={!quantity}
           />
         </div>

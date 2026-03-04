@@ -82,7 +82,7 @@ export const ProduktCardDetails = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2  ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-[160px] bg-[var(--accent-color)] hover:bg-[var(--hover-color)] text-white rounded-md p-2  ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
             disabled={!quantity}
           />
           <Button
@@ -93,12 +93,12 @@ export const ProduktCardDetails = ({
             }}
             ariaLabel="Додати/видалити в/з обране"
             text={isFavorite ? "Видалити з обраного" : "Додати в обране"}
-            className="w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2"
+            className="w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
           />
           <Button
             onClick={handleCheckout}
             text="Оформити замовлення"
-            className="bg-[var(--accent-color)] text-white rounded-md p-2"
+            className="bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
           />
         </div>
       </div>
