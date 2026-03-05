@@ -124,7 +124,7 @@ export const ModalCart = ({
         <Button
           onClick={handleCheckout}
           text="Оформити замовлення"
-          className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto"
+          className="mt-4 bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] mr-auto ml-auto hover:bg-[var(--hover-color)] transition-colors duration-300"
         />
       </div>
     </Modal>

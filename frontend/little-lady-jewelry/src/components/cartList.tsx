@@ -39,7 +39,7 @@ export const CartList = ({
           className="object-cover rounded-md"
         />
       </Link>
-      <div className="flex items-center justify-between gap-1">
+      <div className="flex items-center justify-between gap-1 overflow-hidden">
         <div className="min-w-[110px]">
           {" "}
           <h3>{name}</h3>
@@ -59,7 +59,7 @@ export const CartList = ({
               className="w-[18px] h-[20px] fill-[var(--accent-color)]"
             />
           }
-          className="p-1"
+          className="p-1 hover:scale-125 transition-transform duration-300"
         />
       </div>
     </li>

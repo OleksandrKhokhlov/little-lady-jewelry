@@ -32,7 +32,7 @@ export const CartCounter = ({
         icon={
           <Icon
             iconId="icon-Minus"
-            className="size-[15px] fill-[var(--text-color)] "
+            className="size-[15px] fill-[var(--text-color)] hover:fill-black transition-colors duration-300"
           />
         }
         disabled={value <= min}
@@ -45,7 +45,7 @@ export const CartCounter = ({
         icon={
           <Icon
             iconId="icon-Plus"
-            className="size-[15px] fill-[var(--text-color)]"
+            className="size-[15px] fill-[var(--text-color)] hover:fill-black transition-colors duration-300"
           />
         }
         className="bg-[var(--accent-color)] p-[3px]"
