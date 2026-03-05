@@ -28,3 +28,4 @@ export { Thumb } from "./emblaCarouselThumbsButtons";
 export { EmblaCarousel } from "./emblaCarousel";
 export { CheckoutForm } from "./checkoutForm";
 export { ModalCreateProduct } from "./modalCreateProduct";
+export { AdminProducts } from "./adminProducts";

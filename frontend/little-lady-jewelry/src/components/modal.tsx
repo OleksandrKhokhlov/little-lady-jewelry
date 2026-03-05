@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, use, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { Icon } from "./icon";
 import { ModalProps } from "@/types";
 

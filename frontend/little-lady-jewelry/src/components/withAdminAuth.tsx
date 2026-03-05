@@ -4,43 +4,37 @@ import { getToken } from "@/app/api";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function withAdminAuth<P extends object>(
-  WrappedComponent: React.ComponentType<P>,
-) {
-  return function ProtectedPage(props: P) {
-    const router = useRouter();
-    const pathname = usePathname();
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(
-      false,
-    );
+export default function WithAdminAuth({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isChecking, setIsChecking] = useState<boolean | null>(true);
 
-    const ADMIN_DASHBOARD_PATH = "/admin/products";
-    const ADMIN_LOGIN_PATH = "/admin/login";
+  const ADMIN_LOGIN = "/admin/products";
+  const ADMIN_PRODUCTS = "/admin/login";
 
-    useEffect(() => {
-      const token = getToken();
-      const onLoginPage = pathname === ADMIN_LOGIN_PATH;
-      const onAdminPage = pathname.startsWith("/admin");
+  useEffect(() => {
+    const token = getToken();
+    const isLoginPage = pathname === ADMIN_LOGIN;
+    const isAdminPage = pathname.startsWith("/admin");
 
-      if (token) {
-        if (onLoginPage) {
-          router.replace(ADMIN_DASHBOARD_PATH);
-          return;
-        }
-        setIsAuthenticated(true);
-      } else {
-        if (onAdminPage && !onLoginPage) {
-          router.replace(ADMIN_LOGIN_PATH);
-          return;
-        }
-        setIsAuthenticated(true);
-      }
-    }, [router, pathname]);
-
-    if (!isAuthenticated) {
-      return null;
+    if (!token && isAdminPage && !isLoginPage) {
+      router.replace(ADMIN_LOGIN);
+      return;
     }
+    if (token && isLoginPage) {
+      router.replace(ADMIN_PRODUCTS);
+      return;
+    }
+    setIsChecking(false);
+  }, [router, pathname]);
 
-    return <WrappedComponent {...props} />;
-  };
+  if (isChecking) {
+    return null;
+  }
+
+  return <>{children}</>;
 }
