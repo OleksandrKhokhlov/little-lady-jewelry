@@ -1,18 +1,28 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'ALLOW-FROM https://www.yutube.com',
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
           },
           {
-            key: 'Content-Security-Policy',
-            value: "frame-src https://www.youtube.com https://www.youtube-nocookie.com;",
+            key: "Content-Security-Policy",
+            value: `
+            default-src 'self';
+            script-src 'self';
+            style-src 'self' 'unsafe-inline';
+            img-src 'self' data: blob: https://res.cloudinary.com;
+            frame-src https://www.youtube.com https://www.youtube-nocookie.com;
+            connect-src 'self' http://localhost:3000 https://little-lady-jewelry.onrender.com;
+            font-src 'self';
+            object-src 'none';
+            base-uri 'self';
+            form-action 'self';
+            `.replace(/\n/g, ""),
           },
         ],
       },
