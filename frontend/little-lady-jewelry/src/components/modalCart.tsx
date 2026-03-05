@@ -40,8 +40,6 @@ export const ModalCart = ({
     });
   }, [isModalCartOpen, inCart, produkts]);
 
-  if (!isModalCartOpen) return null;
-
   const cartItems = produkts.filter((product) => inCart.includes(product._id));
   const checkedItems = cartItems.filter((product) =>
     selectedIds.includes(product._id),

@@ -11,7 +11,6 @@ export const ModalBurgerMenu = ({
   setModalBurgerOpen,
   setModalCartOpen,
 }: BurgerMenuProps) => {
-  if (!isModalBurgerOpen) return null;
 
   return createPortal(
     <Modal
