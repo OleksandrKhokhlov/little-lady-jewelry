@@ -78,4 +78,6 @@ const AdminProducts = () => {
   );
 };
 
-export default withAdminAuth(AdminProducts);
+const Page = withAdminAuth(AdminProducts);
+
+export default Page;
