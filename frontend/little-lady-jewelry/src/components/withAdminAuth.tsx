@@ -4,10 +4,10 @@ import { getToken } from "@/app/api";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function withAdminAuth<P>(
+export default function withAdminAuth<P extends object>(
   WrappedComponent: React.ComponentType<P>,
 ) {
-  return function ProtectedPage(props: React.PropsWithChildren<P>) {
+  return function ProtectedPage(props: P) {
     const router = useRouter();
     const pathname = usePathname();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(
