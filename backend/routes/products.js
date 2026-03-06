@@ -1,5 +1,10 @@
 const express = require("express");
-const { validateBody, isValidId, isValidType, authAdmin } = require("../middlewares");
+const {
+  validateBody,
+  isValidId,
+  isValidType,
+  authAdmin,
+} = require("../middlewares");
 const {
   productSchema,
   updateQuantitySchema,
@@ -24,18 +29,25 @@ router.get("/type", isValidType, getByType);
 router.get("/:productId", isValidId, getById);
 router.post("/", authAdmin, validateBody(productSchema), add);
 router.delete("/:productId", authAdmin, isValidId, deleteById);
-router.patch("/:productId", authAdmin, isValidId, validateBody(productSchema), updateById);
 router.patch(
-  "/:productId/quantity", authAdmin,
+  "/:productId",
+  authAdmin,
   isValidId,
-  validateBody(updateQuantitySchema),
-  updateQuantity
+  validateBody(productSchema),
+  updateById,
 );
 router.patch(
-  "/:productId/price", authAdmin,
+  "/:productId/quantity",
+  isValidId,
+  validateBody(updateQuantitySchema),
+  updateQuantity,
+);
+router.patch(
+  "/:productId/price",
+  authAdmin,
   isValidId,
   validateBody(updatePriceSchema),
-  updatePrice
+  updatePrice,
 );
 
 module.exports = router;
