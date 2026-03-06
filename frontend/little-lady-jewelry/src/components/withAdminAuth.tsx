@@ -13,8 +13,8 @@ export default function WithAdminAuth({
   const pathname = usePathname();
   const [isChecking, setIsChecking] = useState<boolean | null>(true);
 
-  const ADMIN_LOGIN = "/admin/products";
-  const ADMIN_PRODUCTS = "/admin/login";
+  const ADMIN_LOGIN = "/admin/login";
+  const ADMIN_PRODUCTS = "/admin/products";
 
   useEffect(() => {
     const token = getToken();
