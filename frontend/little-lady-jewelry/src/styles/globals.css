@@ -146,11 +146,15 @@ body {
 @layer components {
   .form-input {
     padding: 3px;
+    padding-left: 10px;
     border: 1px solid var(--accent-color);
     border-radius: 0.25rem;
     background-color: transparent;
     outline: none;
     transition: box-shadow 0.2s ease;
+  }
+  .form-input:not(textarea) {
+    height: 28px;
   }
   .form-input:focus,
   .form-input:hover {

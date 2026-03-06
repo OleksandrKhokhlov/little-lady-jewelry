@@ -36,7 +36,7 @@ export const PhoneField = () => {
         value={inputValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        className="form-input h-7 pl-12"
+        className="form-input"
       />
       {error && touched && (
         <span className="text-[10px] text-red-500 absolute bottom-0">

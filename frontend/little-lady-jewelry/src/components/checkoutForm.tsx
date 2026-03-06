@@ -24,7 +24,7 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
   };
 
   return (
-    <div className="m-auto md:max-w-lg">
+    <div className="m-auto w-full max-w-[450px]">
       <h2 className="text-[18px] mt-2 border-b-2 border-[var(--accent-color)]">
         Оформлення замовлення
       </h2>
@@ -76,7 +76,6 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
                   id="firstName"
                   name="firstName"
                   placeholder={`Ім\u0027я`}
-                  className="h-7"
                 />
                 {errors.firstName && touched.firstName ? (
                   <span className="text-[10px] text-red-500 absolute bottom-0">
@@ -89,7 +88,6 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
                   id="lastName"
                   name="lastName"
                   placeholder="Призвіще"
-                  className="h-7"
                 />
                 {errors.lastName && touched.lastName ? (
                   <span className="text-[10px] text-red-500 absolute bottom-0">
@@ -130,7 +128,7 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
               name="comment"
               as="textarea"
               placeholder="Коментарій"
-              className="w-full"
+              className="w-full h-[100px]"
               autoComplete="off"
               spellCheck={false}
               rows={3}

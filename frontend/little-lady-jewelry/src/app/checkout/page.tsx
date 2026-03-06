@@ -1,7 +1,7 @@
 "use client";
 
 import { Container } from "@/components";
-import { CheckoutForm } from "@/components/checkoutForm";
+import { CheckoutForm } from "@/components";
 import { useSearchParams } from "next/navigation";
 
 export default function CheckoutPage() {

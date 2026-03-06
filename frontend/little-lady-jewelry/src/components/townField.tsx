@@ -96,7 +96,7 @@ export const TownField = () => {
           setIsCitySelected(false);
           setFieldValue("warehouse", "");
         }}
-        className="form-input h-7"
+        className="form-input"
       />
 
       {errors.town && touched.town ? (
@@ -122,12 +122,12 @@ export const TownField = () => {
       <Field
         id="warehouse"
         name="warehouse"
-        placeholder={values.delivery === "Нова пошта" ? "Відділення" : "Індекс"}
+        placeholder={values.delivery === "Нова пошта" ? "№ відділення/поштомату" : "Індекс"}
         value={warehouseQuery}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleWarehouseSearch(e.target.value)
         }
-        className={`mt-4 h-7 form-input ${isCitySelected ? "" : "focus:shadow-none hover:shadow-none cursor-not-allowed"}`}
+        className={`mt-4 form-input ${isCitySelected ? "" : "focus:shadow-none hover:shadow-none cursor-not-allowed"}`}
         disabled={!isCitySelected}
       />
 
