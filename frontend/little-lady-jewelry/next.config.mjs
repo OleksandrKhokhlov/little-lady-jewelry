@@ -17,7 +17,7 @@ const nextConfig = {
             style-src 'self' 'unsafe-inline';
             img-src 'self' data: blob: https://res.cloudinary.com;
             frame-src https://www.youtube.com https://www.youtube-nocookie.com;
-            connect-src 'self' http://localhost:3000 https://little-lady-jewelry.onrender.com;
+            connect-src 'self' http://localhost:3000 https://little-lady-jewelry.onrender.com https://api.novaposhta.ua;
             font-src 'self';
             object-src 'none';
             base-uri 'self';
