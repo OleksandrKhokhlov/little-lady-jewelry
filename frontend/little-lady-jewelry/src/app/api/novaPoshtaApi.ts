@@ -24,6 +24,7 @@ interface Warehouse {
   Longitude?: string;
   Latitude?: string;
   Schedule?: Record<string, string>;
+  CategoryOfWarehouse?: string;
 }
 
 interface SearchSettlementsResponse {
@@ -90,7 +91,7 @@ export async function getWarehouses(
       BASE_URL_NOVA_POSHTA_API,
       {
         apiKey: API_KEY_NOVA_POSHTA,
-        modelName: "AddressGeneral",
+        modelName: "Address",
         calledMethod: "getWarehouses",
         methodProperties,
       },
