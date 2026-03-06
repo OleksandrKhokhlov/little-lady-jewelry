@@ -83,7 +83,7 @@ export const TownField = () => {
   };
 
   return (
-    <div className="mt-3 flex flex-col relative pb-3">
+    <div className="mt-4 flex flex-col relative pb-4">
       <Field
         id="town"
         name="town"
@@ -96,7 +96,7 @@ export const TownField = () => {
           setIsCitySelected(false);
           setFieldValue("warehouse", "");
         }}
-        className="form-input"
+        className="form-input h-7"
       />
 
       {errors.town && touched.town ? (
@@ -127,7 +127,7 @@ export const TownField = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleWarehouseSearch(e.target.value)
         }
-        className={`mt-3 form-input ${isCitySelected ? "" : "focus:shadow-none hover:shadow-none cursor-not-allowed"}`}
+        className={`mt-4 h-7 form-input ${isCitySelected ? "" : "focus:shadow-none hover:shadow-none cursor-not-allowed"}`}
         disabled={!isCitySelected}
       />
 

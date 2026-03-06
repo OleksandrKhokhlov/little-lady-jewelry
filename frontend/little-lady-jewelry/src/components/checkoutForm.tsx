@@ -25,7 +25,7 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
 
   return (
     <div className="m-auto md:max-w-lg">
-      <h2 className="text-[16px] justify-between border-b-2 border-[var(--accent-color)]">
+      <h2 className="text-[18px] mt-2 border-b-2 border-[var(--accent-color)]">
         Оформлення замовлення
       </h2>
       <Formik<CheckoutFormValues>
@@ -67,15 +67,16 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
       >
         {({ isSubmitting, errors, touched }) => (
           <Form
-            className="m-auto w-[calc(100%-10px)] [&>div>div>input]:form-input [&>textarea]:form-input [&>div>div]:w-[calc(50%-4px)]"
+            className="m-auto w-[calc(100%-10px)] [&>div>div>input]:form-input [&>textarea]:form-input md:[&>div>div]:w-[calc(50%-4px)]"
             autoComplete="off"
           >
-            <div className="mt-2 flex flex-wrap justify-between">
-              <div className="flex flex-col relative pb-3">
+            <div className="mt-4 md:flex flex-wrap justify-between">
+              <div className="flex flex-col relative pb-4">
                 <Field
                   id="firstName"
                   name="firstName"
                   placeholder={`Ім\u0027я`}
+                  className="h-7"
                 />
                 {errors.firstName && touched.firstName ? (
                   <span className="text-[10px] text-red-500 absolute bottom-0">
@@ -83,8 +84,13 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
                   </span>
                 ) : null}
               </div>
-              <div className="flex flex-col relative pb-3">
-                <Field id="lastName" name="lastName" placeholder="Призвіще" />
+              <div className="flex flex-col relative pb-4">
+                <Field
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Призвіще"
+                  className="h-7"
+                />
                 {errors.lastName && touched.lastName ? (
                   <span className="text-[10px] text-red-500 absolute bottom-0">
                     {errors.lastName}
@@ -95,7 +101,7 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
             </div>
             <div>
               <h3 className="text-[16px]">Доставка</h3>
-              <div className="mt-1 flex flex-col">
+              <div className="mt-2 flex flex-col gap-2">
                 <Field name="delivery">
                   {({ field }: FieldProps<CheckoutFormValues["delivery"]>) => (
                     <>
@@ -131,7 +137,7 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
             />
             <div className="mt-2">
               <h3 className=" text-[16px]">Оплата</h3>
-              <div className="mt-1 flex flex-col">
+              <div className="mt-2 flex flex-col gap-2">
                 <Field name="payment">
                   {({ field }: FieldProps<CheckoutFormValues["payment"]>) => (
                     <>
@@ -166,7 +172,7 @@ export const CheckoutForm = ({ counts, totalPrice }: CheckoutFormProps) => {
                   ? `Заповніть обов'язкові поля`
                   : "Замовити"
               }
-              className="block mt-3 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] p-1 w-[50%] disabled:opacity-50"
+              className="block mt-3 m-auto bg-[var(--accent-color)] text-white font-[400] rounded-md text-[16px] p-1 w-[50%] disabled:opacity-50"
             />
           </Form>
         )}
