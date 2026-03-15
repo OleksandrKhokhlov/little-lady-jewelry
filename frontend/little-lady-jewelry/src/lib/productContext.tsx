@@ -4,10 +4,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { getProdukts } from "@/app/api";
 import { getLocalStorage } from "./localStorage";
 import { Produkt as ProduktType } from "@/types";
+import { getInitialLimit } from "./getInitialLimit";
 
 interface ProduktContextType {
   produkts: ProduktType[];
   setProdukts: React.Dispatch<React.SetStateAction<ProduktType[]>>;
+  loadMoreProdukts: () => Promise<void>;
   favoriteProdukts: string[];
   setFavoriteProdukts: React.Dispatch<React.SetStateAction<string[]>>;
   inCart: string[];
@@ -26,6 +28,9 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   const [favoriteProdukts, setFavoriteProdukts] = useState<string[]>(() =>
     getLocalStorage<string[]>("favorites", []),
   );
+  const loadMoreProdukts = async () => { 
+    await getProdukts(setProdukts, { skip: produkts.length });
+  };
   const [inCart, setInCart] = useState<string[]>(() =>
     getLocalStorage<string[]>("inCart", []),
   );
@@ -64,7 +69,9 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   useEffect(() => {
-    getProdukts(setProdukts);
+    const limit = getInitialLimit();
+
+    getProdukts(setProdukts, { limit });
   }, []);
 
   useEffect(() => {
@@ -80,6 +87,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         produkts,
         setProdukts,
+        loadMoreProdukts,
         favoriteProdukts,
         setFavoriteProdukts,
         inCart,
