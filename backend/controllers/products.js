@@ -3,12 +3,18 @@ const cloudinary = require("../helpers/cloudinary");
 
 const getAll = async (req, res, next) => {
   try {
-    const { page = 1, limit = 20 } = req.query;
-    const skip = (page - 1) * limit;
-    const result = await Product.find({})
-      .sort({ quantity: -1 })
-      .skip(skip)
-      .limit(parseInt(limit));
+    const { limit, skip = 0 } = req.query;
+
+    const query = Product.find({}).sort({ quantity: -1 });
+
+    if (limit) {
+      query.limit(parseInt(limit));
+    } else {
+      query.skip(parseInt(skip));
+    }
+
+    const result = await query;
+
     res.status(200).json(result);
   } catch (error) {
     next(error);
@@ -68,8 +74,8 @@ const add = async (req, res, next) => {
             { width: 600, crop: "limit" },
             { quality: "auto", fetch_format: "auto" },
           ],
-        })
-      )
+        }),
+      ),
     );
 
     const uploadedImages = result.map((res) => ({
@@ -136,8 +142,8 @@ const updateById = async (req, res, next) => {
             folder: "little-lady-jewelry",
             width: 300,
             crop: "scale",
-          })
-        )
+          }),
+        ),
       );
 
       const uploadedImages = result.map((res) => ({
@@ -155,12 +161,12 @@ const updateById = async (req, res, next) => {
         updateData,
         {
           new: true,
-        }
+        },
       );
 
       if (oldPublicIds.length > 0) {
         await Promise.all(
-          oldPublicIds.map((id) => cloudinary.uploader.destroy(id))
+          oldPublicIds.map((id) => cloudinary.uploader.destroy(id)),
         );
       }
       return res.status(200).json(updateProduct);
@@ -171,7 +177,7 @@ const updateById = async (req, res, next) => {
       otherUpdates,
       {
         new: true,
-      }
+      },
     );
 
     return res.status(200).json(updateProduct);
@@ -188,7 +194,7 @@ const updateQuantity = async (req, res, next) => {
     const product = await Product.findByIdAndUpdate(
       productId,
       { $inc: { quantity: req.body.quantity } },
-      { new: true }
+      { new: true },
     );
 
     res.status(200).json(product);
