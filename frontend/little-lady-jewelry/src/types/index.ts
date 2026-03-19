@@ -5,3 +5,4 @@ export * from "./cart";
 export * from "./embla";
 export * from "./modal";
 export * from "./link";
+export * from "./novaPoshta";

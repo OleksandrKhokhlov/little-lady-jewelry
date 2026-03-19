@@ -1,52 +1,10 @@
 import axios from "axios";
+import { GetWarehousesMethodProperties, SearchSettlementsResponse, Warehouse, WarehousesResponse } from "@/types";
 
 const BASE_URL_NOVA_POSHTA_API =
   process.env.BASE_URL_NOVA_POSHTA_API ||
   "https://api.novaposhta.ua/v2.0/json/";
 const API_KEY_NOVA_POSHTA = process.env.API_KEY_NOVA_POSHTA as string;
-
-interface Settlement {
-  Present: string;
-  MainDescription: string;
-  Area: string;
-  DeliveryCity: string;
-  Ref: string;
-}
-
-interface Warehouse {
-  Description: string;
-  Ref: string;
-  ShortAddress?: string;
-  Phone?: string;
-  Number?: string;
-  CityRef?: string;
-  CityDescription?: string;
-  Longitude?: string;
-  Latitude?: string;
-  Schedule?: Record<string, string>;
-  CategoryOfWarehouse?: string;
-}
-
-interface SearchSettlementsResponse {
-  success: boolean;
-  data: Array<{
-    TotalCount: number;
-    Addresses: Settlement[];
-  }>;
-}
-
-interface WarehousesResponse {
-  success: boolean;
-  data: Warehouse[];
-}
-
-type GetWarehousesMethodProperties = {
-  SettlementRef: string;
-  WarehouseId?: string;
-  Page: string;
-  Limit: string;
-  Language: string;
-};
 
 export async function searchSettlements(query: string, limit = 20, page = 1) {
   try {
