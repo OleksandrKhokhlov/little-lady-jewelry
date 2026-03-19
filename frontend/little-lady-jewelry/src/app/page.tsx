@@ -8,8 +8,7 @@ import { ProduktCard } from "../components";
 import { useProduktContext } from "@/lib";
 
 export default function Home() {
-  const { produkts, loadMoreProdukts, favoriteProdukts, toggleFavorite } =
-    useProduktContext();
+  const { produkts, loadMoreProdukts } = useProduktContext();
   const [selectedValue, setSelectedValue] = useState("Всі");
   const [filtredProdukts, setFilteredProdukts] = useState(produkts);
   const [showLoadMore, setShowLoadMore] = useState(true);
@@ -53,8 +52,6 @@ export default function Home() {
               <ProduktCard
                 key={produkt._id}
                 produkt={produkt}
-                favoriteProdukts={favoriteProdukts}
-                onToggleFavorite={() => toggleFavorite(produkt._id)}
                 className={
                   "flex flex-col justify-between font-bold max-w-[150px]"
                 }

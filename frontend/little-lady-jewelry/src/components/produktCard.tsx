@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./button";
 import { cn, useProduktContext } from "@/lib";
 import { usePathname } from "next/navigation";
@@ -20,7 +20,6 @@ export const ProduktCard = ({
     type = "Всі",
     quantity: initialQuantity = 0,
   },
-  favoriteProdukts = [],
   className,
 }: ProduktCardProps) => {
   const pathname = usePathname();

@@ -18,7 +18,6 @@ export default function FavoritePage() {
             <ProduktCard
               key={favoriteProdukt._id}
               produkt={favoriteProdukt}
-              favoriteProdukts={favoriteProdukts}
               className={
                 "flex flex-col justify-between font-bold max-w-[150px]"
               }
