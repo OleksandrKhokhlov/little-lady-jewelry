@@ -1,16 +1,15 @@
 "use client";
 
-import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "./button";
-import { Icon } from "./icon";
 import { cn, useProduktContext } from "@/lib";
 import { usePathname } from "next/navigation";
-import { deleteProdukt, updatePrice, updateQuantity } from "@/app/api";
-import Swal from "sweetalert2";
 import { ProduktCardProps } from "@/types";
+import { AdminProductCardMenu } from "./adminProductCardMenu";
+import { DelProductBtn } from "./delProductBtn";
+import { FavoriteBtn } from "./favoriteBtn";
 
 export const ProduktCard = ({
   produkt: {
@@ -22,72 +21,16 @@ export const ProduktCard = ({
     quantity: initialQuantity = 0,
   },
   favoriteProdukts = [],
-  onToggleFavorite = () => {},
   className,
 }: ProduktCardProps) => {
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith("/admin");
   const { inCart, addToCart, setProdukts } = useProduktContext();
 
-  const [isFavorite, setIsFavorite] = useState(favoriteProdukts.includes(id));
   const [imageError, setImageError] = useState(false);
   const [price, setPrice] = useState(initialPrice);
   const [quantity, setQuantity] = useState(initialQuantity);
   const isInCart = inCart.includes(id);
-
-  useEffect(() => {
-    setIsFavorite(favoriteProdukts.includes(id));
-  }, [favoriteProdukts, id]);
-
-  const handleUpdatePrice = async (newPrice: number) => {
-    const res = await updatePrice(id, newPrice);
-    if (res.success) {
-      setProdukts((prevProdukts) =>
-        prevProdukts.map((produkt) =>
-          produkt._id === id ? { ...produkt, price: newPrice } : produkt,
-        ),
-      );
-      toast.success("Ціну оновлено");
-      return;
-    } else {
-      toast.error(res.message || "Не вдалося оновити ціну");
-    }
-  };
-
-  const handleUpdateQuantity = async (newQuantity: number) => {
-    const res = await updateQuantity(id, newQuantity);
-    if (res.success) {
-      setProdukts((prevProdukts) =>
-        prevProdukts.map((produkt) =>
-          produkt._id === id ? { ...produkt, quantity: newQuantity } : produkt,
-        ),
-      );
-      toast.success("Кількість оновлено");
-    } else {
-      toast.error(res.message || "Не вдалося оновити кількість");
-    }
-  };
-
-  const handleDeleteProdukt = async (productId: string) => {
-    const res = await Swal.fire({
-      title: "Видалити товар?",
-      text: "Цю дію не можна буде скасувати!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Так, видалити!",
-      cancelButtonText: "Скасувати",
-    });
-
-    if (res.isConfirmed) {
-      await deleteProdukt(productId);
-      setProdukts((prevProdukts) =>
-        prevProdukts.filter((produkt) => produkt._id !== productId),
-      );
-      toast.success("Товар видалено");
-    }
-  };
 
   return (
     <li
@@ -115,42 +58,9 @@ export const ProduktCard = ({
             priority={false}
           />
           {!isAdminPage ? (
-            <button
-              type="button"
-              className="absolute bottom-1 right-1 size-[17px] flex items-center justify-center p-0"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onToggleFavorite();
-              }}
-              aria-label="Додати в обране"
-            >
-              {isFavorite ? (
-                <Icon
-                  iconId="icon-Heart-Active"
-                  className="fill-[var(--accent-color)]"
-                />
-              ) : (
-                <Icon
-                  iconId="icon-Heart"
-                  className="fill-[var(--accent-color)]"
-                />
-              )}
-            </button>
+            <FavoriteBtn id={id} />
           ) : (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleDeleteProdukt(id);
-              }}
-              className="absolute top-1 right-1 size-[17px] flex items-center justify-center p-0"
-            >
-              <Icon
-                iconId="icon-Cross"
-                className="size-[15px] fill-[var(--accent-color)]"
-              />
-            </button>
+            <DelProductBtn id={id} setProdukts={setProdukts} />
           )}
         </div>
         <h2 className="mt-1 md:text-lg/5 ">{name}</h2>
@@ -158,53 +68,14 @@ export const ProduktCard = ({
       </Link>
 
       {isAdminPage ? (
-        <div>
-          <div className="flex gap-1 items-center justify-between">
-            <label className="text-xs text-gray-600 w-[70%]">
-              Ціна:
-              <input
-                name="price"
-                type="number"
-                value={price}
-                onChange={(e) => setPrice(Number(e.target.value))}
-                className="form-input text-center text-sm w-[90%]"
-              />
-            </label>
-            <button
-              type="button"
-              onClick={() => handleUpdatePrice(price)}
-              className="size-[26px] "
-            >
-              <Icon
-                iconId="icon-Check-Admin"
-                className="fill-[var(--accent-color)]"
-              />
-            </button>
-          </div>
-
-          <div className="flex gap-1 items-center justify-between">
-            <label className="text-xs text-gray-600 w-[70%]">
-              Кількість:
-              <input
-                name="quantity"
-                type="number"
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className="form-input text-center text-sm w-[90%]"
-              />
-            </label>
-            <button
-              type="button"
-              onClick={() => handleUpdateQuantity(quantity)}
-              className="size-[26px] "
-            >
-              <Icon
-                iconId="icon-Check-Admin"
-                className="fill-[var(--accent-color)]"
-              />
-            </button>
-          </div>
-        </div>
+        <AdminProductCardMenu
+          id={id}
+          price={price}
+          quantity={quantity}
+          setPrice={setPrice}
+          setQuantity={setQuantity}
+          setProdukts={setProdukts}
+        />
       ) : (
         <div>
           <span className="font-cabinsketch text-[var(--accent-color)] md:text-lg mt-1 block">{`${price} \u20B4`}</span>

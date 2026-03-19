@@ -4,7 +4,7 @@ import { useProduktContext } from "@/lib/productContext";
 import { ProduktCard } from "../../components/produktCard";
 
 export default function FavoritePage() {
-  const { produkts, favoriteProdukts, toggleFavorite } = useProduktContext();
+  const { produkts, favoriteProdukts } = useProduktContext();
 
   const favoriteProduktsList = produkts.filter((product) =>
     favoriteProdukts.includes(product._id),
@@ -19,7 +19,6 @@ export default function FavoritePage() {
               key={favoriteProdukt._id}
               produkt={favoriteProdukt}
               favoriteProdukts={favoriteProdukts}
-              onToggleFavorite={() => toggleFavorite(favoriteProdukt._id)}
               className={
                 "flex flex-col justify-between font-bold max-w-[150px]"
               }
