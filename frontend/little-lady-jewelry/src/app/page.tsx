@@ -59,7 +59,7 @@ export default function Home() {
             ))}
           </ul>
         )}
-        {showLoadMore && (
+        {showLoadMore && filtredProdukts.length > 0 && (
           <Button
             text="Показати всі"
             className={`w-1/2 mx-auto block bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-2 md:p-1 mt-4 hover:bg-[var(--hover-color)]`}
