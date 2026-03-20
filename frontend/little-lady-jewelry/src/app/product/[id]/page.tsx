@@ -34,7 +34,7 @@ const ProductPage = () => {
   }
 
   return (
-    <Container tag="section" className="md:mt-4 md:flex md:gap-6">
+    <Container tag="section" className="relative md:mt-4 md:flex md:gap-6">
       <ProduktCardDetails {...product} />
     </Container>
   );

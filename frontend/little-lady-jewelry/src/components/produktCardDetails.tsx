@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { EmblaCarousel } from "./emblaCarousel";
 import { Button } from "./button";
 import { Produkt } from "@/types";
+import { Icon } from "./icon";
 
 export const ProduktCardDetails = ({
   _id: id,
@@ -102,6 +103,12 @@ export const ProduktCardDetails = ({
           />
         </div>
       </div>
+      <button type="button" className="size-10 absolute top-1 left-2 sm:left-4" onClick={() => router.back()} aria-label="Повернутися назад">
+        <Icon
+          iconId="icon-Back"
+          className="stroke-[var(--accent-color)] hover:stroke-[var(--hover-color)] transition-colors duration-300"
+        />
+      </button>
     </>
   );
 };
