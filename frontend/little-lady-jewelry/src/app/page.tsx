@@ -12,6 +12,15 @@ export default function Home() {
   const [selectedValue, setSelectedValue] = useState("Всі");
   const [filtredProdukts, setFilteredProdukts] = useState(produkts);
   const [showLoadMore, setShowLoadMore] = useState(true);
+  const [limit, setLimit] = useState(getInitialLimit());
+
+  useEffect(() => {
+    if (filtredProdukts.length <= limit) {
+      setShowLoadMore(false);
+    } else {
+      setShowLoadMore(true);
+    }
+  }, [filtredProdukts, limit]);
 
   useEffect(() => {
     const normalizedSelectedValue = selectedValue
@@ -62,7 +71,7 @@ export default function Home() {
             ))}
           </ul>
         )}
-        {showLoadMore && filtredProdukts.length > getInitialLimit() && (
+        {showLoadMore && filtredProdukts.length > 0 && (
           <Button
             text="Показати всі"
             ariaLabel="Кнопка показати всі"
