@@ -44,7 +44,7 @@ export const Header = ({ className }: { className?: string }) => {
           <ContactsMenu className="hidden md:flex" />
           <div className="flex items-center justify-end gap-8">
             <Link
-              href={"./favorite"}
+              href={"/favorite"}
               className="relative w-8 md:w-5 h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)] hover:scale-125 transition-all duration-300"
             >
               <Icon iconId="icon-Heart" className="size-7 md:size-5 stroke-2" />
