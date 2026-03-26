@@ -5,7 +5,7 @@ import { Button, Container } from "../components";
 import { FiltrPopUp } from "../components";
 import { Hero } from "../components";
 import { ProduktCard } from "../components";
-import { useProduktContext } from "@/lib";
+import { getInitialLimit, useProduktContext } from "@/lib";
 
 export default function Home() {
   const { produkts, loadMoreProdukts } = useProduktContext();
@@ -31,6 +31,9 @@ export default function Home() {
 
   return (
     <>
+      <h1 className="sr-only">
+        Магазин прикрас Little Lady: готові подарунки під ключ
+      </h1>
       <Hero />
       <Container className="py-0 pb-4">
         <FiltrPopUp
@@ -59,9 +62,10 @@ export default function Home() {
             ))}
           </ul>
         )}
-        {showLoadMore && filtredProdukts.length > 0 && (
+        {showLoadMore && filtredProdukts.length > getInitialLimit() && (
           <Button
             text="Показати всі"
+            ariaLabel="Кнопка показати всі"
             className={`w-1/2 mx-auto block bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-2 md:p-1 mt-4 hover:bg-[var(--hover-color)]`}
             onClick={(e) => {
               e.preventDefault();
