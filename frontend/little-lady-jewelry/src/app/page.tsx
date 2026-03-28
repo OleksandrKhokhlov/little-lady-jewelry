@@ -12,7 +12,7 @@ export default function Home() {
   const [selectedValue, setSelectedValue] = useState("Всі");
   const [filtredProdukts, setFilteredProdukts] = useState(produkts);
   const [showLoadMore, setShowLoadMore] = useState(true);
-  const [limit, setLimit] = useState(getInitialLimit());
+  const [limit] = useState(getInitialLimit());
 
   useEffect(() => {
     if (filtredProdukts.length <= limit) {
