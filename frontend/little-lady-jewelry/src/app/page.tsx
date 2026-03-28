@@ -59,7 +59,7 @@ export default function Home() {
             <span className="text-[var(--accent-color)]">{selectedValue}</span>
           </p>
         ) : (
-          <ul className="grid grid-cols-3 min-[570px]:grid-cols-5 min-[840px]:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mt-3 md:mt-4">
+          <ul className="grid grid-cols-3 min-[570px]:grid-cols-4 min-[840px]:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mt-3 md:mt-4">
             {filtredProdukts.map((produkt) => (
               <ProduktCard
                 key={produkt._id}
