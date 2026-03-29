@@ -35,7 +35,8 @@ export const ProduktCard = ({
     <li
       key={id}
       className={cn(
-        "min-w-[110px] p-1 rounded-md ",
+        "flex flex-col justify-between w-[calc((100%-16px)/3)] min-[540px]:w-[calc((100%-24px)/4)] min-[760px]:w-[calc((100%-32px)/5)] min-[890px]:w-[calc((100%-40px)/6)] min-[1300px]:w-[calc((100%-48px)/7)]",
+        "p-1 rounded-md ",
         "transition-all duration-300",
         "hover:-translate-y-1",
         "hover:shadow-[0_0_10px_var(--accent-color)]",
@@ -91,7 +92,7 @@ export const ProduktCard = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm p-2 md:p-1 mt-1 hover:bg-[var(--hover-color)] ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm py-2 md:py-1 mt-1 hover:bg-[var(--hover-color)] ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
             disabled={!quantity}
           />
         </div>

@@ -17,7 +17,7 @@ export const Container = ({
 
   return (
     <Tag
-      className={cn("mx-auto px-4 pb-4 md:max-w-6xl md:px-9", className)}
+      className={cn("mx-auto px-4 pb-4 md:px-9", className)}
     >
       {children}
     </Tag>
