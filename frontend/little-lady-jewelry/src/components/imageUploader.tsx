@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { Icon } from "./icon";
 import { compressImg } from "@/lib/compressImg";
 
@@ -14,10 +13,6 @@ export const ImageUploader = ({
   onImageChange,
   initialImages = [],
 }: ImageUploaderProps) => {
-  const [previewImages, setPreviewImages] = useState<string[]>(
-    () => initialImages,
-  );
-
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
 
@@ -27,29 +22,22 @@ export const ImageUploader = ({
       const compressedImages = await Promise.all(
         files.map((file) => compressImg(file)),
       );
-      
-      setPreviewImages((prevImages) => {
-        const updated = [...prevImages, ...compressedImages];
-        onImageChange(updated);
-        return updated;
-      });
+
+      onImageChange([...initialImages, ...compressedImages]);
+      e.target.value = "";
     } catch (error) {
       console.error("Error uploading/comoressing images:", error);
     }
   };
 
   const handleRemoveImage = (index: number) => {
-    setPreviewImages((prevImages) => {
-      const updated = prevImages.filter((_, i) => i !== index);
-      onImageChange(updated);
-      return updated;
-    });
+    onImageChange(initialImages.filter((_, i) => i !== index));
   };
 
   return (
     <div className="flex flex-wrap gap-3">
-      {previewImages.length > 0 ? (
-        previewImages.map((image, index) => (
+      {initialImages.length > 0 ? (
+        initialImages.map((image, index) => (
           <div
             key={index}
             className="size-[90px] relative rounded-md overflow-hidden"
@@ -59,6 +47,7 @@ export const ImageUploader = ({
               alt={`Фото ${index + 1}`}
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority
             />
             <button
