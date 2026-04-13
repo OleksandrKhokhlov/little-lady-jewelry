@@ -14,7 +14,7 @@ import { FavoriteBtn } from "./favoriteBtn";
 export const ProduktCard = ({
   produkt: {
     _id: id,
-    images,
+    images = [],
     name = "Немає назви",
     price: initialPrice = 0,
     type = "Всі",
@@ -30,7 +30,6 @@ export const ProduktCard = ({
   const [price, setPrice] = useState(initialPrice);
   const [quantity, setQuantity] = useState(initialQuantity);
   const isInCart = inCart.includes(id);
-
   return (
     <li
       key={id}

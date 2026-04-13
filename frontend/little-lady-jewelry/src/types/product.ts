@@ -24,18 +24,15 @@ export interface ProductPayload {
 }
 
 export interface ProduktCardProps {
-  produkt: Omit<
-    Produkt,
-    "video" | "material" | "insert" | "dimensions" | "weight"
-  >;
-
+  produkt: Produkt;
   favoriteProdukts?: string[];
   onToggleFavorite?: () => void;
   className?: string;
 }
 
-export interface Produkt extends ProductPayload {
+export interface Produkt extends Omit<ProductPayload, "images"> {
   _id: string;
+  images: ProductImage[];
 }
 
 export interface FormValues
