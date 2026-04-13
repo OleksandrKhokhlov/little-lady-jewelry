@@ -13,7 +13,7 @@ export default function FavoritePage() {
   return (
     <Container tag="section" className="pb-4">
       {favoriteProduktsList.length > 0 ? (
-        <ul className="grid grid-cols-3 min-[570px]:grid-cols-5 min-[840px]:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mt-2 md:mt-4">
+        <ul className="flex flex-wrap gap-2 mt-3 md:mt-4">
           {favoriteProduktsList.map((favoriteProdukt) => (
             <ProduktCard
               key={favoriteProdukt._id}
