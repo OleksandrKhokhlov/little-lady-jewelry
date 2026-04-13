@@ -12,7 +12,7 @@ export interface ProductImage {
 
 export interface ProductPayload {
   name: string;
-  images: ProductImage[];
+  images: string[];
   video?: string;
   price: number;
   type: LockTypeValues;

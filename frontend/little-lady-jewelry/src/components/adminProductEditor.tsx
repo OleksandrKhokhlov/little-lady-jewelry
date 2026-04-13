@@ -25,7 +25,7 @@ const DEFAULT_PRODUCT_VALUES = {
   weight: 0,
   width: 0,
   height: 0,
-  images: [] as ProductImage[],
+  images: [] as string[],
 };
 
 export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
@@ -45,7 +45,9 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
     weight: product?.weight || DEFAULT_PRODUCT_VALUES.weight,
     width: product?.dimensions?.width || DEFAULT_PRODUCT_VALUES.width,
     height: product?.dimensions?.height || DEFAULT_PRODUCT_VALUES.height,
-    images: initialImages.map((img) => img.url),
+    images: initialImages.map((img: ProductImage | string) =>
+      typeof img === "string" ? img : (img as ProductImage).url,
+    ),
   };
 
   const buttonText = isEditMode ? "Зберегти зміни" : "Створити продукт";
@@ -63,15 +65,18 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
           width,
           height,
         },
-        images: images.map((url) => ({ url, public_id: "" })),
+        images: images,
       };
 
       if (isEditMode && product?._id) {
         const payloadToUpdate: Partial<ProductPayload> = { ...payload };
 
         if (
-          JSON.stringify(initialImages.map((img) => img.url)) ===
-          JSON.stringify(images)
+          JSON.stringify(
+            initialImages.map((img) =>
+              typeof img === "string" ? img : (img as ProductImage).url,
+            ),
+          ) === JSON.stringify(images)
         ) {
           delete payloadToUpdate.images;
         }

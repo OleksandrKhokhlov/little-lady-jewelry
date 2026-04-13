@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Icon } from "./icon";
+import { compressImg } from "@/lib/compressImg";
 
 interface ImageUploaderProps {
   onImageChange: (images: string[]) => void;
@@ -23,30 +24,17 @@ export const ImageUploader = ({
     if (!files.length) return;
 
     try {
-      const base64Images = await Promise.all(
-        files.map(
-          (file) =>
-            new Promise<string>((resolve, reject) => {
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                if (typeof reader.result === "string") {
-                  resolve(reader.result);
-                } else {
-                  reject("Error reading file");
-                }
-              };
-              reader.onerror = reject;
-              reader.readAsDataURL(file);
-            }),
-        ),
+      const compressedImages = await Promise.all(
+        files.map((file) => compressImg(file)),
       );
+      
       setPreviewImages((prevImages) => {
-        const updated = [...prevImages, ...base64Images];
+        const updated = [...prevImages, ...compressedImages];
         onImageChange(updated);
         return updated;
       });
     } catch (error) {
-      console.error("Error uploading images:", error);
+      console.error("Error uploading/comoressing images:", error);
     }
   };
 
