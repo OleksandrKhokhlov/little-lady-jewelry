@@ -9,6 +9,7 @@ import { useProduktContext } from "@/lib";
 import { FormValues, ProductImage, ProductPayload, Produkt } from "@/types";
 import { LockTypeValues } from "@/constants";
 import { useRouter } from "next/navigation";
+import { Icon } from "./icon";
 
 interface AdminProductEditorProps {
   product?: Produkt;
@@ -114,7 +115,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto h-[90vh] bg-white p-2 rounded-lg shadow-md border border-gray-100 overflow-y-auto">
+    <div className="relative max-w-lg mx-auto h-[90vh] bg-white p-2 rounded-lg shadow-md border border-gray-100 overflow-y-auto">
       <Formik<FormValues> initialValues={initialValues} onSubmit={handleSubmit}>
         {({ values, setFieldValue, isSubmitting }) => {
           const handleImageChange = (images: string[]) => {
@@ -194,6 +195,17 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
           );
         }}
       </Formik>
+      <button
+        type="button"
+        className="size-10 absolute top-1 left-2 sm:left-4"
+        onClick={() => router.back()}
+        aria-label="Повернутися назад"
+      >
+        <Icon
+          iconId="icon-Back"
+          className="stroke-[var(--accent-color)] hover:stroke-[var(--hover-color)] transition-colors duration-300"
+        />
+      </button>
     </div>
   );
 };
