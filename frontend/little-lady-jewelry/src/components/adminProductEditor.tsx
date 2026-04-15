@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { Button } from "./button";
 import { useProduktContext } from "@/lib";
 import { FormValues, ProductImage, ProductPayload, Produkt } from "@/types";
-import { LockTypeValues } from "@/constans";
+import { LockTypeValues } from "@/constants";
 import { useRouter } from "next/navigation";
 
 interface AdminProductEditorProps {

@@ -1,4 +1,4 @@
-import { LockTypeValues } from "@/constans";
+import { LockTypeValues } from "@/constants";
 
 export interface ProductDimensions {
   width?: number;

@@ -1,15 +1,12 @@
 import { SetStateAction } from "react";
-import { lockTypes } from "@/constans/lock-type";
+import { lockTypes } from "@/constants/lock-type";
 
 interface FiltrProps {
   selectedValue: string;
   handleChange: (e: { target: { value: SetStateAction<string> } }) => void;
 }
 
-export const FiltrPopUp = ({
-  selectedValue,
-  handleChange,
-}: FiltrProps) => {
+export const FiltrPopUp = ({ selectedValue, handleChange }: FiltrProps) => {
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     value: string,
