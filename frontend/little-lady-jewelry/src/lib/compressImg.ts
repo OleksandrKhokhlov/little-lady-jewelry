@@ -1,10 +1,21 @@
 export const compressImg = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
+    const MAX_SIZE_MB = 3;
+    const MAX_SIZE_BUTES = MAX_SIZE_MB * 1024 * 1024;
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     reader.onload = (event) => {
+      const result = event.target?.result as string;
+
+      if (file.size <= MAX_SIZE_BUTES) {
+        return resolve(result);
+      }
+
       const img = new window.Image();
-      img.src = event.target?.result as string;
+      img.src = result;
+
       img.onload = () => {
         const canvas = document.createElement("canvas");
         const MAX_WIDTH = 1600;
@@ -36,6 +47,7 @@ export const compressImg = (file: File): Promise<string> => {
         const compressedBase64 = canvas.toDataURL("image/jpeg", 0.9);
         resolve(compressedBase64);
       };
+      img.onerror = (err) => reject(err);
     };
     reader.onerror = (error) => reject(error);
   });
