@@ -45,22 +45,25 @@ export const EmblaCarousel = (props: EmblaCarouselProps) => {
     <div className="embla">
       <div className="embla__viewport" ref={emblaMainRef}>
         <div className="embla__container ">
-          {slides.map(({ url }, index) => (
-            <div className="embla__slide" key={index}>
-              <div className="embla__slide__image-container rounded-[20px] overflow-hidden mx-auto">
-                <Image
-                  src={errorSlides[index] || !url ? "/no-photo.png" : url}
-                  alt={name || "Зображення відсутне"}
-                  fill
-                  sizes="(max-width: 768px) 290px, (max-width: 1200px) 320px, 400px"
-                  quality={90}
-                  onError={() => handleImageError(index)}
-                  priority={index === 0}
-                  className="object-cover "
-                />
+          {Array.from({ length: 3 }).map((_, index) => {
+            const url = slides[index]?.url;
+            return (
+              <div className="embla__slide" key={index}>
+                <div className="embla__slide__image-container rounded-[20px] overflow-hidden mx-auto">
+                  <Image
+                    src={errorSlides[index] || !url ? "/no-photo.png" : url}
+                    alt={name || "Зображення відсутне"}
+                    fill
+                    sizes="(max-width: 768px) 290px, (max-width: 1200px) 320px, 400px"
+                    quality={90}
+                    onError={() => handleImageError(index)}
+                    priority={index === 0}
+                    className="object-cover "
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
           {video && (
             <div className="embla__slide">
               <div className="embla__slide__video-container w-[80%] mx-auto aspect-video">
@@ -87,7 +90,7 @@ export const EmblaCarousel = (props: EmblaCarouselProps) => {
               return (
                 <Thumb
                   key={`thumb-${index}`}
-                  onClick={() => url && onThumbClick(index)}
+                  onClick={() => onThumbClick(index)}
                   selected={index === selectedIndex}
                   imageUrl={url}
                 />
