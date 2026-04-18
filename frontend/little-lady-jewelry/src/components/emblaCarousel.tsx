@@ -82,14 +82,17 @@ export const EmblaCarousel = (props: EmblaCarouselProps) => {
       <div className="embla-thumbs">
         <div className="embla-thumbs__viewport" ref={emblaThumbsRef}>
           <div className="embla-thumbs__container">
-            {slides.map(({ url }, index) => (
-              <Thumb
-                key={index}
-                onClick={() => onThumbClick(index)}
-                selected={index === selectedIndex}
-                imageUrl={url}
-              />
-            ))}
+            {Array.from({ length: 3 }).map((_, index) => {
+              const url = slides[index]?.url;
+              return (
+                <Thumb
+                  key={`thumb-${index}`}
+                  onClick={() => url && onThumbClick(index)}
+                  selected={index === selectedIndex}
+                  imageUrl={url}
+                />
+              );
+            })}
             {video && (
               <Thumb
                 key="video-thumb"

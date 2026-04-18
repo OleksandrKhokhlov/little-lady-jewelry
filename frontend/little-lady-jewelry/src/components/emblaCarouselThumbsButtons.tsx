@@ -2,7 +2,7 @@
 
 import { EmblaThumbProps } from "@/types";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Thumb = (props: EmblaThumbProps) => {
   const { selected, imageUrl, onClick } = props;
@@ -22,7 +22,7 @@ export const Thumb = (props: EmblaThumbProps) => {
         src={imageError || !imageUrl ? "/no-photo.png" : imageUrl}
         alt="Мініатюра"
         className={`${imageUrl === "/poster-video.jpg" ? "" : "object-cover"}`}
-        sizes="(max-width: 768px) 120px, (max-width: 1200px) 150px, 150px"
+        sizes="(max-width: 768px) 120px, 150px"
         onError={() => setImageError(true)}
         priority={false}
         fill
