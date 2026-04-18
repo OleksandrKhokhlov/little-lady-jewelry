@@ -50,6 +50,14 @@
     height: 320px;
   }
 }
+
+@media screen and (min-width: 1201px) {
+  .embla__slide__image-container {
+    width: 400px;
+    height: 400px;
+  }
+}
+
 .embla-thumbs {
   margin-top: 10px;
 }

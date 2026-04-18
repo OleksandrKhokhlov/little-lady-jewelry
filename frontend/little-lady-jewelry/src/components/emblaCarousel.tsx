@@ -52,7 +52,8 @@ export const EmblaCarousel = (props: EmblaCarouselProps) => {
                   src={errorSlides[index] || !url ? "/no-photo.png" : url}
                   alt={name || "Зображення відсутне"}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 290px, (max-width: 1200px) 320px, 400px"
+                  quality={90}
                   onError={() => handleImageError(index)}
                   priority={index === 0}
                   className="object-cover "
