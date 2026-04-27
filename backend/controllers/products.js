@@ -71,8 +71,8 @@ const add = async (req, res, next) => {
         cloudinary.uploader.upload(image, {
           folder: "little-lady-jewelry",
           transformation: [
-            { width: 600, crop: "limit" },
-            { quality: "auto", fetch_format: "auto" },
+            { width: 1200, crop: "limit" },
+            { quality: "auto:best", fetch_format: "auto" },
           ],
         }),
       ),
