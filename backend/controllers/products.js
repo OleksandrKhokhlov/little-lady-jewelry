@@ -72,7 +72,7 @@ const add = async (req, res, next) => {
           folder: "little-lady-jewelry",
           transformation: [
             { width: 1200, crop: "limit" },
-            { quality: "auto:good", fetch_format: "auto" },
+            { quality: "auto:good", fetch_format: "auto", dpr: "auto" },
           ],
         }),
       ),
