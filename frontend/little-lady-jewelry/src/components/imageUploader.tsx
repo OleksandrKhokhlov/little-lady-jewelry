@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { Icon } from "./icon";
-import { compressImg } from "@/lib/compressImg";
 
 interface ImageUploaderProps {
   onImageChange: (images: string[]) => void;
@@ -19,14 +18,21 @@ export const ImageUploader = ({
     if (!files.length) return;
 
     try {
-      const compressedImages = await Promise.all(
-        files.map((file) => compressImg(file)),
-      );
+      const base64Promises = files.map((file) => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = (error) => reject(error);
+        });
+      });
 
-      onImageChange([...initialImages, ...compressedImages]);
-      e.target.value = "";
+      const newImages = await Promise.all(base64Promises);
+
+      onImageChange([...initialImages, ...newImages]);
+      e.target.value = '';
     } catch (error) {
-      console.error("Error uploading/comoressing images:", error);
+      console.error("Error reading files:", error);
     }
   };
 
@@ -49,6 +55,7 @@ export const ImageUploader = ({
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority
+              unoptimized
             />
             <button
               type="button"
