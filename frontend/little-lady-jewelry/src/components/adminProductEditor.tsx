@@ -90,7 +90,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
             prev.map((p) => (p._id === product._id ? updatedProduct : p)),
           );
           toast.success("Продукт успішно оновлено!");
-          router.push("/admin/products");
+          router.back();
         }
       } else {
         const createdProduct = await addProdukt(payload);
@@ -100,7 +100,7 @@ export const AdminProductEditor = ({ product }: AdminProductEditorProps) => {
 
         toast.success("Продукт успішно створено!");
         resetForm();
-        router.push("/admin/products");
+        router.back();
       }
     } catch (error) {
       console.error(error);
