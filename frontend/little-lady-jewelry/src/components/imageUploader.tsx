@@ -73,16 +73,18 @@ export const ImageUploader = ({
         <p className="w-full text-gray-500 text-sm">Фото не додані</p>
       )}
 
-      <label className="size-[90px] border-2 border-dashed shed border-gray-300 flex flex-col items-center justify-center text-gray-400 text-sm cursor-pointer hover:border-[var(--accent-color)] transition">
-        <span>+</span>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageUpload}
-          className="hidden"
-        />
-      </label>
+      {initialImages.length < 3 && (
+        <label className="size-[90px] border-2 border-dashed shed border-gray-300 flex flex-col items-center justify-center text-gray-400 text-sm cursor-pointer hover:border-[var(--accent-color)] transition">
+          <span>+</span>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+        </label>
+      )}
     </div>
   );
 };
