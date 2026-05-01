@@ -134,7 +134,7 @@ const updateById = async (req, res, next) => {
     }
 
     if (Array.isArray(images) && images.length > 0) {
-      const oldPublicIds = oldProduct.images?.map((img) => img.public_id.filter(Boolean) || []);
+      const oldPublicIds = oldProduct.images?.map((img) => img.public_id || []);
 
       const result = await Promise.all(
         images.map((image) =>
