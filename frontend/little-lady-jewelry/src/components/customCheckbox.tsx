@@ -2,12 +2,14 @@ import { Icon } from "./icon";
 
 interface CustomCheckboxProps {
   checked: boolean;
+  quantity: number;
   onChange?: (id: string) => void;
   id: string;
 }
 
 export const CustomCheckbox = ({
   checked,
+  quantity,
   onChange,
   id,
 }: CustomCheckboxProps) => {
@@ -16,7 +18,7 @@ export const CustomCheckbox = ({
       <input
         type="checkbox"
         checked={checked}
-        onChange={() => onChange?.(id)}
+        onChange={() => quantity && onChange?.(id)}
         className="sr-only"
       />
       <div

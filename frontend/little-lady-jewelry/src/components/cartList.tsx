@@ -24,7 +24,12 @@ export const CartList = ({
 }: CartListItemProps) => {
   return (
     <li className="flex items-center gap-2 border-b-2 border-[var(--accent-color)]">
-      <CustomCheckbox checked={checked} onChange={onCheckboxChange} id={id} />
+      <CustomCheckbox
+        checked={quantity > 0 ? checked : false}
+        quantity={quantity}
+        onChange={onCheckboxChange}
+        id={id}
+      />
 
       <Link
         href={`/product/${id}`}
@@ -39,18 +44,26 @@ export const CartList = ({
           className="object-cover rounded-md"
         />
       </Link>
-      <div className="flex items-center justify-between gap-1 overflow-hidden">
-        <div className="min-w-[110px]">
+      <div className="flex items-center justify-between gap-3 overflow-hidden">
+        <div className="w-[80px]">
           {" "}
           <h3>{name}</h3>
           <p>Вага: {weight} г</p>
         </div>
-        <CartCounter
-          onChange={(value) => onCountChange(id, value)}
-          max={quantity}
-          value={count}
-        />
-        <p>Ціна: {`${price} \u20B4`}</p>
+        {quantity > 0 ? (
+          <CartCounter
+            onChange={(value) => onCountChange(id, value)}
+            max={quantity}
+            value={count}
+          />
+        ) : (
+          ""
+        )}
+        {quantity ? (
+          <p>Ціна: {`${price} \u20B4`}</p>
+        ) : (
+          <p className="max-w-[80px]">Немає в наявності</p>
+        )}
         <Button
           onClick={onClick}
           icon={
