@@ -47,9 +47,9 @@ export const Header = ({ className }: { className?: string }) => {
               href={"/favorite"}
               className="relative w-8 h-full p-1 fill-[var(--accent-color)] hover:fill-[var(--hover-color)] hover:scale-125 transition-all duration-300"
             >
-              <Icon iconId="icon-Heart" className="size-7 stroke-2" />
+              <Icon iconId="icon-Heart" className="size-8 stroke-2" />
               {favoriteProdukts.length > 0 && isClient && (
-                <span className="absolute top-[45%] left-[55%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
+                <span className="absolute top-[45%] left-[63%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
                   {favoriteProdukts.length}
                 </span>
               )}
@@ -65,7 +65,7 @@ export const Header = ({ className }: { className?: string }) => {
               }}
             >
               {isClient && inCart.length > 0 && (
-                <span className="absolute top-[60%] left-[55%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
+                <span className="absolute top-[60%] left-[57%] transform -translate-x-1/2 -translate-y-1/2 text-[12px] block">
                   {inCart.length}
                 </span>
               )}

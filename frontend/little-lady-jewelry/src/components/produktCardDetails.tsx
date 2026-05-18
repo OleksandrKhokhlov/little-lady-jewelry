@@ -59,7 +59,7 @@ export const ProduktCardDetails = ({
           options={OPTIONS}
         />
       )}
-      <div className="relative md:flex md:flex-col md:justify-between md:pl-2 md:before:content-[''] md:before:absolute md:before:left-0 md:before:top-0 md:before:w-[3px] md:before:h-full md:before:bg-[var(--accent-color)] md:before:opacity-80">
+      <div className="relative w-full md:flex md:flex-col md:justify-between md:pl-[2.25rem] md:before:content-[''] md:before:absolute md:before:left-0 md:before:top-0 md:before:w-[3px] md:before:h-full md:before:bg-[var(--accent-color)] md:before:opacity-80">
         <ProductDescription
           name={name}
           price={price}
@@ -83,7 +83,7 @@ export const ProduktCardDetails = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-[160px] bg-[var(--accent-color)] hover:bg-[var(--hover-color)] text-white rounded-md p-2  ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2  ${!quantity ? "opacity-80 cursor-not-allowed" : "hover:bg-[var(--hover-color)]"}`}
             disabled={!quantity}
           />
           <Button
@@ -96,14 +96,21 @@ export const ProduktCardDetails = ({
             text={isFavorite ? "Видалити з обраного" : "Додати в обране"}
             className="w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
           />
-          <Button
-            onClick={handleCheckout}
-            text="Оформити замовлення"
-            className="bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
-          />
+          {quantity > 0 && (
+            <Button
+              onClick={handleCheckout}
+              text="Оформити замовлення"
+              className="bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
+            />
+          )}
         </div>
       </div>
-      <button type="button" className="size-10 absolute top-1 left-2 sm:left-4" onClick={() => router.back()} aria-label="Повернутися назад">
+      <button
+        type="button"
+        className="size-10 absolute top-1 left-2 sm:left-4"
+        onClick={() => router.back()}
+        aria-label="Повернутися назад"
+      >
         <Icon
           iconId="icon-Back"
           className="stroke-[var(--accent-color)] hover:stroke-[var(--hover-color)] transition-colors duration-300"

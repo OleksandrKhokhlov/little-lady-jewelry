@@ -91,7 +91,7 @@ export const ProduktCard = ({
                   ? "Вже у кошику"
                   : "Додати у кошик"
             }
-            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm py-2 md:py-1 mt-1 hover:bg-[var(--hover-color)] ${!quantity ? "opacity-80 cursor-not-allowed" : ""}`}
+            className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm py-2 md:py-1 mt-1  ${!quantity ? "opacity-80 cursor-not-allowed" : "hover:bg-[var(--hover-color)]"}`}
             disabled={!quantity}
           />
         </div>

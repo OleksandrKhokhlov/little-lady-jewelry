@@ -43,7 +43,7 @@ export const TownField = () => {
   }, []);
 
   useEffect(() => {
-    if (isCitySelected || query.length < 3) {
+    if (isCitySelected || query.length < 2) {
       setSuggestions([]);
       return;
     }
@@ -106,7 +106,7 @@ export const TownField = () => {
       ) : null}
 
       {suggestions.length > 0 && (
-        <ul className="absolute z-10 top-full left-0 rounded shadow-md bg-white border border-gray-300 w-full max-h-40 overflow-y-auto">
+        <ul className="absolute z-10 top-[35%] left-0 rounded shadow-md bg-white border border-gray-300 w-full max-h-40 overflow-y-auto">
           {suggestions.map((item) => (
             <li
               key={item.Ref}
@@ -138,7 +138,7 @@ export const TownField = () => {
       ) : null}
 
       {warehouses.length > 0 && values.delivery === "Нова пошта" && (
-        <ul className="absolute z-10 top-full left-0 rounded shadow-md bg-white border border-gray-300 w-full max-h-40 overflow-y-auto">
+        <ul className="absolute z-10 top-[85%] left-0 rounded shadow-md bg-white border border-gray-300 w-full max-h-40 overflow-y-auto">
           {warehouses.map((wh) => (
             <li
               key={wh.Ref}
