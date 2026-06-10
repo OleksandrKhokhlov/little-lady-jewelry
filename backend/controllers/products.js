@@ -5,12 +5,10 @@ const getAll = async (req, res, next) => {
   try {
     const { limit, skip = 0 } = req.query;
 
-    const query = Product.find({}).sort({ quantity: -1 });
+    const query = Product.find({}).sort({ quantity: -1 }).skip(parseInt(skip));
 
     if (limit) {
       query.limit(parseInt(limit));
-    } else {
-      query.skip(parseInt(skip));
     }
 
     const result = await query;
