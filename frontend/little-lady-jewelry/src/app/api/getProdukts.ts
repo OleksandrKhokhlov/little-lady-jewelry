@@ -2,13 +2,13 @@ import { api } from "./api";
 import { Produkt } from "@/types";
 
 export const getProdukts = async (
-  setProdukts: React.Dispatch<React.SetStateAction<Produkt[]>>,
+  setProdukts?: React.Dispatch<React.SetStateAction<Produkt[]>>,
   options?: { limit?: number; skip?: number },
 ) => {
   try {
     const res = await api.get(`/product`, { params: options });
 
-    setProdukts((prev) => {
+    setProdukts && setProdukts((prev) => {
       if (options?.skip !== undefined) {
         const newProdukts = res.data.filter(
           (newProdukt: Produkt) =>
@@ -20,6 +20,7 @@ export const getProdukts = async (
       }
       return res.data;
     });
+    return res.data;
   } catch (error) {
     console.error("Error fetching products:", error);
   }

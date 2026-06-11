@@ -23,11 +23,6 @@ export default function RootLayout({
       lang="uk"
       className={`${CormorantSC.variable} ${CabinSketch.variable} ${CalistoMT.variable} ${Kallithea.variable}`}
     >
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="site.webmanifest" href="/favicon_io/site.webmanifest" />
-      </head>
       <body className="font-cormorant">
         <ProductProvider>
           <Header className="sticky z-20 top-0 bg-[var(--background-color-header)]" />
