@@ -1,15 +1,14 @@
 "use client";
+
 import toast from "react-hot-toast";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getProdukts } from "@/app/api";
 import { getLocalStorage } from "./localStorage";
 import { Produkt as ProduktType } from "@/types";
-import { getInitialLimit } from "./getInitialLimit";
 
 interface ProduktContextType {
   produkts: ProduktType[];
   setProdukts: React.Dispatch<React.SetStateAction<ProduktType[]>>;
-  loadMoreProdukts: () => Promise<void>;
   favoriteProdukts: string[];
   setFavoriteProdukts: React.Dispatch<React.SetStateAction<string[]>>;
   inCart: string[];
@@ -21,16 +20,15 @@ interface ProduktContextType {
 
 const ProduktContext = createContext<ProduktContextType | null>(null);
 
-export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [produkts, setProdukts] = useState<ProduktType[]>([]);
+export const ProductProvider: React.FC<{
+  children: React.ReactNode;
+  initialProducts?: ProduktType[];
+}> = ({ children, initialProducts = [] }) => {
+  const [produkts, setProdukts] = useState<ProduktType[]>(initialProducts);
   const [favoriteProdukts, setFavoriteProdukts] = useState<string[]>(() =>
     getLocalStorage<string[]>("favorites", []),
   );
-  const loadMoreProdukts = async () => { 
-    await getProdukts(setProdukts, { skip: produkts.length });
-  };
+  
   const [inCart, setInCart] = useState<string[]>(() =>
     getLocalStorage<string[]>("inCart", []),
   );
@@ -69,10 +67,10 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   useEffect(() => {
-    const limit = getInitialLimit();
-
-    getProdukts(setProdukts, { limit });
-  }, []);
+    if (initialProducts.length === 0 && produkts.length === 0) {
+      getProdukts(setProdukts);
+    }
+  }, [initialProducts, produkts.length]);
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favoriteProdukts));
@@ -87,7 +85,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         produkts,
         setProdukts,
-        loadMoreProdukts,
         favoriteProdukts,
         setFavoriteProdukts,
         inCart,

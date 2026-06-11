@@ -7,6 +7,7 @@ export { FiltrPopUp } from "./filtrPopUp";
 export { Header } from "./header";
 export { Hero } from "./hero";
 export { ProduktCard } from "./produktCard";
+export { ProductCatalog } from "./productCatalog";
 export { AdminProductCardMenu } from "./adminProductCardMenu";
 export { DelProductBtn } from "./delProductBtn";
 export { FavoriteBtn } from "./favoriteBtn";
