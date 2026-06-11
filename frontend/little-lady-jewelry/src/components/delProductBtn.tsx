@@ -39,7 +39,7 @@ export const DelProductBtn = ({
         e.stopPropagation();
         handleDeleteProdukt(id);
       }}
-      className="absolute top-1 right-1 size-[17px] flex items-center justify-center p-0"
+      className="size-[17px] flex items-center justify-center p-0"
     >
       <Icon
         iconId="icon-Cross"

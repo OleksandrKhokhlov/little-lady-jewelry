@@ -1,19 +1,23 @@
+"use client";
+
 import { useProduktContext } from "@/lib";
 import { useEffect, useState } from "react";
 import { Icon } from "./icon";
 
 export const FavoriteBtn = ({ id }: { id: string }) => {
   const { favoriteProdukts, toggleFavorite } = useProduktContext();
-  const [isFavorite, setIsFavorite] = useState(favoriteProdukts.includes(id));
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsFavorite(favoriteProdukts.includes(id));
-  }, [favoriteProdukts, id]);
+    setIsMounted(true);
+  }, []);
+
+  const isFavorite = isMounted ? favoriteProdukts.includes(id) : false;
 
   return (
     <button
       type="button"
-      className="absolute bottom-1 right-1 size-[17px] flex items-center justify-center p-0"
+      className="size-[17px] flex items-center justify-center p-0"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

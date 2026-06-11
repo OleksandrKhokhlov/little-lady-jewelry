@@ -7,6 +7,6 @@ interface IconProps {
 
 export const Icon = ({ iconId, className }: IconProps) => (
   <svg className={cn("size-[100%]", className)}>
-    <use href={`/icons.svg#${iconId}`} />
+    <use href={`/icons.svg#${iconId}`} suppressHydrationWarning />
   </svg>
 );

@@ -17,6 +17,7 @@ export const Button = ({
       className={className}
       disabled={disabled}
       aria-label={ariaLabel}
+      suppressHydrationWarning
     >
       {icon && icon}
       {text && text}
