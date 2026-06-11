@@ -9,19 +9,23 @@ import { Produkt } from "@/types";
 
 const ProductPage = () => {
   const params = useParams();
-  const { id } = params as { id: string };
+  const { id: rawSlug } = params as { id: string };
   const { produkts } = useProduktContext();
   const [product, setProduct] = useState<Produkt | null>(null);
 
+  const productId = rawSlug?.includes("-") ? rawSlug.split("-").pop() : rawSlug;
+
   useEffect(() => {
-    const found = produkts.find((produkt) => produkt._id === id);
+    if (!productId) return;
+
+    const found = produkts.find((produkt) => produkt._id === productId);
     if (found) {
       setProduct(found as Produkt);
       return;
     } else {
-      getProduktById(id).then((data) => setProduct(data));
+      getProduktById(productId).then((data) => setProduct(data));
     }
-  }, [id, produkts]);
+  }, [productId, produkts]);
 
   if (!product) {
     return (

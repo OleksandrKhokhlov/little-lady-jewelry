@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./button";
-import { cn, useProduktContext } from "@/lib";
+import { cn, createSlug, useProduktContext } from "@/lib";
 import { usePathname } from "next/navigation";
 import { ProduktCardProps } from "@/types";
 import { AdminProductCardMenu } from "./adminProductCardMenu";
@@ -29,7 +29,25 @@ export const ProduktCard = ({
   const [imageError, setImageError] = useState(false);
   const [price, setPrice] = useState(initialPrice);
   const [quantity, setQuantity] = useState(initialQuantity);
-  const isInCart = inCart.includes(id);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const isInCart = isMounted ? inCart.includes(id) : false;
+
+  const productSlug = createSlug(name);
+  const productUrl = isAdminPage
+    ? `/admin/product/${id}`
+    : `/product/${productSlug}-${id}`;
+
+  const btnTextCart = !quantity
+    ? "Немає в наявності"
+    : isInCart
+      ? "Вже у кошику"
+      : "Додати у кошик";
+
   return (
     <li
       key={id}
@@ -42,25 +60,24 @@ export const ProduktCard = ({
         className,
       )}
     >
-      <Link
-        href={`${isAdminPage ? `/admin/product/${id}` : `/product/${id}`}`}
-        className="block"
-      >
-        <div className="w-full h-[120px] md:h-[150px] relative">
+      <Link href={productUrl} className="block group">
+        <div className="relative w-full h-[120px] md:h-[150px]">
           <Image
             src={imageError || !images[0].url ? "/no-photo.png" : images[0].url}
-            alt={name || "Зображення відсутне"}
+            alt={`${name} — ювелірний виріб Little Lady`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="rounded-md"
+            className="relative rounded-md"
             onError={() => setImageError(true)}
             priority={false}
           />
-          {!isAdminPage ? (
-            <FavoriteBtn id={id} />
-          ) : (
-            <DelProductBtn id={id} setProdukts={setProdukts} />
-          )}
+          <div className="absolute bottom-1 right-1 z-10">
+            {!isAdminPage ? (
+              <FavoriteBtn id={id} />
+            ) : (
+              <DelProductBtn id={id} setProdukts={setProdukts} />
+            )}
+          </div>
         </div>
         <h2 className="mt-1 md:text-lg/5 ">{name}</h2>
         <p className="text-[12px] mt-1 capitalize-first">{type}</p>
@@ -84,13 +101,7 @@ export const ProduktCard = ({
               e.stopPropagation();
               addToCart(id);
             }}
-            text={
-              !quantity
-                ? "Немає в наявності"
-                : isInCart
-                  ? "Вже у кошику"
-                  : "Додати у кошик"
-            }
+            text={btnTextCart}
             className={`w-full bg-[var(--accent-color)] text-white font-[400] rounded-md text-[12px] md:text-sm py-2 md:py-1 mt-1  ${!quantity ? "opacity-80 cursor-not-allowed" : "hover:bg-[var(--hover-color)]"}`}
             disabled={!quantity}
           />

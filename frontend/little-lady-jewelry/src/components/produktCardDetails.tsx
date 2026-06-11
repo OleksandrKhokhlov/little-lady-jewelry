@@ -48,9 +48,40 @@ export const ProduktCardDetails = ({
     router.push(`/checkout?${query}`);
   };
 
+  const btnTextCart = !quantity
+    ? "Немає в наявності"
+    : isInCart
+      ? "Вже у кошику"
+      : "Додати у кошик";
+
+  const btnTextFavorite = isFavorite ? "Видалити з обраного" : "Додати в обране";
+
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: name,
+    image:
+      images && images.length > 0
+        ? images.map((img) => img.url)
+        : ["/no-photo.png"],
+    "description": `Ювелірний виріб із категорії ${type}. Матеріал: ${material || "срібло"}.`,
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "UAH",
+      "price": price.toString(),
+      "availability": quantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    }
+  };
+
   return (
     <>
-      <h2 className="text-[20px] my-1 text-center md:hidden">{name}</h2>
+      {/* JSON-LD для SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      <h1 className="text-[20px] my-1 text-center md:hidden">{name}</h1>
       {images && images.length > 0 && (
         <EmblaCarousel
           name={name}
@@ -76,15 +107,10 @@ export const ProduktCardDetails = ({
               e.stopPropagation();
               addToCart(id);
             }}
-            text={
-              !quantity
-                ? "Немає в наявності"
-                : isInCart
-                  ? "Вже у кошику"
-                  : "Додати у кошик"
-            }
+            text={btnTextCart}
             className={`w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2  ${!quantity ? "opacity-80 cursor-not-allowed" : "hover:bg-[var(--hover-color)]"}`}
             disabled={!quantity}
+            ariaLabel={btnTextCart}
           />
           <Button
             onClick={(e) => {
@@ -92,8 +118,8 @@ export const ProduktCardDetails = ({
               e.stopPropagation();
               toggleFavorite(id);
             }}
-            ariaLabel="Додати/видалити в/з обране"
-            text={isFavorite ? "Видалити з обраного" : "Додати в обране"}
+            ariaLabel={btnTextFavorite}
+            text={btnTextFavorite}
             className="w-[160px] bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
           />
           {quantity > 0 && (
@@ -101,6 +127,7 @@ export const ProduktCardDetails = ({
               onClick={handleCheckout}
               text="Оформити замовлення"
               className="bg-[var(--accent-color)] text-white rounded-md p-2 hover:bg-[var(--hover-color)]"
+              ariaLabel="Оформити замовлення"
             />
           )}
         </div>
