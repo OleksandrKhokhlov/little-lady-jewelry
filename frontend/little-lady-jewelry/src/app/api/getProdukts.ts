@@ -6,20 +6,27 @@ export const getProdukts = async (
   options?: { limit?: number; skip?: number },
 ) => {
   try {
-    const res = await api.get(`/product`, { params: options });
-
-    setProdukts && setProdukts((prev) => {
-      if (options?.skip !== undefined) {
-        const newProdukts = res.data.filter(
-          (newProdukt: Produkt) =>
-            !prev.some(
-              (existingProdukt) => existingProdukt._id === newProdukt._id,
-            ),
-        );
-        return [...prev, ...newProdukts];
-      }
-      return res.data;
+    const res = await api.get(`/product`, {
+      params: options,
+      headers: {
+        "Cache-Control": "no-store",
+        Pragma: "no-cache",
+      },
     });
+
+    setProdukts &&
+      setProdukts((prev) => {
+        if (options?.skip !== undefined) {
+          const newProdukts = res.data.filter(
+            (newProdukt: Produkt) =>
+              !prev.some(
+                (existingProdukt) => existingProdukt._id === newProdukt._id,
+              ),
+          );
+          return [...prev, ...newProdukts];
+        }
+        return res.data;
+      });
     return res.data;
   } catch (error) {
     console.error("Error fetching products:", error);

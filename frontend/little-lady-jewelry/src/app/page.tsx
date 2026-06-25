@@ -1,6 +1,10 @@
 import { Container, Hero, ProductCatalog } from "../components";
 import { getProdukts } from "./api";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 export default async function Home() {
 
   const initialProducts = (await getProdukts()) || [];
