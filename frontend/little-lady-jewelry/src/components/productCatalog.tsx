@@ -36,11 +36,6 @@ export const ProductCatalog = ({ initialProducts }: ProductCatalogProps) => {
 
       {initialProducts.length === 0 ? (
         <span className="loader"></span>
-      ) : filtredProdukts.length === 0 ? (
-        <p>
-          Нажаль в продажу поки що немає прикрас з типом застібки:{" "}
-          <span className="text-[var(--accent-color)]">{selectedValue}</span>
-        </p>
       ) : (
         <ul className="flex flex-wrap gap-2 mt-3 md:mt-4">
           {filtredProdukts.map((produkt) => (

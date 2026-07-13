@@ -1,10 +1,16 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Container } from "../../components/container";
 import { useProduktContext } from "@/lib/productContext";
 import { ProduktCard } from "../../components/produktCard";
 
 export default function FavoritePage() {
   const { produkts, favoriteProdukts } = useProduktContext();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const favoriteProduktsList = produkts.filter((product) =>
     favoriteProdukts.includes(product._id),
@@ -12,7 +18,9 @@ export default function FavoritePage() {
 
   return (
     <Container tag="section" className="pb-4">
-      {favoriteProduktsList.length > 0 ? (
+      {!isMounted ? (
+        <span className="loader"></span>
+      ) : favoriteProduktsList.length > 0 ? (
         <ul className="flex flex-wrap gap-2 mt-3 md:mt-4">
           {favoriteProduktsList.map((favoriteProdukt) => (
             <ProduktCard

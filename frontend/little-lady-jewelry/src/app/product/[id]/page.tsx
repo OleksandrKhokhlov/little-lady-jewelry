@@ -28,13 +28,7 @@ const ProductPage = () => {
   }, [productId, produkts]);
 
   if (!product) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <h1 className="text-2xl font-bold">
-          Вибачте, але ми не знайшли детальний опис продукта
-        </h1>
-      </div>
-    );
+    return <span className="loader"></span>;
   }
 
   return (
