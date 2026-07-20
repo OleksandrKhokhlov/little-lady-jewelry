@@ -56,31 +56,8 @@ export const ProduktCardDetails = ({
 
   const btnTextFavorite = isFavorite ? "Видалити з обраного" : "Додати в обране";
 
-  const jsonLd = {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    name: name,
-    image:
-      images && images.length > 0
-        ? images.map((img) => img.url)
-        : ["/no-photo.png"],
-    "description": `Ювелірний виріб із категорії ${type}. Матеріал: ${material || "срібло"}.`,
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "UAH",
-      "price": price.toString(),
-      "availability": quantity > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-    }
-  };
-
   return (
     <>
-      {/* JSON-LD для SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      
       <h1 className="text-[20px] my-1 text-center md:hidden">{name}</h1>
       {images && images.length > 0 && (
         <EmblaCarousel
