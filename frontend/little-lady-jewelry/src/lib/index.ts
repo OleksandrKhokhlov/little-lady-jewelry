@@ -1,4 +1,5 @@
 export { cn } from "./cn";
+export { getProduktMetadata } from "./getProduktMetadata";
 export { ProductProvider, useProduktContext } from "./productContext";
 export { getLocalStorage } from "./localStorage";
 export { parseTime } from "./parseTime";
