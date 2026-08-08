@@ -17,13 +17,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
     const staticPages: MetadataRoute.Sitemap = [
         {
-            url: baseUrl,
+            url: `${baseUrl}`,
             lastModified: new Date(),
             changeFrequency: "daily",
             priority: 1.0,
         },
         {
-            url: `${baseUrl}favorite`,
+            url: `${baseUrl}/favorite`,
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.3,
