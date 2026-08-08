@@ -11,7 +11,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id: rawSlug } = await params;
+  const { id: rawSlug } = params;
   const productId = rawSlug?.includes("-") ? rawSlug.split("-").pop() : rawSlug;
 
   if (!productId) return getProduktMetadata(null);
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params }: Props) {
-  const { id: rawSlug } = await params;
+  const { id: rawSlug } = params;
   const productId = rawSlug?.includes("-") ? rawSlug.split("-").pop() : rawSlug;
 
   if (!productId) notFound();

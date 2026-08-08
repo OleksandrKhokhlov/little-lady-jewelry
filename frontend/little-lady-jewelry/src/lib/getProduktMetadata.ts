@@ -4,7 +4,7 @@ import { env } from "process";
 import { createSlug } from "./slugify";
 
 const BASED_URL =
-  env.NEXT_PUBLIC_BASE_URL || "https://little-lady-jewelry.vercel.app";
+  env.NEXT_PUBLIC_SITE_URL || "https://little-lady-jewelry.vercel.app";
 
 export function getProduktMetadata(product: Produkt | null): Metadata {
   if (!product) {
