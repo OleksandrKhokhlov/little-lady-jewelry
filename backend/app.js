@@ -15,7 +15,8 @@ const corsOptions = {
   origin: [
     process.env.FRONTEND_URL,
     "http://localhost:3000",
-    "https://little-lady-jewelry.vercel.app/",
+    "https://www.little-lady-jewelry.com.ua",
+    "https://little-lady-jewelry.vercel.app",
   ],
   optionsSuccessStatus: 200,
 };
