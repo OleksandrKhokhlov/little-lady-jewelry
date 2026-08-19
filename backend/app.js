@@ -12,7 +12,11 @@ const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 const corsOptions = {
-  origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
+  origin: [
+    process.env.FRONTEND_URL,
+    "http://localhost:3000",
+    "https://little-lady-jewelry.vercel.app/",
+  ],
   optionsSuccessStatus: 200,
 };
 
