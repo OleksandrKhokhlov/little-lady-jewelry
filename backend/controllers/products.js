@@ -193,7 +193,7 @@ const updateQuantity = async (req, res, next) => {
 
     const product = await Product.findByIdAndUpdate(
       productId,
-      { $inc: { quantity: req.body.quantity } },
+      { $set: { quantity: req.body.quantity } },
       { new: true },
     );
 
